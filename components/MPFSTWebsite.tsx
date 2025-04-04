@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { motion, HTMLMotionProps } from "framer-motion";
+import { motion } from "framer-motion"; 
 import {
   Sparkles,
   BrainCircuit,
@@ -11,13 +11,11 @@ import {
   BookOpenCheck,
   CalendarCheck,
   Download,
-  KeyRound,
+  Key,
 } from "lucide-react";
 
-// Create a wrapper component for motion.div to ensure all standard props are accepted
-const MotionDiv: React.FC<HTMLMotionProps<"div">> = (props) => {
-  return <motion.div {...props} />;
-};
+// Simply use motion.div directly:
+const MotionDiv = motion.div;
 
 export default function MPFSTWebsite() {
   const [email, setEmail] = useState("");
@@ -68,43 +66,54 @@ export default function MPFSTWebsite() {
           <TabsTrigger value="initiation">Access</TabsTrigger>
         </TabsList>
 
-        {/* -- OVERVIEW CONTENT (add your own) -- */}
+        {/* OVERVIEW */}
         <TabsContent value="overview">
           <Card className="bg-gray-900">
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold">Overview</h2>
               <p className="text-gray-300">
-                [Add your overview content here...]
+                The Multi-Plane Field Synergy Theory (MPFST) seeks to unify
+                quantum phenomena and consciousness across various planes of
+                reality. By analyzing the entangled fields underlying matter,
+                energy, and awareness, MPFST aims to bridge the gap between
+                observed anomalies in physics and emergent consciousness.
               </p>
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* -- PREDICTIONS CONTENT (add your own) -- */}
+        {/* PREDICTIONS */}
         <TabsContent value="predictions">
           <Card className="bg-gray-900">
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold">Predictions</h2>
               <p className="text-gray-300">
-                [Add your predictions content here...]
+                MPFST predicts that by harnessing multi-plane resonance, new
+                forms of communication and energy transfer will emerge.
+                Experiments may reveal advanced phenomena, like directed
+                gravitational manipulation or thought-wave transmissions, once
+                we align with the synergy fields.
               </p>
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* -- VALIDATIONS CONTENT (add your own) -- */}
+        {/* VALIDATIONS */}
         <TabsContent value="validations">
           <Card className="bg-gray-900">
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold">Validations</h2>
               <p className="text-gray-300">
-                [Add your validations content here...]
+                Preliminary studies show coherence patterns that support MPFST's
+                assumptions. Ongoing research across labs worldwide continues
+                to validate the synergy fields, drawing from quantum computing,
+                neuroscience, and deep transpersonal experiences.
               </p>
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* -- MANUSCRIPT CONTENT: PDF DOWNLOAD -- */}
+        {/* MANUSCRIPT */}
         <TabsContent value="manuscript">
           <Card className="bg-gray-900">
             <CardContent className="p-6 text-center space-y-6">
@@ -127,7 +136,7 @@ export default function MPFSTWebsite() {
           </Card>
         </TabsContent>
 
-        {/* -- ECHO TRACKER CONTENT (add your own) -- */}
+        {/* ECHO TRACKER */}
         <TabsContent value="calendar">
           <Card className="bg-gray-900">
             <CardContent className="p-6 space-y-4">
@@ -136,18 +145,21 @@ export default function MPFSTWebsite() {
                 Echo Tracker
               </h2>
               <p className="text-gray-300">
-                [Add your calendar/echo tracker content here...]
+                The Echo Tracker monitors resonance spikes across multiple
+                planes, alerting researchers to opportune moments for
+                observation. Stay tuned for future expansions of the tracker,
+                including real-time synergy field data.
               </p>
             </CardContent>
           </Card>
         </TabsContent>
 
-        {/* -- INITIATORY ACCESS CONTENT -- */}
+        {/* INITIATORY ACCESS */}
         <TabsContent value="initiation">
           <Card className="bg-gray-900">
             <CardContent className="p-6 text-center space-y-6">
               <h2 className="text-2xl font-semibold flex justify-center items-center gap-2">
-                <KeyRound className="w-5 h-5" />
+                <Key className="w-5 h-5" />
                 Initiatory Access
               </h2>
               {!subscribed ? (
