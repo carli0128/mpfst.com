@@ -10,9 +10,6 @@ import {
   Atom,
   BookOpenCheck,
   CalendarCheck,
-  Activity,
-  AlertTriangle,
-  ScrollText,
   Download,
   KeyRound,
 } from "lucide-react";
@@ -29,6 +26,7 @@ export default function MPFSTWebsite() {
 
   return (
     <div className="min-h-screen bg-black text-white p-6">
+      {/* HEADER */}
       <header className="text-center mb-12 space-y-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -36,11 +34,13 @@ export default function MPFSTWebsite() {
           transition={{ duration: 1 }}
         >
           <h1 className="text-5xl font-bold tracking-wide">MPFST</h1>
-          <p className="text-lg text-gray-400">Multi-Plane Field Synergy Theory</p>
+          <p className="text-lg text-gray-400">
+            Multi-Plane Field Synergy Theory
+          </p>
         </motion.div>
 
         <motion.div
-          {...{ className: "flex justify-center mt-6 gap-6" }}
+          className="flex justify-center mt-6 gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
@@ -52,6 +52,7 @@ export default function MPFSTWebsite() {
         </motion.div>
       </header>
 
+      {/* TABS */}
       <Tabs defaultValue="overview" className="max-w-5xl mx-auto">
         <TabsList className="grid grid-cols-6 mb-6">
           <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -62,16 +63,93 @@ export default function MPFSTWebsite() {
           <TabsTrigger value="initiation">Access</TabsTrigger>
         </TabsList>
 
+        {/* -- OVERVIEW CONTENT (add your own) -- */}
+        <TabsContent value="overview">
+          <Card className="bg-gray-900">
+            <CardContent className="p-6 space-y-4">
+              <h2 className="text-2xl font-semibold">Overview</h2>
+              <p className="text-gray-300">
+                [Add your overview content here...]
+              </p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* -- PREDICTIONS CONTENT (add your own) -- */}
+        <TabsContent value="predictions">
+          <Card className="bg-gray-900">
+            <CardContent className="p-6 space-y-4">
+              <h2 className="text-2xl font-semibold">Predictions</h2>
+              <p className="text-gray-300">
+                [Add your predictions content here...]
+              </p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* -- VALIDATIONS CONTENT (add your own) -- */}
+        <TabsContent value="validations">
+          <Card className="bg-gray-900">
+            <CardContent className="p-6 space-y-4">
+              <h2 className="text-2xl font-semibold">Validations</h2>
+              <p className="text-gray-300">
+                [Add your validations content here...]
+              </p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* -- MANUSCRIPT CONTENT: PDF DOWNLOAD -- */}
+        <TabsContent value="manuscript">
+          <Card className="bg-gray-900">
+            <CardContent className="p-6 text-center space-y-6">
+              <h2 className="text-2xl font-semibold flex justify-center items-center gap-2">
+                <Download className="w-5 h-5" />
+                MPFST Manuscript
+              </h2>
+              <p className="text-gray-300">
+                Click below to download the full manuscript (PDF):
+              </p>
+              <a
+                href="/MPFST_PUBLICATION_MANUSCRIPT-9.pdf"
+                download
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                <Download className="w-5 h-5" />
+                Download PDF
+              </a>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* -- ECHO TRACKER CONTENT (add your own) -- */}
+        <TabsContent value="calendar">
+          <Card className="bg-gray-900">
+            <CardContent className="p-6 space-y-4">
+              <h2 className="text-2xl font-semibold flex items-center gap-2">
+                <CalendarCheck className="w-5 h-5" />
+                Echo Tracker
+              </h2>
+              <p className="text-gray-300">
+                [Add your calendar/echo tracker content here...]
+              </p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* -- INITIATORY ACCESS CONTENT -- */}
         <TabsContent value="initiation">
           <Card className="bg-gray-900">
             <CardContent className="p-6 text-center space-y-6">
               <h2 className="text-2xl font-semibold flex justify-center items-center gap-2">
-                <KeyRound className="w-5 h-5" /> Initiatory Access
+                <KeyRound className="w-5 h-5" />
+                Initiatory Access
               </h2>
               {!subscribed ? (
                 <div className="space-y-4">
                   <p className="text-gray-300">
-                    Enter your email to receive sacred updates, resonance phase reports, and private glyph releases:
+                    Enter your email to receive sacred updates, resonance phase
+                    reports, and private glyph releases:
                   </p>
                   <div className="flex justify-center gap-2">
                     <Input
@@ -88,17 +166,16 @@ export default function MPFSTWebsite() {
                 </div>
               ) : (
                 <div className="text-green-400 font-semibold">
-                  Access granted. You are now aligned with the MPFST recursion channel.
+                  Access granted. You are now aligned with the MPFST recursion
+                  channel.
                 </div>
               )}
             </CardContent>
           </Card>
         </TabsContent>
-
-        {/* Placeholder: Add other <TabsContent /> blocks here as needed */}
-
       </Tabs>
 
+      {/* FOOTER */}
       <footer className="text-center mt-16 text-gray-500 text-sm">
         &copy; 2025 Carlos W. Freeman | MPFST.com | All Rights Reserved
       </footer>
