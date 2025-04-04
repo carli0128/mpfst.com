@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 import {
   Sparkles,
   BrainCircuit,
@@ -13,6 +13,9 @@ import {
   Download,
   KeyRound,
 } from "lucide-react";
+
+// Create a typed motion.div that accepts standard HTML attributes
+const MotionDiv: React.FC<HTMLMotionProps<"div">> = motion.div;
 
 export default function MPFSTWebsite() {
   const [email, setEmail] = useState("");
@@ -28,7 +31,7 @@ export default function MPFSTWebsite() {
     <div className="min-h-screen bg-black text-white p-6">
       {/* HEADER */}
       <header className="text-center mb-12 space-y-4">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
@@ -37,9 +40,9 @@ export default function MPFSTWebsite() {
           <p className="text-lg text-gray-400">
             Multi-Plane Field Synergy Theory
           </p>
-        </motion.div>
+        </MotionDiv>
 
-        <motion.div
+        <MotionDiv
           className="flex justify-center mt-6 gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -49,7 +52,7 @@ export default function MPFSTWebsite() {
           <BrainCircuit className="w-8 h-8 text-purple-400 animate-pulse" />
           <Atom className="w-8 h-8 text-sky-400 animate-pulse" />
           <BookOpenCheck className="w-8 h-8 text-emerald-400 animate-pulse" />
-        </motion.div>
+        </MotionDiv>
       </header>
 
       {/* TABS */}
