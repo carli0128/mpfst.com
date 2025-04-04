@@ -14,7 +14,7 @@ import {
   Key,
 } from "lucide-react";
 
-// Simply use motion.div directly:
+// --- Fix: Use motion.div directly without custom typed interface
 const MotionDiv = motion.div;
 
 export default function MPFSTWebsite() {
@@ -72,11 +72,7 @@ export default function MPFSTWebsite() {
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold">Overview</h2>
               <p className="text-gray-300">
-                The Multi-Plane Field Synergy Theory (MPFST) seeks to unify
-                quantum phenomena and consciousness across various planes of
-                reality. By analyzing the entangled fields underlying matter,
-                energy, and awareness, MPFST aims to bridge the gap between
-                observed anomalies in physics and emergent consciousness.
+                [Add your overview content here...]
               </p>
             </CardContent>
           </Card>
@@ -88,11 +84,7 @@ export default function MPFSTWebsite() {
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold">Predictions</h2>
               <p className="text-gray-300">
-                MPFST predicts that by harnessing multi-plane resonance, new
-                forms of communication and energy transfer will emerge.
-                Experiments may reveal advanced phenomena, like directed
-                gravitational manipulation or thought-wave transmissions, once
-                we align with the synergy fields.
+                [Add your predictions content here...]
               </p>
             </CardContent>
           </Card>
@@ -104,10 +96,7 @@ export default function MPFSTWebsite() {
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold">Validations</h2>
               <p className="text-gray-300">
-                Preliminary studies show coherence patterns that support MPFST's
-                assumptions. Ongoing research across labs worldwide continues
-                to validate the synergy fields, drawing from quantum computing,
-                neuroscience, and deep transpersonal experiences.
+                [Add your validations content here...]
               </p>
             </CardContent>
           </Card>
@@ -145,10 +134,7 @@ export default function MPFSTWebsite() {
                 Echo Tracker
               </h2>
               <p className="text-gray-300">
-                The Echo Tracker monitors resonance spikes across multiple
-                planes, alerting researchers to opportune moments for
-                observation. Stay tuned for future expansions of the tracker,
-                including real-time synergy field data.
+                [Add your calendar/echo tracker content here...]
               </p>
             </CardContent>
           </Card>
