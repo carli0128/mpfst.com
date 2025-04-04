@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { motion } from "framer-motion"; 
+import MotionDiv from "@/components/ui/MotionDiv"; // <-- Must import this!
 import {
   Sparkles,
   BrainCircuit,
