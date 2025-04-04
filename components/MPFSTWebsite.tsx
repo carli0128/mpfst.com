@@ -28,18 +28,16 @@ export default function MPFSTWebsite() {
     <div className="min-h-screen bg-black text-white p-6">
       {/* HEADER */}
       <header className="text-center mb-12 space-y-4">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
         >
           <h1 className="text-5xl font-bold tracking-wide">MPFST</h1>
-          <p className="text-lg text-gray-400">
-            Multi-Plane Field Synergy Theory
-          </p>
-        </motion.div>
+          <p className="text-lg text-gray-400">Multi-Plane Field Synergy Theory</p>
+        </MotionDiv>
 
-        <motion.div
+        <MotionDiv
           className="flex justify-center mt-6 gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -49,7 +47,7 @@ export default function MPFSTWebsite() {
           <BrainCircuit className="w-8 h-8 text-purple-400 animate-pulse" />
           <Atom className="w-8 h-8 text-sky-400 animate-pulse" />
           <BookOpenCheck className="w-8 h-8 text-emerald-400 animate-pulse" />
-        </motion.div>
+        </MotionDiv>
       </header>
 
       {/* TABS */}
