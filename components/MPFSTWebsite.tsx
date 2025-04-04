@@ -26,11 +26,15 @@ export default function MPFSTWebsite() {
           <h1 className="text-5xl font-bold tracking-wide">MPFST</h1>
           <p className="text-lg text-gray-400">Multi-Plane Field Synergy Theory</p>
         </motion.div>
-        <motion.div className="flex justify-center mt-6 gap-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }}>
-          <Sparkles className="w-8 h-8 text-yellow-400 animate-pulse" />
-          <BrainCircuit className="w-8 h-8 text-purple-400 animate-pulse" />
-          <Atom className="w-8 h-8 text-sky-400 animate-pulse" />
-          <BookOpenCheck className="w-8 h-8 text-emerald-400 animate-pulse" />
+  {...{ className: "flex justify-center mt-6 gap-6" }}
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.5, duration: 0.8 }}
+>
+  <Sparkles className="w-8 h-8 text-yellow-400 animate-pulse" />
+  <BrainCircuit className="w-8 h-8 text-purple-400 animate-pulse" />
+  <Atom className="w-8 h-8 text-sky-400 animate-pulse" />
+  <BookOpenCheck className="w-8 h-8 text-emerald-400 animate-pulse" />
         </motion.div>
       </header>
 
