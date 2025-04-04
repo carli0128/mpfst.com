@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["components/*"],
-      "@/pages/*": ["pages/*"]
+      "@/pages/*": ["pages/*"],
     },
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
