@@ -14,8 +14,10 @@ import {
   KeyRound,
 } from "lucide-react";
 
-// Create a typed motion.div that accepts standard HTML attributes
-const MotionDiv: React.FC<HTMLMotionProps<"div">> = motion.div;
+// Create a wrapper component for motion.div to ensure all standard props are accepted
+const MotionDiv: React.FC<HTMLMotionProps<"div">> = (props) => {
+  return <motion.div {...props} />;
+};
 
 export default function MPFSTWebsite() {
   const [email, setEmail] = useState("");
