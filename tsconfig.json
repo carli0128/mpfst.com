@@ -4,6 +4,7 @@
     "paths": {
       "@/components/*": ["components/*"],
       "@/pages/*": ["pages/*"]
+    }, // <-- Add the comma here
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
