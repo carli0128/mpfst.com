@@ -14,9 +14,6 @@ import {
   Key,
 } from "lucide-react";
 
-// --- Fix: Use motion.div directly without custom typed interface
-const MotionDiv = motion.div;
-
 export default function MPFSTWebsite() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -31,7 +28,7 @@ export default function MPFSTWebsite() {
     <div className="min-h-screen bg-black text-white p-6">
       {/* HEADER */}
       <header className="text-center mb-12 space-y-4">
-        <MotionDiv
+        <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
@@ -40,9 +37,9 @@ export default function MPFSTWebsite() {
           <p className="text-lg text-gray-400">
             Multi-Plane Field Synergy Theory
           </p>
-        </MotionDiv>
+        </motion.div>
 
-        <MotionDiv
+        <motion.div
           className="flex justify-center mt-6 gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -52,7 +49,7 @@ export default function MPFSTWebsite() {
           <BrainCircuit className="w-8 h-8 text-purple-400 animate-pulse" />
           <Atom className="w-8 h-8 text-sky-400 animate-pulse" />
           <BookOpenCheck className="w-8 h-8 text-emerald-400 animate-pulse" />
-        </MotionDiv>
+        </motion.div>
       </header>
 
       {/* TABS */}
