@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export interface Tick {
   kp: number;
   vsw: number;
-  meltdown: number;
+  meltdownFrac: number;
 }
 
 export function useStream(endpoint: string) {

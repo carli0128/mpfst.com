@@ -17,12 +17,12 @@ export default function SynergyFieldMonitor() {
           <p className="text-sm text-gray-300">
             Kp {tick.kp} | Solar-wind {tick.vsw} km/s
           </p>
-          <Meter mfrac={tick.meltdown} />
+          <Meter mfrac={tick.meltdownFrac} />
           <p>
-            meltdownFrac {" "}
-            {tick.meltdown >= 0.75
+            meltdownFrac {tick.meltdownFrac.toFixed(2)} {" "}
+            {tick.meltdownFrac >= 0.75
               ? "⚠️ High stress"
-              : tick.meltdown <= 0.4
+              : tick.meltdownFrac <= 0.4
               ? "✅ Coherent"
               : "↔︎ Moderate"}
           </p>

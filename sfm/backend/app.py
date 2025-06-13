@@ -29,7 +29,7 @@ async def websocket_endpoint(ws: WebSocket):
             payload = {
                 "kp": round(kp, 2),
                 "vsw": round(vsw, 1),
-                "meltdown": mf,
+                "meltdownFrac": mf,
             }
             await ws.send_text(json.dumps(payload))
             await asyncio.sleep(UPDATE_SECS)
