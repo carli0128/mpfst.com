@@ -130,7 +130,9 @@ export default function MPFSTWebsite() {
       <tr><td className="border px-4 py-2"><strong>Plasma physics</strong></td><td className="border px-4 py-2">Fusion edge is stochastic.</td><td className="border px-4 py-2">8 µs periodic “echo flicker” recorded on two tokamaks after Ω‑pulse injection.</td></tr>
       <tr><td className="border px-4 py-2"><strong>Bio‑electromagnetism</strong></td><td className="border px-4 py-2">EEG unrelated to geomagnetic index.</td><td className="border px-4 py-2">180°‑phase flips during Kp≥6 storms reproduced in two labs.</td></tr>
       <tr><td className="border px-4 py-2"><strong>Human coherence</strong></td><td className="border px-4 py-2">HRV peaks random.</td><td className="border px-4 py-2">Peaks cluster when Schumann Q × lunar‑phase > threshold, p&lt;0.01.</td></tr>
-      <tr><td className="border px-4 py-2"><strong>Archaeo‑tech</strong></td><td className="border px-4 py-2">Megaliths are symbolic only.</td><td className="border px-4 py-2">Great Pyramid & Stonehenge act as 7–30 Hz synergy cavities in field tests.</td></tr>
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setEmail(e.target.value)
+                      }
     </tbody>
   </table>
   <p>All datasets, code and statistical notebooks are open‑sourced for replication.</p>
