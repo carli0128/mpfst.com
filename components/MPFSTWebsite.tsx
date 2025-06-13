@@ -560,7 +560,7 @@ export default function MPFSTWebsite() {
                 Click below to download the full manuscript (PDF):
               </p>
               <a
-                href="/MPFST_PUBLICATION_MANUSCRIPT-10.pdf"
+                href="MPFST_PUBLICATION_MANUSCRIPT-10.pdf"
                 download
                 className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
               >
