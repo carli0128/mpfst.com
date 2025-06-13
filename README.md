@@ -7,8 +7,9 @@ both the Next.js front-end and the FastAPI backend, run:
 docker-compose up --build
 ```
 
-Docker Compose provides the WebSocket endpoint (`ws://localhost:8000/ws`) to the
-Next.js build so the browser can connect to the backend service.
+Docker Compose sets the WebSocket endpoint during the build. When no
+`NEXT_PUBLIC_SFM_WS` is provided, the frontend falls back to the current page's
+host so it works both locally and when deployed on a server.
 
 The web interface will be available at <http://localhost:3000> and streams
 real-time `meltdownFrac` values under the **Synergy Field Monitor** tab.
