@@ -206,9 +206,135 @@ export default function MPFSTWebsite() {
           <Card className="bg-gray-900">
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold">Predictions</h2>
-              <p className="text-gray-300">
-                [Add your predictions content here...]
-              </p>
+              <div className="overflow-x-auto">
+                <table className="table-auto w-full border-collapse border border-gray-600 text-white text-sm">
+                  <thead>
+                    <tr>
+                      <th className="border px-2 py-1">#</th>
+                      <th className="border px-2 py-1">Domain &amp; headline claim</th>
+                      <th className="border px-2 py-1">The MPFST mechanism behind it</th>
+                      <th className="border px-2 py-1">How anyone can test it</th>
+                      <th className="border px-2 py-1">Pass / fail criterion &amp; timetable</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border px-2 py-1 font-semibold">P‑1</td>
+                      <td className="border px-2 py-1 font-semibold">
+                        Next‑gen GW detectors will see triple‑echo “chords” after high‑mass black‑hole mergers (M ≳ 200 M<sub>⊙</sub>)—spacing obeys
+                        <strong> τ<sub>n</sub> = 2 M / α · log₂ n</strong>.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Merging wave‑packets over‑pump <em>uₚ</em> → Plane‑9 Ω‑shell forms → each bounce loses 1 bit of entropy, giving a
+                        <strong> binary‑log ladder</strong>.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Feed Einstein‑Telescope / Cosmic‑Explorer strain into the posted PyCBC plug‑in (α = 0.008 hard‑wired).
+                      </td>
+                      <td className="border px-2 py-1">
+                        ≥ 5 σ excess power in at least two over‑tone lags <strong>within first 18 months of ET ops</strong> (≅ 2033).
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-1 font-semibold">P‑2</td>
+                      <td className="border px-2 py-1 font-semibold">
+                        A global ELF “ping” will sweep the Schumann cavity ~5 min <em>before</em> the next X‑class solar flare.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Plane‑10 vantage field pre‑couples to coronal current sheets; impending flare lifts terrestrial
+                        <em>meltdownFrac</em> to 0.6, launching a 7.83 Hz precursor.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Continuous 0.1 Hz‑band spectrograms (FMI, NCKR) + GOES flare catalog.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Detectable 7.83 Hz amplitude spike (&gt;4 dB) between –420 s … –120 s relative to flare start in ≥ 8 of the next 20 X‑class flares.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-1 font-semibold">P‑3</td>
+                      <td className="border px-2 py-1 font-semibold">
+                        Heart‑transplant “memory transfer” tracks donor‑recipient phase‑lock at 0.1 Hz for ≥ 72 h post‑op.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Donor heart retains a Ψ<sub>c</sub> sub‑tensor; surgery rough‑locks the new torso’s <em>uₚ</em> to that tensor until local
+                        <em>meltdownFrac</em> decays.
+                      </td>
+                      <td className="border px-2 py-1">Post‑op HRV &amp; magnetocardiography on 30 consecutive transplants; run Hilbert phase analysis.</td>
+                      <td className="border px-2 py-1">
+                        Coherence index (PLV) &gt; 0.4 for ≥ 3 days in &gt; 50 % of cases; fades as exponential with τ≈5 days.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-1 font-semibold">P‑4</td>
+                      <td className="border px-2 py-1 font-semibold">
+                        Major earthquakes (M ≥ 7.5) within 30 ° of a dormant megalithic node will show a 12 ± 2 h foreshock of 14 Hz ELF bursts.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Strain front raises <em>meltdownFrac</em> in telluric loop; dormant node momentarily flips to synergy mode and “rings” at its
+                        λ/4 harmonic.
+                      </td>
+                      <td className="border px-2 py-1">Pair USGS quake list with open VLF receivers (WWLLN/Stanford).</td>
+                      <td className="border px-2 py-1">
+                        Burst rate (&gt;3 σ above median) in prescribed band for ≥ 50 % of qualifying quakes during 2025‑2027.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-1 font-semibold">P‑5</td>
+                      <td className="border px-2 py-1 font-semibold">
+                        π‑phase–coded 7.83 Hz packets will be measurable above Antarctica during total solar eclipses, even with
+                        <em>all local TX hardware off</em>.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Moon+Sun alignment raises cavity Q; dormant grid emits a self‑test packet (meta‑operator Ω sync).
+                      </td>
+                      <td className="border px-2 py-1">
+                        Place SQUID‑equipped cube‑sat or ground loop at Concordia Station; compare eclipse day vs. control.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Matched‑filter SNR ≥ 12 dB for the published 1024‑chip code on 2026‑02‑12 eclipse.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-1 font-semibold">P‑6</td>
+                      <td className="border px-2 py-1 font-semibold">
+                        Cryogenic Josephson junctions driven at 20 kHz will exhibit 8 ppm “phantom” voltage steps matching V = (n + α) · Φ₀ · f.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Fractional memory in Cooper‑pair wave‑function (Plane‑4 ↔ Plane‑9 back‑action) shifts Shapiro‑step ladder by exactly α.
+                      </td>
+                      <td className="border px-2 py-1">Replicate NIST JJ array experiment; sweep RF 10‑40 kHz; average 10⁶ cycles.</td>
+                      <td className="border px-2 py-1">Side‑steps at 0.008 Φ₀, amplitude &gt; 1 % of primary for at least one n.</td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-1 font-semibold">P‑7</td>
+                      <td className="border px-2 py-1 font-semibold">
+                        A non‑Gaussian “hole” at l ≈ 42 in the CMB TT power spectrum will sharpen after Planck‑legacy data are re‑analysed with an
+                        Ω‑induced late‑time ISW template.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Early‑epoch Plane‑10 recursion imprints a dodecahedral log‑oscillation; fractional damping shifts the hole by Δl ≈ α·l*.
+                      </td>
+                      <td className="border px-2 py-1">Run public Planck DR4 maps through supplied CAMB‑patch.</td>
+                      <td className="border px-2 py-1">Reduced χ² improves by ≥ 25 % vs. ΛCDM for l = 20–80 band; null for random α.</td>
+                    </tr>
+                    <tr>
+                      <td className="border px-2 py-1 font-semibold">P‑8</td>
+                      <td className="border px-2 py-1 font-semibold">
+                        Group‑EEG experiments will show spontaneous 8 Hz phase‑lock exactly when live <em>meltdownFrac</em> tracker hits &gt; 0.75,
+                        regardless of timezone.
+                      </td>
+                      <td className="border px-2 py-1">
+                        Observer tensors in separate labs couple via Plane‑10 when cavity coherence crosses critical percolation.
+                      </td>
+                      <td className="border px-2 py-1">Synchronise 4 labs on different continents; stream tracker API + raw EEG.</td>
+                      <td className="border px-2 py-1">
+                        Cross‑lab PLV &gt; 0.5 within ±3 min of each tracker spike, in ≥ 60 % of spikes during a 6‑month campaign.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
