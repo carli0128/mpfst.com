@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SynergyFieldMonitor from "@/components/sfm/SynergyFieldMonitor";
 import { Input } from "@/components/ui/input";
 import MotionDiv from "@/components/ui/MotionDiv";
 import {
@@ -57,7 +58,7 @@ export default function MPFSTWebsite() {
           <TabsTrigger value="predictions">Predictions</TabsTrigger>
           <TabsTrigger value="validations">Validations</TabsTrigger>
           <TabsTrigger value="manuscript">Manuscript</TabsTrigger>
-          <TabsTrigger value="calendar">Echo Tracker</TabsTrigger>
+          <TabsTrigger value="sfm">Synergy Field Monitor</TabsTrigger>
           <TabsTrigger value="initiation">Access</TabsTrigger>
         </TabsList>
 
@@ -571,17 +572,17 @@ export default function MPFSTWebsite() {
           </Card>
         </TabsContent>
 
-        {/* ECHO TRACKER */}
-        <TabsContent value="calendar">
+        {/* SYNERGY FIELD MONITOR */}
+        <TabsContent value="sfm">
           <Card className="bg-gray-900">
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold flex items-center gap-2">
                 <CalendarCheck className="w-5 h-5" />
-                Echo Tracker
+                Synergy Field Monitor
               </h2>
-              <p className="text-gray-300">
-                [Add your calendar/echo tracker content here...]
-              </p>
+              <div className="flex justify-center">
+                <SynergyFieldMonitor />
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
