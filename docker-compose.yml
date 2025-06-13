@@ -5,7 +5,10 @@ services:
     ports:
       - "8000:8000"
   mpfst:
-    build: .
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SFM_WS: ws://backend:8000/ws
     depends_on:
       - backend
     ports:
