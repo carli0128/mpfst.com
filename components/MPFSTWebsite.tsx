@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import MotionDiv from "@/components/ui/MotionDiv"; // <-- Must import this!
+import MotionDiv from "@/components/ui/MotionDiv";
 import {
   Sparkles,
   BrainCircuit,
@@ -63,43 +63,43 @@ export default function MPFSTWebsite() {
 
         {/* OVERVIEW */}
         <TabsContent value="overview">
-          <card className="bg-gray-900">
+          <Card className="bg-gray-900">
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold">Overview</h2>
               <p className="text-gray-300">
                 [Add your overview content here...]
               </p>
             </CardContent>
-          </card>
+          </Card>
         </TabsContent>
 
         {/* PREDICTIONS */}
         <TabsContent value="predictions">
-          <card className="bg-gray-900">
+          <Card className="bg-gray-900">
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold">Predictions</h2>
               <p className="text-gray-300">
                 [Add your predictions content here...]
               </p>
             </CardContent>
-          </card>
+          </Card>
         </TabsContent>
 
         {/* VALIDATIONS */}
         <TabsContent value="validations">
-          <card className="bg-gray-900">
+          <Card className="bg-gray-900">
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold">Validations</h2>
               <p className="text-gray-300">
                 [Add your validations content here...]
               </p>
             </CardContent>
-          </card>
+          </Card>
         </TabsContent>
 
         {/* MANUSCRIPT */}
         <TabsContent value="manuscript">
-          <card className="bg-gray-900">
+          <Card className="bg-gray-900">
             <CardContent className="p-6 text-center space-y-6">
               <h2 className="text-2xl font-semibold flex justify-center items-center gap-2">
                 <Download className="w-5 h-5" />
@@ -122,7 +122,7 @@ export default function MPFSTWebsite() {
 
         {/* ECHO TRACKER */}
         <TabsContent value="calendar">
-          <card className="bg-gray-900">
+          <Card className="bg-gray-900">
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold flex items-center gap-2">
                 <CalendarCheck className="w-5 h-5" />
@@ -132,12 +132,12 @@ export default function MPFSTWebsite() {
                 [Add your calendar/echo tracker content here...]
               </p>
             </CardContent>
-          </card>
+          </Card>
         </TabsContent>
 
         {/* INITIATORY ACCESS */}
         <TabsContent value="initiation">
-          <card className="bg-gray-900">
+          <Card className="bg-gray-900">
             <CardContent className="p-6 text-center space-y-6">
               <h2 className="text-2xl font-semibold flex justify-center items-center gap-2">
                 <Key className="w-5 h-5" />
@@ -169,7 +169,7 @@ export default function MPFSTWebsite() {
                 </div>
               )}
             </CardContent>
-          </card>
+          </Card>
         </TabsContent>
       </Tabs>
 
@@ -180,3 +180,4 @@ export default function MPFSTWebsite() {
     </div>
   );
 }
+
