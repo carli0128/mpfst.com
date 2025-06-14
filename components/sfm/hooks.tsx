@@ -4,6 +4,7 @@ export interface Tick {
   kp: number;
   vsw: number;
   meltdownFrac: number;
+  conflict: number;
 }
 
 export function useStream(endpoint?: string) {

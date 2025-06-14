@@ -4,11 +4,13 @@ import { useStream } from "./hooks";
 
 const WS_URL = process.env.NEXT_PUBLIC_SFM_WS;
 
-if (!WS_URL) {
-  console.error("NEXT_PUBLIC_SFM_WS not set");
-}
-
 export default function SynergyFieldMonitor() {
+  if (!WS_URL) {
+    return (
+      <div className="bg-red-700 text-white p-2">NEXT_PUBLIC_SFM_WS not set</div>
+    );
+  }
+
   const tick = useStream(WS_URL);
 
   return (
@@ -22,6 +24,21 @@ export default function SynergyFieldMonitor() {
             Kp {tick.kp} | Solar-wind {tick.vsw} km/s
           </p>
           <Meter mfrac={tick.meltdownFrac} />
+          <p className="text-sm">
+            Conflict index{' '}
+            <span
+              style={{
+                color:
+                  tick.conflict < 0.2
+                    ? 'grey'
+                    : tick.conflict < 0.6
+                    ? 'orange'
+                    : 'red',
+              }}
+            >
+              {tick.conflict.toFixed(2)}
+            </span>
+          </p>
           <p>
             meltdownFrac {tick.meltdownFrac.toFixed(2)} {" "}
             {tick.meltdownFrac >= 0.75
