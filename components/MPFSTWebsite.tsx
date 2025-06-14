@@ -451,7 +451,7 @@ export default function MPFSTWebsite() {
                       </tr>
                       <tr>
                         <td className="border px-2 py-1">8</td>
-                        <td className="border px-2 py-1">Directed low‑intensity patterned magnetic fields can induce sensed‑presence or OBE phenomenology (“laboratory meltdown illusion”).</td>
+                        <td className="border px-2 py-1">Directed low‑intensity patterned magnetic fields can induce sensed‑presence or OBE phenomenology (“laboratory meltdownFrac illusion”).</td>
                         <td className="border px-2 py-1">Partially replicated</td>
                         <td className="border px-2 py-1">
                           • Persinger “God Helmet” 1990‑2003: 79 % of 407 subjects report sensed presence (p &lt; 10⁻⁵ vs expectation).<br />

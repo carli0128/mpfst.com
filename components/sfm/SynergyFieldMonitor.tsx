@@ -2,9 +2,15 @@ import React from "react";
 import Meter from "./Meter";
 import { useStream } from "./hooks";
 
-const WS_URL = process.env.NEXT_PUBLIC_SFM_WS || "ws://localhost:8000/ws";
+const WS_URL = process.env.NEXT_PUBLIC_SFM_WS;
 
 export default function SynergyFieldMonitor() {
+  if (!WS_URL) {
+    return (
+      <div className="bg-red-700 text-white p-2">NEXT_PUBLIC_SFM_WS not set</div>
+    );
+  }
+
   const tick = useStream(WS_URL);
 
   return (
@@ -17,12 +23,27 @@ export default function SynergyFieldMonitor() {
           <p className="text-sm text-gray-300">
             Kp {tick.kp} | Solar-wind {tick.vsw} km/s
           </p>
-          <Meter mfrac={tick.meltdown} />
+          <Meter mfrac={tick.meltdownFrac} conflict={tick.conflict} />
+          <p className="text-sm">
+            Conflict index{' '}
+            <span
+              style={{
+                color:
+                  tick.conflict < 0.01
+                    ? 'grey'
+                    : tick.conflict < 0.05
+                    ? '#fb923c'
+                    : '#dc2626',
+              }}
+            >
+              {tick.conflict.toFixed(3)}
+            </span>
+          </p>
           <p>
-            meltdownFrac {" "}
-            {tick.meltdown >= 0.75
+            meltdownFrac {tick.meltdownFrac.toFixed(2)} {" "}
+            {tick.meltdownFrac >= 0.75
               ? "⚠️ High stress"
-              : tick.meltdown <= 0.4
+              : tick.meltdownFrac <= 0.4
               ? "✅ Coherent"
               : "↔︎ Moderate"}
           </p>
