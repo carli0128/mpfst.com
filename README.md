@@ -7,11 +7,10 @@ both the Next.js front-end and the FastAPI backend, run:
 docker-compose up --build
 ```
 
-Docker Compose passes the WebSocket endpoint to the frontend so the browser
-connects to the backend service. By default the frontend uses
-`ws://localhost:8000/ws`. When deploying to another host you can set
-`NEXT_PUBLIC_SFM_WS` (for example `wss://your-domain/ws`) to point at the
-backend API.
+Docker Compose passes `NEXT_PUBLIC_SFM_WS` to the frontend so browsers
+connect to the backend service. When deploying to Vercel you must define this
+environment variable (for example `wss://your-backend-domain/ws`) so the
+Synergy Field Monitor can reach the API.
 
 The web interface will be available at <http://localhost:3000> and streams
 real-time `meltdownFrac` values under the **Synergy Field Monitor** tab.
