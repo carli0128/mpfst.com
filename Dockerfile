@@ -1,6 +1,8 @@
 FROM node:20-alpine
 WORKDIR /app
 
+ARG SFM_WS
+ENV NEXT_PUBLIC_SFM_WS=$SFM_WS
 
 COPY package.json package-lock.json* ./
 RUN npm ci
