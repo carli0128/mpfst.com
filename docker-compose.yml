@@ -8,10 +8,10 @@ services:
     build:
       context: .
       args:
-        SFM_WS: ws://backend:8000/ws
+        SFM_WS: ws://localhost:8000/ws
     depends_on:
       - backend
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_SFM_WS=ws://backend:8000/ws
+      - NEXT_PUBLIC_SFM_WS=ws://localhost:8000/ws

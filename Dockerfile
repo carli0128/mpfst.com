@@ -1,7 +1,7 @@
 FROM node:20-alpine
 WORKDIR /app
 
-ARG SFM_WS
+ARG SFM_WS=ws://localhost:8000/ws
 ENV NEXT_PUBLIC_SFM_WS=$SFM_WS
 
 COPY package.json package-lock.json* ./
