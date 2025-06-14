@@ -23,20 +23,20 @@ export default function SynergyFieldMonitor() {
           <p className="text-sm text-gray-300">
             Kp {tick.kp} | Solar-wind {tick.vsw} km/s
           </p>
-          <Meter mfrac={tick.meltdownFrac} />
+          <Meter mfrac={tick.meltdownFrac} conflict={tick.conflict} />
           <p className="text-sm">
             Conflict index{' '}
             <span
               style={{
                 color:
-                  tick.conflict < 0.2
+                  tick.conflict < 0.01
                     ? 'grey'
-                    : tick.conflict < 0.6
-                    ? 'orange'
-                    : 'red',
+                    : tick.conflict < 0.05
+                    ? '#fb923c'
+                    : '#dc2626',
               }}
             >
-              {tick.conflict.toFixed(2)}
+              {tick.conflict.toFixed(3)}
             </span>
           </p>
           <p>

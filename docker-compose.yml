@@ -5,6 +5,9 @@ services:
       context: ./sfm/backend
       args:
         SFM_SHA: ${SFM_SHA:-dev}
+    environment:
+      - ACLED_EMAIL=${ACLED_EMAIL:-}
+      - ACLED_API_TOKEN=${ACLED_API_TOKEN:-}
     ports:
       - "8000:8000"
   mpfst:
