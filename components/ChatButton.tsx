@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import "../styles/Chat.css";
 
 type Turn = { role: "user" | "bot"; text: string };
 
