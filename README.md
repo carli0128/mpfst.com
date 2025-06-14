@@ -10,7 +10,8 @@ docker-compose up --build
 Docker Compose passes `NEXT_PUBLIC_SFM_WS` to the frontend so browsers
 connect to the backend service. When deploying to Vercel you must define this
 environment variable (for example `wss://your-backend-domain/ws`) so the
-Synergy Field Monitor can reach the API.
+Synergy Field Monitor can reach the API. Make sure the backend is deployed
+with the latest code so it exposes the `meltdownFrac` field.
 
 The web interface will be available at <http://localhost:3000> and streams
 real-time `meltdownFrac` values under the **Synergy Field Monitor** tab.

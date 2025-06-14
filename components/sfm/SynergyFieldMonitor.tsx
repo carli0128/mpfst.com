@@ -2,7 +2,11 @@ import React from "react";
 import Meter from "./Meter";
 import { useStream } from "./hooks";
 
-const WS_URL = process.env.NEXT_PUBLIC_SFM_WS as string;
+const WS_URL = process.env.NEXT_PUBLIC_SFM_WS;
+
+if (!WS_URL) {
+  console.error("NEXT_PUBLIC_SFM_WS not set");
+}
 
 export default function SynergyFieldMonitor() {
   const tick = useStream(WS_URL);
