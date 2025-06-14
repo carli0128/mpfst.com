@@ -12,3 +12,8 @@ services:
         fromEnvVar: ACLED_API_TOKEN
       - key: RIL_ENTROPY_BUDGET
         value: "30000"
+services:
+  - name: sfm-backend
+    envVars:
+      - key: RIL_ENTROPY_BUDGET
+        value: "30000"

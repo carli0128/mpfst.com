@@ -25,4 +25,5 @@ services:
     environment:
       - NEXT_PUBLIC_SFM_WS=ws://localhost:8000/ws
       - NEXT_PUBLIC_CHAT_WS=ws://localhost:8000/brain/ws/chat
+      - NEXT_PUBLIC_CHAT_WS=ws://localhost:8000/brain/ws/chat
       - SFM_SHA=${SFM_SHA:-dev}
