@@ -16,4 +16,4 @@ RUN mkdir -p /app/brain/bin \
     && bash /app/brain/setup_model.sh
 # simple health-check – fails if binary missing
 HEALTHCHECK CMD test -x /app/brain/bin/rilvm
-CMD ["uvicorn", "app:api", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "sfm.backend.app:api", "--host", "0.0.0.0", "--port", "8000"]
