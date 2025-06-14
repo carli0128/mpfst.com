@@ -2,7 +2,9 @@ import React from "react";
 import Meter from "./Meter";
 import { useStream } from "./hooks";
 
-const WS_URL = process.env.NEXT_PUBLIC_SFM_WS || "ws://localhost:8000/ws";
+const WS_URL =
+  process.env.NEXT_PUBLIC_SFM_WS ??
+  `${window.location.origin.replace(/^http/, "ws")}/ws`;
 
 export default function SynergyFieldMonitor() {
   const tick = useStream(WS_URL);

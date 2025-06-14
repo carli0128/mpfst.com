@@ -9,3 +9,6 @@ docker-compose up --build
 
 The web interface will be available at <http://localhost:3000> and streams
 real-time `meltdownFrac` values under the **Synergy Field Monitor** tab.
+
+If the `NEXT_PUBLIC_SFM_WS` environment variable is not set, the monitor
+automatically falls back to `window.location` to locate the WebSocket backend.
