@@ -1,18 +1,23 @@
 import { useState, useEffect, useRef } from "react";
+import "../styles/Chat.css";
+
+type Turn = { role: "user" | "bot"; text: string };
 
 export default function ChatButton() {
   const [open, setOpen] = useState(false);
-  const [stream, setStream] = useState("");
+  const [turns, setTurns] = useState<Turn[]>([]);
   const ws = useRef<WebSocket>();
 
   useEffect(() => {
-    if (open && !ws.current) {
-      ws.current = new WebSocket(
-        process.env.NEXT_PUBLIC_CHAT_WS ?? "wss://sfm-backend.onrender.com/brain/ws/chat"
-      );
-      ws.current.onmessage = (e) => setStream((s) => s + e.data);
+    if (!ws.current) {
+      const url =
+        process.env.NEXT_PUBLIC_CHAT_WS ??
+        `${window.location.origin.replace(/^http/, "ws")}/brain/ws/chat`;
+      ws.current = new WebSocket(url);
+      ws.current.onmessage = (e) =>
+        setTurns((t) => [...t, { role: "bot", text: e.data }]);
     }
-  }, [open]);
+  }, []);
 
   return (
     <>
@@ -23,22 +28,40 @@ export default function ChatButton() {
         🧠 Chat
       </button>
       {open && (
-        <div className="fixed bottom-20 right-6 w-96 h-80 bg-neutral-900 text-white p-4 overflow-y-auto">
-          <pre className="whitespace-pre-wrap">{stream}</pre>
-          <ChatInput ws={ws} />
+        <div className="fixed bottom-20 right-6 w-96 h-80 bg-neutral-900 text-white p-4 overflow-y-auto flex flex-col gap-2 chat-scroll">
+          <div className="flex flex-col gap-2">
+            {turns.map((t, i) => (
+              <div
+                key={i}
+                className={
+                  t.role === "user" ? "text-right text-blue-300" : "text-left"
+                }
+              >
+                {t.text}
+              </div>
+            ))}
+          </div>
+          <ChatInput ws={ws} setTurns={setTurns} />
         </div>
       )}
     </>
   );
 }
 
-function ChatInput({ ws }: { ws: React.MutableRefObject<WebSocket | undefined> }) {
+function ChatInput({
+  ws,
+  setTurns,
+}: {
+  ws: React.MutableRefObject<WebSocket | undefined>;
+  setTurns: React.Dispatch<React.SetStateAction<Turn[]>>;
+}) {
   const [msg, setMsg] = useState("");
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         ws.current?.send(msg);
+        setTurns((t) => [...t, { role: "user", text: msg }]);
         setMsg("");
       }}
     >

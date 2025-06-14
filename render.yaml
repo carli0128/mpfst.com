@@ -10,3 +10,5 @@ services:
         fromEnvVar: ACLED_EMAIL
       - key: ACLED_API_TOKEN
         fromEnvVar: ACLED_API_TOKEN
+      - key: RIL_ENTROPY_BUDGET
+        value: "30000"

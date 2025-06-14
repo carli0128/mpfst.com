@@ -28,6 +28,9 @@ Set the environment variables:
 - `RIL_ENTROPY_BUDGET` on the backend (e.g. `30000`)
 - `NEXT_PUBLIC_CHAT_WS` on the frontend (e.g. `wss://sfm-backend.onrender.com/brain/ws/chat`)
 
+If you see `"VM unavailable"` in the chat drawer, the brain binary was not
+copied correctly. Redeploy the backend to ensure `/app/brain/bin/rilvm` exists.
+
 | Host | Env var | Value |
 |------|---------|-------|
 | Render backend | SFM_UPDATE_SEC | 60 |

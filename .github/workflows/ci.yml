@@ -18,5 +18,5 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      - run: pip install -r sfm/backend/requirements.txt
-      - run: pytest -q sfm/tests/test_chat_smoke.py || true
+      - run: pip install -r sfm/backend/requirements.txt pytest-asyncio
+      - run: pytest -q
