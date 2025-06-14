@@ -3,8 +3,8 @@ services:
     name: mpfst-backend
     env: docker
     plan: free
-    buildCommand: docker build -t backend ./sfm/backend
-    startCommand: uvicorn app:api --host 0.0.0.0 --port 8000
+    dockerfilePath: ./sfm/backend/Dockerfile
+    dockerContext: ./sfm/backend
     envVars:
       - key: ACLED_EMAIL
         fromEnvVar: ACLED_EMAIL
