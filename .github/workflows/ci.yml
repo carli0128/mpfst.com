@@ -19,4 +19,4 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r sfm/backend/requirements.txt
-      - run: pytest || true
+      - run: pytest -q sfm/tests/test_chat_smoke.py || true

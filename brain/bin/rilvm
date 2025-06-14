@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "RIL-VM stub"
+while read line; do echo "$line"; done

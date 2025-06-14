@@ -15,6 +15,19 @@ with the latest code so it exposes the `meltdownFrac` field.
 Conflict index is derived from ACLED daily fatality counts mapped to HRV-drop
 severity (see `./sfm/backend/conflict.py`).
 
+## Chat-Brain
+
+![chat demo](./public/chat-demo.gif)
+
+The site includes a lightweight chat interface powered by the RIL virtual
+machine. Click the floating brain button to open the drawer. Messages are
+proxied through `/brain/ws/chat` on the backend.
+
+Set the environment variables:
+
+- `RIL_ENTROPY_BUDGET` on the backend (e.g. `30000`)
+- `NEXT_PUBLIC_CHAT_WS` on the frontend (e.g. `wss://sfm-backend.onrender.com/brain/ws/chat`)
+
 | Host | Env var | Value |
 |------|---------|-------|
 | Render backend | SFM_UPDATE_SEC | 60 |

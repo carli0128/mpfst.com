@@ -7,6 +7,7 @@ from data_fetchers import (
     get_solarwind_speed,
     get_conflict_index,
 )
+from sfm.brain_gateway.gateway import router as chat_router
 from meltdownFrac import compute_mfrac
 
 UPDATE_SECS = int(os.getenv("SFM_UPDATE_SEC", "60"))
@@ -18,6 +19,7 @@ api.add_middleware(
     allow_headers=["*"],
     allow_methods=["*"],
 )
+api.include_router(chat_router, prefix="/brain")
 
 @api.get("/")
 def root():
