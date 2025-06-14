@@ -2,9 +2,13 @@ import React from "react";
 import Meter from "./Meter";
 import { useStream } from "./hooks";
 
-const WS_URL =
-  process.env.NEXT_PUBLIC_SFM_WS ||
-  `ws://${typeof window !== "undefined" ? window.location.hostname : "localhost"}:8000/ws`;
+function defaultWsUrl() {
+  if (typeof window === "undefined") return "ws://localhost:8000/ws";
+  const proto = window.location.protocol === "https:" ? "wss" : "ws";
+  return `${proto}://${window.location.hostname}:8000/ws`;
+}
+
+const WS_URL = process.env.NEXT_PUBLIC_SFM_WS || defaultWsUrl();
 
 export default function SynergyFieldMonitor() {
   const tick = useStream(WS_URL);

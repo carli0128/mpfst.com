@@ -8,9 +8,10 @@ docker-compose up --build
 ```
 
 Docker Compose passes the WebSocket endpoint to the frontend so the browser
-connects to the backend service. The URL defaults to
-`ws://localhost:8000/ws`, but you can set a custom value with
-`NEXT_PUBLIC_SFM_WS`.
+connects to the backend service. By default the frontend uses
+`ws://localhost:8000/ws`. When deploying to another host you can set
+`NEXT_PUBLIC_SFM_WS` (for example `wss://your-domain/ws`) to point at the
+backend API.
 
 The web interface will be available at <http://localhost:3000> and streams
 real-time `meltdownFrac` values under the **Synergy Field Monitor** tab.
