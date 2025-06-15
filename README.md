@@ -23,6 +23,10 @@ The site includes a lightweight chat interface powered by the RIL virtual
 machine. Click the floating brain button to open the drawer. Messages are
 proxied through `/brain/ws/chat` on the backend.
 
+The site is now deployed as **two Render services** (frontend & backend).
+`NEXT_PUBLIC_CHAT_WS` must point to
+`wss://mpfst-backend.onrender.com/brain/ws/chat`
+
 Set **both** environment variables:
 
 - `RIL_ENTROPY_BUDGET` on the backend (e.g. `30000`)

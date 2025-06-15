@@ -1,24 +1,25 @@
 services:
-  # ------------- Front‑end -------------
+  # ——— FRONTEND (Next.js) ————————————————————————————
   - type: web
     name: mpfst-frontend
     env: node
     plan: pro
+    rootDir: .
     buildCommand: npm ci && npm run build
     startCommand: npm start
-    rootDir: .
     envVars:
       - key: NEXT_PUBLIC_SFM_WS
         value: wss://mpfst-backend.onrender.com/ws
       - key: NEXT_PUBLIC_CHAT_WS
         value: wss://mpfst-backend.onrender.com/brain/ws/chat
-  # ------------- Back‑end --------------
+
+  # ——— BACKEND (Docker, FastAPI + RIL‑VM) ————————————
   - type: web
     name: mpfst-backend
     env: docker
-    plan: pro
     dockerfilePath: ./sfm/backend/Dockerfile
     dockerContext: .
+    plan: pro
     healthCheckPath: /version
     envVars:
       - key: RIL_ENTROPY_BUDGET
