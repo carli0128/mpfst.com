@@ -1,14 +1,32 @@
 services:
+  # ——— FRONTEND (Next.js) ————————————————————————————
+  - type: web
+    name: mpfst-frontend
+    env: node
+    plan: pro
+    rootDir: .
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_SFM_WS
+        value: wss://mpfst-backend.onrender.com/ws
+      - key: NEXT_PUBLIC_CHAT_WS
+        value: wss://mpfst-backend.onrender.com/brain/ws/chat
+
+  # ——— BACKEND (Docker, FastAPI + RIL‑VM) ————————————
   - type: web
     name: mpfst-backend
     env: docker
-    plan: free
-    buildCommand: docker build -t backend ./sfm/backend
-    startCommand: uvicorn app:api --host 0.0.0.0 --port 8000
+    dockerfilePath: ./sfm/backend/Dockerfile
+    dockerContext: .
+    plan: pro
+    healthCheckPath: /version
     envVars:
+      - key: RIL_ENTROPY_BUDGET
+        value: "30000"
+      - key: SFM_UPDATE_SEC
+        value: "60"
       - key: ACLED_EMAIL
         fromEnvVar: ACLED_EMAIL
       - key: ACLED_API_TOKEN
         fromEnvVar: ACLED_API_TOKEN
-      - key: RIL_ENTROPY_BUDGET
-        value: "30000"
