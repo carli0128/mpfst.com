@@ -2,8 +2,9 @@ services:
   - type: web
     name: mpfst-backend
     env: docker
-    plan: free
-    buildCommand: docker build -t backend ./sfm/backend
+    plan: pro              # needs ≥2\u00a0GB RAM for Llama-2-7B-Q4
+    dockerfilePath: ./sfm/backend/Dockerfile
+    dockerContext: .       # repo root so ‘sfm/’ package is copied
     envVars:
       - key: ACLED_EMAIL
         fromEnvVar: ACLED_EMAIL

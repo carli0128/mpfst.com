@@ -26,7 +26,8 @@ proxied through `/brain/ws/chat` on the backend.
 Set **both** environment variables:
 
 - `RIL_ENTROPY_BUDGET` on the backend (e.g. `30000`)
-- `NEXT_PUBLIC_CHAT_WS` on the frontend (e.g. `wss://sfm-backend.onrender.com/brain/ws/chat`)
+- `NEXT_PUBLIC_CHAT_WS` on the frontend
+ wss://mpfst-backend.onrender.com/brain/ws/chat  ← update after the backend URL changes
 
 If the chat panel simply echoes your input the VM binary was not copied
 successfully – redeploy the backend and check container logs for `RIL-VM ready`.
