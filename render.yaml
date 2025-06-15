@@ -1,14 +1,31 @@
 services:
+  # ------------- Front‑end -------------
+  - type: web
+    name: mpfst-frontend
+    env: node
+    plan: pro
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    rootDir: .
+    envVars:
+      - key: NEXT_PUBLIC_SFM_WS
+        value: wss://mpfst-backend.onrender.com/ws
+      - key: NEXT_PUBLIC_CHAT_WS
+        value: wss://mpfst-backend.onrender.com/brain/ws/chat
+  # ------------- Back‑end --------------
   - type: web
     name: mpfst-backend
     env: docker
-    plan: free
-    buildCommand: docker build -t backend ./sfm/backend
-    startCommand: uvicorn app:api --host 0.0.0.0 --port 8000
+    plan: pro
+    dockerfilePath: ./sfm/backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /version
     envVars:
+      - key: RIL_ENTROPY_BUDGET
+        value: "30000"
+      - key: SFM_UPDATE_SEC
+        value: "60"
       - key: ACLED_EMAIL
         fromEnvVar: ACLED_EMAIL
       - key: ACLED_API_TOKEN
         fromEnvVar: ACLED_API_TOKEN
-      - key: RIL_ENTROPY_BUDGET
-        value: "30000"
