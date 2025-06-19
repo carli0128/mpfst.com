@@ -12,7 +12,7 @@ export function useStream(endpoint?: string) {
 
   useEffect(() => {
     if (!endpoint) return;
-    const ws = new WebSocket(endpoint);
+    const WS_URL = process.env.NEXT_PUBLIC_SFM_WS;
     ws.onmessage = (ev) => setTick(JSON.parse(ev.data));
     return () => ws.close();
   }, [endpoint]);
