@@ -1,91 +1,44 @@
-"""
-FastAPI router that streams output from the quantised Llama‑2‑7B model
-kept in `brain/`.
+# sfm/backend/chat_router.py
 
-* The model is loaded lazily and cached per worker.
-* Requests are accepted as JSON: **{ "prompt": "<your‑text>" }**
-* The response is a Server‑Sent Events (SSE) stream
-  (media‑type `text/event-stream`) so the front‑end can display tokens
-  as they arrive.
-"""
-import asyncio
-from pathlib import Path
-from typing import AsyncGenerator
-
-from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
 from sfm.backend.brain.llama_runner import LlamaRunner
 
+router = APIRouter(prefix="/chat", tags=["chat"])
 
-router = APIRouter(tags=["chat"])
-
-# ---------------------------------------------------------------------------#
-# helpers                                                                    #
-# ---------------------------------------------------------------------------#
-_llama: LlamaRunner | None = None                     # singleton per worker
+# Singleton LlamaRunner instance
+_llama: LlamaRunner | None = None
 
 async def _lazy_model() -> LlamaRunner:
     global _llama
     if _llama is None:
-        _llama = LlamaRunner(temperature=0.7)
+        # Adjust create() arguments (temperature, model name) as needed
+        _llama = await LlamaRunner.create()
     return _llama
 
-class ChatRequest(BaseModel):
-    prompt: str
-
-async def _event_stream(gen) -> AsyncGenerator[str, None]:
-    """
-    Wrap model output so each chunk is sent as an SSE 'data:' line.
-    """
-    try:
-        async for chunk in gen:
-            yield f"data: {chunk}\n\n"
-            await asyncio.sleep(0)           # give control back to loop
-    finally:
-        await gen.aclose()
-
-@router.websocket("/chat")
-async def ws_chat(websocket: WebSocket):
-    await websocket.accept()
-    llama = await _lazy_model()
-    try:
-        while True:
-            data = await websocket.receive_json()
-            prompt = data.get("prompt") or data.get("msg")
-            if not prompt:
-                await websocket.send_json({"role":"error","text":"Empty prompt"})
-                continue
-
-            # echo user
-            await websocket.send_json({"role":"user","text":prompt})
-
-            # stream bot tokens
-            for chunk in llama.stream(f"[INST] {prompt} [/INST]\n"):
-                await websocket.send_json({"role":"bot","text":chunk})
-    except WebSocketDisconnect:
-        pass
-# ---------------------------------------------------------------------------#
-# public routes                                                              #
-# ---------------------------------------------------------------------------#
-@router.get("/health", include_in_schema=False)
-async def health():
-    return {"status": "ok"}
-
-
 @router.post("/")
-async def chat(req: ChatRequest):
+async def chat(request: Request):
     """
-    Accept JSON and stream back the model’s answer.
+    POST /chat
+    Expects JSON { "prompt": "your question here" }
+    Streams back Llama-2 tokens as SSE.
     """
-    prompt = req.prompt.strip()
-    if not prompt:
-        raise HTTPException(status_code=400, detail="Prompt must not be empty.")
+    body = await request.json()
+    prompt = body.get("prompt")
+    if not prompt or not isinstance(prompt, str):
+        raise HTTPException(
+            status_code=400,
+            detail="Request body must include a non-empty string field 'prompt'"
+        )
 
     llama = await _lazy_model()
-    answer_gen = llama.generate(f"[INST] {prompt} [/INST]\n")
+
+    async def event_generator():
+        # Stream each token as its own SSE message
+        async for token in llama.stream(f"[INST] {prompt} [/INST]\n"):
+            yield f"data: {token}\n\n"
 
     return StreamingResponse(
-        _event_stream(answer_gen),
+        event_generator(),
         media_type="text/event-stream",
     )
