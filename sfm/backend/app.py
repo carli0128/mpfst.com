@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Body, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 from sfm.backend.chat_router import router as chat_router
+from sfm.backend.sfm_ws import router as sfm_ws_router
 from sfm.backend import data_fetchers
 from sfm.backend.synergy_monitor import compute_synergy
 from sfm.backend.meltdownFrac import compute_mfrac
