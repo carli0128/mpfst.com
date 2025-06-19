@@ -13,11 +13,10 @@ from pathlib import Path
 from typing import AsyncGenerator
 
 from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from sfm.backend.brain.llama_runner import LlamaRunner
 
-# thin wrapper you already added in brain/llama_runner.py
-from .brain.llama_runner import LlamaRunner
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
