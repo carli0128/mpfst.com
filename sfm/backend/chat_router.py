@@ -12,9 +12,9 @@ import asyncio
 from pathlib import Path
 from typing import AsyncGenerator
 
-from fastapi import APIRouter, HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
+from sfm.backend.brain.llama_runner import LlamaRunner
 
 # thin wrapper you already added in brain/llama_runner.py
 from .brain.llama_runner import LlamaRunner
@@ -26,18 +26,14 @@ router = APIRouter(prefix="/chat", tags=["chat"])
 # ---------------------------------------------------------------------------#
 _llama: LlamaRunner | None = None                     # singleton per worker
 
-
 async def _lazy_model() -> LlamaRunner:
-    """Create the model on first use and keep it in memory afterwards."""
     global _llama
     if _llama is None:
-        _llama = await LlamaRunner.create()
+        _llama = LlamaRunner(temperature=0.7)
     return _llama
-
 
 class ChatRequest(BaseModel):
     prompt: str
-
 
 async def _event_stream(gen) -> AsyncGenerator[str, None]:
     """
@@ -50,7 +46,26 @@ async def _event_stream(gen) -> AsyncGenerator[str, None]:
     finally:
         await gen.aclose()
 
+@router.websocket("/chat")
+async def ws_chat(websocket: WebSocket):
+    await websocket.accept()
+    llama = await _lazy_model()
+    try:
+        while True:
+            data = await websocket.receive_json()
+            prompt = data.get("prompt") or data.get("msg")
+            if not prompt:
+                await websocket.send_json({"role":"error","text":"Empty prompt"})
+                continue
 
+            # echo user
+            await websocket.send_json({"role":"user","text":prompt})
+
+            # stream bot tokens
+            for chunk in llama.stream(f"[INST] {prompt} [/INST]\n"):
+                await websocket.send_json({"role":"bot","text":chunk})
+    except WebSocketDisconnect:
+        pass
 # ---------------------------------------------------------------------------#
 # public routes                                                              #
 # ---------------------------------------------------------------------------#
@@ -62,7 +77,7 @@ async def health():
 @router.post("/")
 async def chat(req: ChatRequest):
     """
-    Accept JSON {"prompt": "..."} and stream back the model’s answer.
+    Accept JSON and stream back the model’s answer.
     """
     prompt = req.prompt.strip()
     if not prompt:
