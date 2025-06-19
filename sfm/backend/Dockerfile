@@ -1,10 +1,21 @@
-FROM python:3.11-slim
-
-ARG SFM_SHA=dev
-ENV SFM_SHA=$SFM_SHA
+# syntax=docker/dockerfile:1
 
 # ────────────────────────────────────────────────
-# 1 · OS‑level deps (curl + bash)                 │
+# 0 · Base image
+# ────────────────────────────────────────────────
+FROM python:3.11-slim AS runtime
+
+ARG  SFM_SHA=dev
+ENV  SFM_SHA=${SFM_SHA}
+
+# ------------  puerto estándar que Render inyecta --------------
+# Render define PORT=8000 → lo respetamos; si no existe (p.ej. local),
+# usamos 8000 igualmente.
+ARG  RENDER_PORT=8000
+ENV  PORT=${RENDER_PORT}
+
+# ────────────────────────────────────────────────
+# 1 · OS‑level deps
 # ────────────────────────────────────────────────
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
@@ -14,32 +25,38 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 # ────────────────────────────────────────────────
-# 2 · Python deps                                 │
+# 2 · Python deps
 # ────────────────────────────────────────────────
 WORKDIR /app
 COPY sfm/backend/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ────────────────────────────────────────────────
-# 3 · Application code                            │
+# 3 · Application code
 # ────────────────────────────────────────────────
 COPY . .
-COPY sfm/backend/brain /app/brain
 
-ENV RIL_VM_BIN=/app/brain/bin/rilvm
+# Si tu árbol contiene brain/, ya está copiado.
+ENV  RIL_VM_BIN=/app/brain/bin/rilvm
 
 # ────────────────────────────────────────────────
-# 4 · Download / prepare RIL‑VM + model           │
+# 4 · Download / prepare RIL‑VM + modelo
 # ────────────────────────────────────────────────
-RUN [ -x "$RIL_VM_BIN" ] || \
-    (curl -L --retry 5 -o "$RIL_VM_BIN" \
-       https://github.com/your-org/kaicore/releases/download/v7.0.0/rilvm-linux-x86_64 \
-     && chmod +x "$RIL_VM_BIN") \
+RUN [ -x "$RIL_VM_BIN" ] || ( \
+      curl -L --retry 5 -o "$RIL_VM_BIN" \
+           https://github.com/your-org/kaicore/releases/download/v7.0.0/rilvm-linux-x86_64 \
+      && chmod +x "$RIL_VM_BIN") \
  && bash /app/brain/setup_model.sh
 
 # ────────────────────────────────────────────────
-# 5 · Health‑check & launch                       │
+# 5 · Health‑check & launch
 # ────────────────────────────────────────────────
-HEALTHCHECK CMD curl -f http://localhost:8000/version || exit 1
-EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s \
+  CMD curl -f http://localhost:${PORT:-8000}/healthz || exit 1
+
+EXPOSE ${PORT}
+
+# UVICORN lanza FastAPI en el puerto que Render pasó
+# sfm.backend.app:app  →  ajusta el import si tu módulo se llama distinto
 CMD ["sh", "-c", "uvicorn sfm.backend.app:app --host 0.0.0.0 --port ${PORT:-8000}"]
+
