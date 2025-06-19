@@ -26,7 +26,7 @@ app = FastAPI(
 # Allow CORS for front-end communication
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace "*" with "https://mpfst.com" in production
+    allow_origins=["https://mpfst.com"],  # Replace "*" with "https://mpfst.com" in production
     allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE", "WS"],
     allow_headers=["*"],
 )
