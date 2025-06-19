@@ -1,54 +1,39 @@
-import asyncio, json, os
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI
 
-from data_fetchers import (
-    get_geomag_kp,
-    get_solarwind_speed,
-    get_conflict_index,
+from sfm.backend import data_fetchers
+from sfm.backend.synergy_monitor import compute_synergy
+from sfm.backend.chat_router import router as chat_router
+
+api = FastAPI(
+    title="MPFST Backend",
+    version="0.1.0",
+    docs_url="/",   # easier when testing on Render
 )
-from sfm.brain_gateway.gateway import router as chat_router
-from meltdownFrac import compute_mfrac
 
-UPDATE_SECS = int(os.getenv("SFM_UPDATE_SEC", "60"))
-
-api = FastAPI(title="Synergy Field Monitor API")
-api.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_headers=["*"],
-    allow_methods=["*"],
-)
-api.include_router(chat_router, prefix="/brain")
-
-@api.get("/")
-def root():
-    return {"msg": "Synergy Field Monitor running"}
+api.include_router(chat_router)
 
 
 @api.get("/version")
 def version():
-    return {
-        "sha": os.getenv("SFM_SHA", "dev"),
-        "update_sec": UPDATE_SECS,
-    }
+    return {"version": api.version}
 
-@api.websocket("/ws")
-async def websocket_endpoint(ws: WebSocket):
-    await ws.accept()
-    try:
-        while True:
-            kp, vsw, conflict = await asyncio.gather(
-                get_geomag_kp(), get_solarwind_speed(), get_conflict_index()
-            )
-            mf = compute_mfrac(kp, vsw, conflict)
-            payload = {
-                "kp": round(kp, 2),
-                "vsw": round(vsw, 1),
-                "conflict": round(conflict, 2),
-                "meltdownFrac": mf,
-            }
-            await ws.send_text(json.dumps(payload))
-            await asyncio.sleep(UPDATE_SECS)
-    except WebSocketDisconnect:
-        return
+
+# ---------- simple demo routes using the new helpers ----------
+@api.get("/market/{ticker}")
+def market(ticker: str):
+    return data_fetchers.get_market(ticker)
+
+
+@api.get("/weather")
+def weather(lat: float, lon: float):
+    return data_fetchers.get_weather(lat, lon)
+
+
+@api.get("/news")
+def news(max_items: int = 5):
+    return data_fetchers.get_news(max_items=max_items)
+
+
+@api.post("/synergy")
+def synergy(a: list[float], b: list[float]):
+    return compute_synergy(a, b)
