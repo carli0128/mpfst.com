@@ -1,3 +1,4 @@
+// components/ChatButton.tsx
 import { useState, useEffect, useRef } from "react";
 
 type Turn = { role: "user" | "bot"; text: string };
@@ -5,29 +6,39 @@ type Turn = { role: "user" | "bot"; text: string };
 export default function ChatButton() {
   const [open, setOpen] = useState(false);
   const [turns, setTurns] = useState<Turn[]>([]);
-  const ws = useRef<WebSocket>();
 
-  /* singleton socket */
+  // 1) Open the SSE connection once on mount to receive bot tokens
   useEffect(() => {
-    if (!ws.current) {
-      ws.current = new WebSocket(
-        process.env.NEXT_PUBLIC_CHAT_WS ??
-          `${window.location.origin.replace(/^http/, "ws")}/brain/ws/chat`
-      );
-      ws.current.onmessage = (e) => {
-        try {
-          const { role, text } = JSON.parse(e.data);
-          setTurns((t) => [...t, { role, text }]);
-        } catch (err) {
-          console.error("invalid ws message", err);
-        }
-      };
-    }
+    // Must set NEXT_PUBLIC_CHAT_SSE in Render to https://<BACKEND>/chat
+    const sseUrl = process.env.NEXT_PUBLIC_CHAT_SSE!;
+    const source = new EventSource(sseUrl);
+
+    source.onmessage = (e: MessageEvent) => {
+      // Each "e.data" is one token or chunk from the server
+      setTurns((t) => [...t, { role: "bot", text: e.data }]);
+    };
+
+    source.onerror = () => {
+      console.error("Chat SSE connection closed");
+      source.close();
+    };
+
+    return () => {
+      source.close();
+    };
   }, []);
 
+  // 2) Sending is now a simple POST to /chat
   const send = (msg: string) => {
-    ws.current?.send(JSON.stringify({ prompt: msg }));
+    // Show user's message immediately
     setTurns((t) => [...t, { role: "user", text: msg }]);
+
+    // POST the prompt JSON to the same endpoint
+    fetch(process.env.NEXT_PUBLIC_CHAT_SSE!, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: msg }),
+    }).catch((err) => console.error("Failed to send prompt:", err));
   };
 
   return (
@@ -36,8 +47,9 @@ export default function ChatButton() {
         className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded"
         onClick={() => setOpen((o) => !o)}
       >
-        🧠 Chat
+        🧠 Chat
       </button>
+
       {open && (
         <div className="fixed bottom-24 right-6 w-96 h-96 bg-neutral-900 text-white p-4 flex flex-col">
           <div className="flex-1 overflow-y-auto flex flex-col gap-2">
@@ -57,9 +69,11 @@ export default function ChatButton() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              const form = e.target as HTMLFormElement;
-              const input = form.elements.namedItem("msg") as HTMLInputElement;
-              if (input.value.trim()) send(input.value.trim());
+              const input = (e.currentTarget.elements.namedItem(
+                "msg"
+              ) as HTMLInputElement);
+              const v = input.value.trim();
+              if (v) send(v);
               input.value = "";
             }}
           >
