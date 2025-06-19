@@ -8,6 +8,7 @@ export interface Tick {
 }
 
 export function useStream(endpoint?: string) {
+  const ws = new WebSocket(endpoint);
   const [tick, setTick] = useState<Tick | null>(null);
 
   useEffect(() => {
