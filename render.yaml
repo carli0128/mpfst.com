@@ -8,24 +8,32 @@ services:
     buildCommand: npm ci && npm run build
     startCommand: npm start
     envVars:
+      # WebSocket URL for your Field‐Synergy monitor hook
       - key: NEXT_PUBLIC_SFM_WS
         value: wss://mpfst-backend.onrender.com/ws
-      - key: NEXT_PUBLIC_CHAT_WS
-        value: wss://mpfst-backend.onrender.com/brain/ws/chat
 
-  # ——— BACKEND (Docker, FastAPI + RIL‑VM) ————————————
+      # SSE URL for your Chat UI (must match ChatButton.tsx)
+      - key: NEXT_PUBLIC_CHAT_SSE
+        value: https://mpfst-backend.onrender.com/chat
+
+  # ——— BACKEND (Docker, FastAPI + RIL-VM) ————————————
   - type: web
     name: mpfst-backend
     env: docker
+    plan: pro
     dockerfilePath: ./sfm/backend/Dockerfile
     dockerContext: .
-    plan: pro
     healthCheckPath: /version
     envVars:
-      - key: RIL_ENTROPY_BUDGET
-        value: "30000"
+      # How often (in seconds) to push synergy updates over WS
       - key: SFM_UPDATE_SEC
         value: "60"
+
+      # RIL-VM entropy budget; keep as you had it
+      - key: RIL_ENTROPY_BUDGET
+        value: "30000"
+
+      # Your ACLED credentials, forwarded from Render’s account settings
       - key: ACLED_EMAIL
         fromEnvVar: ACLED_EMAIL
       - key: ACLED_API_TOKEN
