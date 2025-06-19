@@ -1,3 +1,4 @@
+// components/sfm/hooks.tsx
 import { useEffect, useState } from "react";
 
 export interface Tick {
@@ -7,29 +8,31 @@ export interface Tick {
   conflict: number;
 }
 
-export function useStream(endpoint?: string) {
+/**
+ * Opens a WebSocket to `endpoint` and parses incoming JSON Tick messages.
+ * Returns the latest Tick, or null while connecting.
+ */
+export function useStream(endpoint?: string): Tick | null {
   const [tick, setTick] = useState<Tick | null>(null);
 
   useEffect(() => {
-    // don’t even try if we don’t have a URL
     if (!endpoint) {
       console.warn("useStream: no endpoint provided");
       return;
     }
 
-    // now endpoint is narrowed to string
     const ws = new WebSocket(endpoint);
 
-    ws.onmessage = (ev) => {
+    ws.onmessage = (ev: MessageEvent) => {
       try {
         const data = JSON.parse(ev.data) as Tick;
         setTick(data);
       } catch (err) {
-        console.error("useStream: failed to parse message", err);
+        console.error("useStream: failed to parse JSON", err);
       }
     };
 
-    ws.onerror = (err) => {
+    ws.onerror = (err: Event | unknown) => {
       console.error("useStream WebSocket error:", err);
     };
 
