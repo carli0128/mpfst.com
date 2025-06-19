@@ -15,6 +15,12 @@ with the latest code so it exposes the `meltdownFrac` field.
 Conflict index is derived from ACLED daily fatality counts mapped to HRV-drop
 severity (see `./sfm/backend/conflict.py`).
 
+## Setup
+
+Copy `.env.example` to `.env.local` and adjust values as needed. The example
+file sets `NEXT_PUBLIC_SFM_WS=ws://localhost:8000/ws` so the frontend connects
+to the local backend when running via Docker Compose.
+
 ## Chat-Brain
 
 ![chat demo](./public/chat-demo.gif)
