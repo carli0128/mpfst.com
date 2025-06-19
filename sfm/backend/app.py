@@ -33,6 +33,7 @@ app.add_middleware(
 
 # Mount the chat router under /brain/ws
 app.include_router(chat_router, prefix="/brain/ws")
+app.include_router(sfm_ws_router)
 
 # ------------------------------------------
 # REST API ROUTES
