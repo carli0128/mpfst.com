@@ -8,14 +8,34 @@ export interface Tick {
 }
 
 export function useStream(endpoint?: string) {
-  const ws = new WebSocket(endpoint);
   const [tick, setTick] = useState<Tick | null>(null);
 
   useEffect(() => {
-    if (!endpoint) return;
-    const WS_URL = process.env.NEXT_PUBLIC_SFM_WS;
-    ws.onmessage = (ev) => setTick(JSON.parse(ev.data));
-    return () => ws.close();
+    // don’t even try if we don’t have a URL
+    if (!endpoint) {
+      console.warn("useStream: no endpoint provided");
+      return;
+    }
+
+    // now endpoint is narrowed to string
+    const ws = new WebSocket(endpoint);
+
+    ws.onmessage = (ev) => {
+      try {
+        const data = JSON.parse(ev.data) as Tick;
+        setTick(data);
+      } catch (err) {
+        console.error("useStream: failed to parse message", err);
+      }
+    };
+
+    ws.onerror = (err) => {
+      console.error("useStream WebSocket error:", err);
+    };
+
+    return () => {
+      ws.close();
+    };
   }, [endpoint]);
 
   return tick;
