@@ -1,15 +1,22 @@
-from fastapi import FastAPI, Body, WebSocket
+# backend/app/app.py  (renómbralo o ajusta el import según tu estructura)
+
+from fastapi import FastAPI, Body, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+
 from sfm.backend.chat_router import router as chat_router
 from sfm.backend.sfm_ws import router as sfm_ws_router
 from sfm.backend import data_fetchers
 from sfm.backend.synergy_monitor import compute_synergy
 from sfm.backend.meltdownFrac import compute_mfrac
 from sfm.backend.conflict import get_conflict_index
+
 import asyncio
 import os
 import importlib.util
 
+# ---------------------------------------------------------------------------
+#  Dynamically‑loaded async data‑fetcher (unchanged)
+# ---------------------------------------------------------------------------
 _DF_SPEC = importlib.util.spec_from_file_location(
     "sfm.backend.data_fetchers_async",
     os.path.join(os.path.dirname(__file__), "data_fetchers.py"),
@@ -17,28 +24,38 @@ _DF_SPEC = importlib.util.spec_from_file_location(
 data_fetch_async = importlib.util.module_from_spec(_DF_SPEC)
 _DF_SPEC.loader.exec_module(data_fetch_async)  # type: ignore
 
+# ---------------------------------------------------------------------------
+#  FastAPI application
+# ---------------------------------------------------------------------------
 app = FastAPI(
     title="MPFST Backend",
     version="0.1.0",
-    docs_url="/",  # serve the OpenAPI UI at /
+    docs_url="/",  # OpenAPI UI at root
 )
 
-# Allow CORS for front-end communication
+# ---------------------------  C O R S  -------------------------------------
+ALLOWED_ORIGINS = [
+    "https://mpfst-frontend.onrender.com",  # producción
+    "http://localhost:3000",                # dev local (opcional)
+    "https://mpfst.com",                    # dominio principal (si sirve assets)
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://mpfst.com"],  # Replace "*" with "https://mpfst.com" in production
-    allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE", "WS"],
-    allow_headers=["*"],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,      # imprescindible si algún día envías cookies
+    allow_methods=["*"],         # GET, POST, PUT, etc.
+    allow_headers=["*"],         # Authorization, Content‑Type…
 )
 
-# Mount the chat router under /brain/ws
-app.include_router(chat_router, prefix="/brain/ws")
-app.include_router(sfm_ws_router)
+# ---------------------------  R O U T E R S  -------------------------------
+# Chat:  /chat/sse   y   /chat/ws
+app.include_router(chat_router, prefix="/chat")
 
-# ------------------------------------------
-# REST API ROUTES
-# ------------------------------------------
+# Synergy Field Monitor:  /sfm/ws
+app.include_router(sfm_ws_router, prefix="/sfm")
 
+# ---------------------------  REST  API  -----------------------------------
 @app.get("/version")
 def version():
     return {"version": app.version}
@@ -74,16 +91,15 @@ def synergy(
     result = compute_synergy(a, b)
     return {"synergy": result}
 
-# ------------------------------------------
-# WEBSOCKET ROUTE FOR SYNERGY FIELD MONITOR
-# ------------------------------------------
-
-@app.websocket("/ws")
+# -----------------  WebSocket fallback (optional)  -------------------------
+# Si ya tienes `sfm_ws_router` con /sfm/ws puedes borrar este handler.
+@app.websocket("/sfm/ws")
 async def websocket_synergy(websocket: WebSocket):
     """Stream synergy metrics every ``SFM_UPDATE_SEC`` seconds (default 60)."""
     await websocket.accept()
+    update = int(os.getenv("SFM_UPDATE_SEC", "60"))
+
     try:
-        update = int(os.getenv("SFM_UPDATE_SEC", "60"))
         while True:
             kp, vsw, conflict = await asyncio.gather(
                 data_fetch_async.get_geomag_kp(),
@@ -91,14 +107,14 @@ async def websocket_synergy(websocket: WebSocket):
                 get_conflict_index(),
             )
             mfrac = compute_mfrac(kp, vsw, conflict)
-            tick = {
-                "kp": kp,
-                "vsw": vsw,
-                "meltdownFrac": mfrac,
-                "conflict": conflict,
-            }
-            await websocket.send_json(tick)
+            await websocket.send_json(
+                {"kp": kp, "vsw": vsw, "meltdownFrac": mfrac, "conflict": conflict}
+            )
             await asyncio.sleep(update)
+    except (WebSocketDisconnect, asyncio.CancelledError):
+        pass
     except Exception as e:
-        print(f"WebSocket error: {e}")
+        # Log y cierre limpio
+        print(f"[WebSocket] error: {e}")
         await websocket.close()
+
