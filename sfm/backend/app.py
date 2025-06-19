@@ -78,6 +78,7 @@ def synergy(
 
 @app.websocket("/ws")
 async def websocket_synergy(websocket: WebSocket):
+    """Stream synergy metrics every ``SFM_UPDATE_SEC`` seconds (default 60)."""
     await websocket.accept()
     try:
         update = int(os.getenv("SFM_UPDATE_SEC", "60"))
