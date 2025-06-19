@@ -1,51 +1,77 @@
 """
-FastAPI router that streams output from the quantised Llama‑2‑7B model
-you already stage in `brain/`.
+FastAPI router that streams output from the quantised Llama‑2‑7B model
+kept in `brain/`.
 
-The model is loaded once per worker and kept in RAM.
-A tiny prompt‑templating helper is provided so that the front‑end can
-pass simple user strings.
-
-If you later swap to a HF Transformers runtime (or vLLM) only the
-`generate()` coroutine needs to change.
+* The model is loaded lazily and cached per worker.
+* Requests are accepted as JSON: **{ "prompt": "<your‑text>" }**
+* The response is a Server‑Sent Events (SSE) stream
+  (media‑type `text/event-stream`) so the front‑end can display tokens
+  as they arrive.
 """
 import asyncio
+from pathlib import Path
+from typing import AsyncGenerator
+
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
 
-from .brain.llama_runner import LlamaRunner   # thin wrapper you already have
+# thin wrapper you already added in brain/llama_runner.py
+from .brain.llama_runner import LlamaRunner
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
-_llama = None  # will hold singleton
+# ---------------------------------------------------------------------------#
+# helpers                                                                    #
+# ---------------------------------------------------------------------------#
+_llama: LlamaRunner | None = None                     # singleton per worker
 
 
-async def _lazy_model():
+async def _lazy_model() -> LlamaRunner:
+    """Create the model on first use and keep it in memory afterwards."""
     global _llama
     if _llama is None:
         _llama = await LlamaRunner.create()
     return _llama
 
 
-async def _stream(answer_gen):
+class ChatRequest(BaseModel):
+    prompt: str
+
+
+async def _event_stream(gen) -> AsyncGenerator[str, None]:
+    """
+    Wrap model output so each chunk is sent as an SSE 'data:' line.
+    """
     try:
-        async for chunk in answer_gen:
-            yield chunk.encode()
-            await asyncio.sleep(0)  # give event‑loop time
+        async for chunk in gen:
+            yield f"data: {chunk}\n\n"
+            await asyncio.sleep(0)           # give control back to loop
     finally:
-        await answer_gen.aclose()
+        await gen.aclose()
 
 
+# ---------------------------------------------------------------------------#
+# public routes                                                              #
+# ---------------------------------------------------------------------------#
 @router.get("/health", include_in_schema=False)
 async def health():
     return {"status": "ok"}
 
 
 @router.post("/")
-async def chat(prompt: str):
-    if not prompt.strip():
-        raise HTTPException(400, "Prompt must not be empty.")
+async def chat(req: ChatRequest):
+    """
+    Accept JSON {"prompt": "..."} and stream back the model’s answer.
+    """
+    prompt = req.prompt.strip()
+    if not prompt:
+        raise HTTPException(status_code=400, detail="Prompt must not be empty.")
+
     llama = await _lazy_model()
     answer_gen = llama.generate(f"[INST] {prompt} [/INST]\n")
-    return StreamingResponse(_stream(answer_gen),
-                             media_type="text/plain")
+
+    return StreamingResponse(
+        _event_stream(answer_gen),
+        media_type="text/event-stream",
+    )
