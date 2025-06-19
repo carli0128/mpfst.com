@@ -3,7 +3,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from sfm.backend.chat_router import router as chat_router
 from sfm.backend import data_fetchers
 from sfm.backend.synergy_monitor import compute_synergy
+from sfm.backend.meltdownFrac import compute_mfrac
+from sfm.backend.conflict import get_conflict_index
 import asyncio
+import os
+import importlib.util
+
+_DF_SPEC = importlib.util.spec_from_file_location(
+    "sfm.backend.data_fetchers_async",
+    os.path.join(os.path.dirname(__file__), "data_fetchers.py"),
+)
+data_fetch_async = importlib.util.module_from_spec(_DF_SPEC)
+_DF_SPEC.loader.exec_module(data_fetch_async)  # type: ignore
 
 app = FastAPI(
     title="MPFST Backend",
@@ -69,16 +80,22 @@ def synergy(
 async def websocket_synergy(websocket: WebSocket):
     await websocket.accept()
     try:
+        update = int(os.getenv("SFM_UPDATE_SEC", "60"))
         while True:
-            # TODO: Replace with real logic when ready
+            kp, vsw, conflict = await asyncio.gather(
+                data_fetch_async.get_geomag_kp(),
+                data_fetch_async.get_solarwind_speed(),
+                get_conflict_index(),
+            )
+            mfrac = compute_mfrac(kp, vsw, conflict)
             tick = {
-                "kp": 0,
-                "vsw": 0,
-                "meltdownFrac": 0,
-                "conflict": 0,
+                "kp": kp,
+                "vsw": vsw,
+                "meltdownFrac": mfrac,
+                "conflict": conflict,
             }
             await websocket.send_json(tick)
-            await asyncio.sleep(60)  # Once per minute (adjust as needed)
+            await asyncio.sleep(update)
     except Exception as e:
         print(f"WebSocket error: {e}")
         await websocket.close()
