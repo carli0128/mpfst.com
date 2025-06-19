@@ -1,14 +1,32 @@
 services:
+  # ——— FRONTEND (Next.js) ————————————————————————————
+  - type: web
+    name: mpfst-frontend
+    env: node
+    plan: pro
+    rootDir: .
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_SFM_WS
+        value: wss://mpfst-backend.onrender.com/ws
+      - key: NEXT_PUBLIC_CHAT_WS
+        value: wss://mpfst-backend.onrender.com/brain/ws/chat
+
+  # ——— BACKEND (Docker, FastAPI + RIL‑VM) ————————————
   - type: web
     name: mpfst-backend
     env: docker
-    plan: pro              # needs ≥2\u00a0GB RAM for Llama-2-7B-Q4
     dockerfilePath: ./sfm/backend/Dockerfile
-    dockerContext: .       # repo root so ‘sfm/’ package is copied
+    dockerContext: .
+    plan: pro
+    healthCheckPath: /version
     envVars:
+      - key: RIL_ENTROPY_BUDGET
+        value: "30000"
+      - key: SFM_UPDATE_SEC
+        value: "60"
       - key: ACLED_EMAIL
         fromEnvVar: ACLED_EMAIL
       - key: ACLED_API_TOKEN
         fromEnvVar: ACLED_API_TOKEN
-      - key: RIL_ENTROPY_BUDGET
-        value: "30000"
