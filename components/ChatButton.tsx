@@ -14,13 +14,19 @@ export default function ChatButton() {
         process.env.NEXT_PUBLIC_CHAT_WS ??
           `${window.location.origin.replace(/^http/, "ws")}/brain/ws/chat`
       );
-      ws.current.onmessage = (e) =>
-        setTurns((t) => [...t, { role: "bot", text: e.data }]);
+      ws.current.onmessage = (e) => {
+        try {
+          const { role, text } = JSON.parse(e.data);
+          setTurns((t) => [...t, { role, text }]);
+        } catch (err) {
+          console.error("invalid ws message", err);
+        }
+      };
     }
   }, []);
 
   const send = (msg: string) => {
-    ws.current?.send(msg);
+    ws.current?.send(JSON.stringify({ prompt: msg }));
     setTurns((t) => [...t, { role: "user", text: msg }]);
   };
 
