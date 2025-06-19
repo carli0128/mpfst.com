@@ -1,6 +1,6 @@
 import aiohttp
 import json
-from conflict import get_conflict_index
+from sfm.backend.conflict import get_conflict_index
 
 HEADERS = {"User-Agent": "SFM/1.0"}
 
