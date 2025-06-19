@@ -1,39 +1,49 @@
-from fastapi import FastAPI
-
+from fastapi import FastAPI, Body
+from sfm.backend.chat_router import router as chat_router
 from sfm.backend import data_fetchers
 from sfm.backend.synergy_monitor import compute_synergy
-from sfm.backend.chat_router import router as chat_router
 
-api = FastAPI(
-    title="MPFST Backend",
+# Rename to 'app' so uvicorn (and other hosts) find it by default
+app = FastAPI(
+    title="MPFST Backend",
     version="0.1.0",
-    docs_url="/",   # easier when testing on Render
+    docs_url="/",  # serve the OpenAPI UI at /
 )
 
-api.include_router(chat_router)
+# mount the /chat router
+app.include_router(chat_router)
 
 
-@api.get("/version")
+@app.get("/version")
 def version():
-    return {"version": api.version}
+    return {"version": app.version}
 
 
-# ---------- simple demo routes using the new helpers ----------
-@api.get("/market/{ticker}")
+@app.get("/market/{ticker}")
 def market(ticker: str):
     return data_fetchers.get_market(ticker)
 
 
-@api.get("/weather")
+@app.get("/weather")
 def weather(lat: float, lon: float):
     return data_fetchers.get_weather(lat, lon)
 
 
-@api.get("/news")
+@app.get("/news")
 def news(max_items: int = 5):
     return data_fetchers.get_news(max_items=max_items)
 
 
-@api.post("/synergy")
-def synergy(a: list[float], b: list[float]):
-    return compute_synergy(a, b)
+@app.post("/synergy")
+def synergy(
+    a: list[float] = Body(..., description="first numeric vector"),
+    b: list[float] = Body(..., description="second numeric vector"),
+):
+    """
+    Expects JSON body:
+    {
+      "a": [1.2, 3.4, …],
+      "b": [5.6, 7.8, …]
+    }
+    """
+    return {"synergy": compute_synergy(a, b)}
