@@ -12,6 +12,9 @@ export default function SynergyFieldMonitor() {
   }
 
   const tick = useStream(WS_URL);
+  if (!tick) {
+  return <div className="p-4 text-gray-500">Connecting to monitor…</div>;
+  }
 
   return (
     <div className="text-white space-y-2">
