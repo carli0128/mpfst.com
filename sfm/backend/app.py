@@ -19,8 +19,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount the /chat router
-app.include_router(chat_router)
+# Mount the chat router under /brain/ws
+app.include_router(chat_router, prefix="/brain/ws")
 
 # ------------------------------------------
 # REST API ROUTES
