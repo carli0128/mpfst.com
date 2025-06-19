@@ -41,4 +41,5 @@ RUN [ -x "$RIL_VM_BIN" ] || \
 # 5 · Health‑check & launch                       │
 # ────────────────────────────────────────────────
 HEALTHCHECK CMD curl -f http://localhost:8000/version || exit 1
-CMD ["uvicorn", "sfm.backend.app:api", "--host", "0.0.0.0", "--port", "8000"]
+EXPOSE 8000
+CMD ["sh", "-c", "uvicorn sfm.backend.app:app --host 0.0.0.0 --port ${PORT:-8000}"]
