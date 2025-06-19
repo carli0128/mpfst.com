@@ -18,7 +18,7 @@ from pydantic import BaseModel
 from sfm.backend.brain.llama_runner import LlamaRunner
 
 
-router = APIRouter(prefix="/chat", tags=["chat"])
+router = APIRouter(tags=["chat"])
 
 # ---------------------------------------------------------------------------#
 # helpers                                                                    #
