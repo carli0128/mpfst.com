@@ -5,3 +5,4 @@ node_modules
 tsconfig.tsbuildinfo
 newkey
 newkey.pub
+__pycache__/
