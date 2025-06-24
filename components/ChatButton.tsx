@@ -19,7 +19,7 @@ export default function ChatButton() {
     };
 
     source.onerror = () => {
-      console.error("Chat SSE connection closed");
+      console.warn("Chat SSE connection closed");
       source.close();
     };
 
@@ -29,16 +29,20 @@ export default function ChatButton() {
   }, []);
 
   // 2) Sending is now a simple POST to /chat
-  const send = (msg: string) => {
+  const send = async (msg: string) => {
     // Show user's message immediately
     setTurns((t) => [...t, { role: "user", text: msg }]);
 
     // POST the prompt JSON to the same endpoint
-    fetch(process.env.NEXT_PUBLIC_CHAT_SSE!, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: msg }),
-    }).catch((err) => console.error("Failed to send prompt:", err));
+    try {
+      await fetch(process.env.NEXT_PUBLIC_CHAT_SSE!, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: msg }),
+      });
+    } catch (err) {
+      console.error("Failed to send prompt:", err);
+    }
   };
 
   return (
@@ -47,7 +51,7 @@ export default function ChatButton() {
         className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded"
         onClick={() => setOpen((o) => !o)}
       >
-        🧠 Chat
+        <span role="text">🧠 Chat</span>
       </button>
 
       {open && (

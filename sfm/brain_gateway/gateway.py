@@ -3,7 +3,7 @@ import asyncio, subprocess, os, json, time, uuid
 
 router = APIRouter()
 
-VM_BIN = os.getenv("RIL_VM_BIN", "/app/brain/rilvm")
+VM_BIN = os.getenv("RIL_VM_BIN", "/app/brain/bin/rilvm")
 ENTROPY = int(os.getenv("RIL_ENTROPY_BUDGET", 30000))
 
 async def spawn_vm():
