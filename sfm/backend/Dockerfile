@@ -53,6 +53,9 @@ RUN set -eux; \
     fi; \
     bash brain/setup_model.sh
 
+# Return to project root so Python can resolve the `sfm` package
+WORKDIR /app
+
 # ────────────────────────────────────────────────
 # 5 · Health‑check & launch
 # ────────────────────────────────────────────────
