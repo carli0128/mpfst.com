@@ -37,16 +37,17 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Si tu árbol contiene brain/, ya está copiado.
-ENV  RIL_VM_BIN=/app/brain/bin/rilvm
+ENV  RIL_VM_BIN=/app/sfm/backend/brain/bin/rilvm
 
 # ────────────────────────────────────────────────
 # 4 · Download / prepare RIL‑VM + modelo
 # ────────────────────────────────────────────────
-RUN [ -x "$RIL_VM_BIN" ] || ( \
+RUN mkdir -p "$(dirname \"$RIL_VM_BIN\")" \
+ && [ -x "$RIL_VM_BIN" ] || ( \
       curl -L --retry 5 -o "$RIL_VM_BIN" \
            https://github.com/your-org/kaicore/releases/download/v7.0.0/rilvm-linux-x86_64 \
       && chmod +x "$RIL_VM_BIN") \
- && bash /app/brain/setup_model.sh
+ && bash /app/sfm/backend/brain/setup_model.sh
 
 # ────────────────────────────────────────────────
 # 5 · Health‑check & launch
