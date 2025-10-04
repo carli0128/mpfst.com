@@ -1,78 +1,60 @@
+"use client";
+
 import * as React from "react";
+import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { cn } from "@/lib/utils";
 
-interface TabsContextValue {
-  value: string;
-  onChange: (newValue: string) => void;
-}
+export const Tabs = TabsPrimitive.Root;
 
-const TabsContext = React.createContext<TabsContextValue | undefined>(undefined);
+/** 
+ * TabsList: mobile-safe single row with horizontal swipe.
+ * - No width tricks or negative margins here; it contains its own overflow.
+ */
+export const TabsList = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.List>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.List
+    ref={ref}
+    className={cn(
+      "flex items-center gap-2 w-full max-w-full overflow-x-auto whitespace-nowrap no-scrollbar",
+      "md:overflow-visible md:whitespace-normal",
+      className
+    )}
+    {...props}
+  />
+));
+TabsList.displayName = TabsPrimitive.List.displayName;
 
-interface TabsProps {
-  defaultValue: string;
-  children: React.ReactNode;
-  className?: string;
-}
+/**
+ * TabsTrigger: prevent wrapping/shrinking on phones, 
+ * merge caller classes so existing visual theme remains.
+ */
+export const TabsTrigger = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Trigger
+    ref={ref}
+    className={cn(
+      "shrink-0 whitespace-nowrap px-3 py-2 text-xs md:text-sm",
+      className
+    )}
+    {...props}
+  />
+));
+TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
-export function Tabs({ defaultValue, children, className }: TabsProps) {
-  const [value, setValue] = React.useState(defaultValue);
+export const TabsContent = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
+>(({ className, ...props }, ref) => (
+  <TabsPrimitive.Content
+    ref={ref}
+    className={cn("mt-2 focus-visible:outline-none", className)}
+    {...props}
+  />
+));
+TabsContent.displayName = TabsPrimitive.Content.displayName;
 
-  return (
-    <TabsContext.Provider value={{ value, onChange: setValue }}>
-      <div className={className}>{children}</div>
-    </TabsContext.Provider>
-  );
-}
-
-interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function TabsList({ children, className, ...props }: TabsListProps) {
-  return (
-    <div
-      className={`flex flex-nowrap space-x-2 border-b border-gray-700 ${className}`}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-}
-
-interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  value: string;
-}
-
-export function TabsTrigger({ value, children, className = "", ...props }: TabsTriggerProps) {
-  const context = React.useContext(TabsContext);
-  if (!context) {
-    throw new Error("TabsTrigger must be used within a <Tabs> component.");
-  }
-  const isActive = context.value === value;
-
-  return (
-    <button
-      onClick={() => context.onChange(value)}
-      {...props}
-      className={`shrink-0 whitespace-nowrap px-4 py-2 -mb-px border-b-2 ${
-        isActive ? "border-blue-500 text-blue-400" : "border-transparent"
-      } ${className}`}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
-
-interface TabsContentProps extends React.HTMLAttributes<HTMLDivElement> {
-  value: string;
-}
-
-export function TabsContent({ value, children, ...props }: TabsContentProps) {
-  const context = React.useContext(TabsContext);
-  if (!context) {
-    throw new Error("TabsContent must be used within a <Tabs> component.");
-  }
-  if (context.value !== value) {
-    return null;
-  }
-
-  return <div {...props}>{children}</div>;
-}
+export {};
