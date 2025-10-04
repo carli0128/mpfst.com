@@ -1,17 +1,17 @@
-/* --------- Global mobile polish specific to tabs/tables (minimal) --------- */
+/* ---- Minimal mobile fixes for tab strip & tables (no other changes) ---- */
 
-/* Ensure the page background is black even if child elements extend beyond a container */
+/* Force page background to black and avoid page-wide horizontal scroll */
 html, body {
   background-color: #000;
-  overflow-x: hidden; /* prevent page-wide sideways scroll; inner containers can still scroll */
+  overflow-x: hidden;
   color-scheme: dark;
 }
 
-/* hide scrollbar but keep swipe on horizontal containers (e.g., TabsList) */
+/* Keep horizontal swipe containers (e.g., TabsList) clean */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Tables: keep words intact; scrolling happens inside their wrapper */
+/* Tables: keep words intact; horizontal scroll handled by wrappers you already added */
 table.mpfst-table th,
 table.mpfst-table td {
   word-break: normal;
@@ -19,8 +19,5 @@ table.mpfst-table td {
   overflow-wrap: normal;
 }
 
-/* Code/URLs: wrap safely on small screens */
-pre, code {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
+/* Long code/URLs wrap safely on small screens */
+pre, code { white-space: pre-wrap; overflow-wrap: anywhere; }
