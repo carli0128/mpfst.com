@@ -53,14 +53,16 @@ export default function MPFSTWebsite() {
 
       {/* TABS */}
       <Tabs defaultValue="overview" className="max-w-5xl mx-auto">
-        <TabsList className="grid grid-cols-6 mb-6">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="predictions">Predictions</TabsTrigger>
-          <TabsTrigger value="validations">Validations</TabsTrigger>
-          <TabsTrigger value="manuscript">Manuscript</TabsTrigger>
-          <TabsTrigger value="sfm">Synergy Field Monitor</TabsTrigger>
-          <TabsTrigger value="initiation">Access</TabsTrigger>
+        <div className="relative -mx-4 px-4">
+          <TabsList className="min-w-max flex gap-2 overflow-x-auto no-scrollbar whitespace-nowrap md:whitespace-normal mb-6">
+          <TabsTrigger className="shrink-0 px-3 py-2 text-xs md:text-sm whitespace-nowrap" value="overview">Overview</TabsTrigger>
+          <TabsTrigger className="shrink-0 px-3 py-2 text-xs md:text-sm whitespace-nowrap" value="predictions">Predictions</TabsTrigger>
+          <TabsTrigger className="shrink-0 px-3 py-2 text-xs md:text-sm whitespace-nowrap" value="validations">Validations</TabsTrigger>
+          <TabsTrigger className="shrink-0 px-3 py-2 text-xs md:text-sm whitespace-nowrap" value="manuscript">Manuscript</TabsTrigger>
+          <TabsTrigger className="shrink-0 px-3 py-2 text-xs md:text-sm whitespace-nowrap" value="sfm">Synergy Field Monitor</TabsTrigger>
+          <TabsTrigger className="shrink-0 px-3 py-2 text-xs md:text-sm whitespace-nowrap" value="initiation">Access</TabsTrigger>
         </TabsList>
+        </div>
 
         {/* OVERVIEW */}
         <TabsContent value="overview">
@@ -82,7 +84,7 @@ export default function MPFSTWebsite() {
                 <hr />
 
                 <h3 className="text-xl font-semibold">Three stacks (the “tri‑plano” lattice)</h3>
-                <div className="w-full overflow-x-auto -mx-2 sm:mx-0"><table className="mpfst-table min-w-[640px] table-auto w-full border-collapse border border-gray-600 text-sm">
+                <table className="table-auto w-full border-collapse border border-gray-600 text-sm">
                   <thead>
                     <tr>
                       <th className="border px-3 py-2">Planes</th>
@@ -111,7 +113,7 @@ export default function MPFSTWebsite() {
                       <td className="border px-3 py-2">Clarity/noise routing &amp; supply of pure coherence</td>
                     </tr>
                   </tbody>
-                </table></div>
+                </table>
 
                 <p className="text-sm text-gray-400">
                   Energy &amp; information migrate <em>downward</em> (11→10→4–8→0–3); whatever order appears, heat/entropy flows back via <code>h</code>.
@@ -135,7 +137,7 @@ export default function MPFSTWebsite() {
                 </ul>
 
                 <h3 className="text-xl font-semibold">Five empirical pillars — one reading</h3>
-                <div className="w-full overflow-x-auto -mx-2 sm:mx-0"><table className="mpfst-table min-w-[640px] table-auto w-full border-collapse border border-gray-600 text-sm">
+                <table className="table-auto w-full border-collapse border border-gray-600 text-sm">
                   <thead>
                     <tr>
                       <th className="border px-3 py-2">Pillar</th>
@@ -170,7 +172,7 @@ export default function MPFSTWebsite() {
                       <td className="border px-3 py-2">Spin‑2 lattice phonon = GR graviton in weak‑field; high‑mel damps over‑tones</td>
                     </tr>
                   </tbody>
-                </table></div>
+                </table>
 
                 <p className="text-gray-300">
                   Full derivations and parameter table are in the v3 manuscript (download in the <em>Manuscript</em> tab).
@@ -234,7 +236,7 @@ export default function MPFSTWebsite() {
             <CardContent className="p-6 space-y-4">
               <h2 className="text-2xl font-semibold">Evidence Set &amp; Datasets</h2>
               <p className="text-gray-300">Public datasets spanning geophysics, neuroscience, RNG, and gravitational waves mapped onto one parameter set.</p>
-              <div className="w-full overflow-x-auto -mx-2 sm:mx-0"><table className="mpfst-table min-w-[640px] table-auto w-full border-collapse border border-gray-600 text-sm">
+              <table className="table-auto w-full border-collapse border border-gray-600 text-sm">
                 <thead>
                   <tr>
                     <th className="border px-3 py-2">#</th>
@@ -255,7 +257,7 @@ export default function MPFSTWebsite() {
                   <tr><td className="border px-3 py-2">9</td><td className="border px-3 py-2">Schumann resonance monitors</td><td className="border px-3 py-2">Global EM</td><td className="border px-3 py-2">Occupant–planet resonance</td></tr>
                   <tr><td className="border px-3 py-2">10</td><td className="border px-3 py-2">JET tokamak edge flicker</td><td className="border px-3 py-2">Plasma</td><td className="border px-3 py-2">Synergy sabotage timescales</td></tr>
                 </tbody>
-              </table></div>
+              </table>
             </CardContent>
           </Card>
 </TabsContent>
@@ -273,7 +275,7 @@ export default function MPFSTWebsite() {
                 <div className="p-4 border border-gray-700 rounded-lg">
                   <h3 className="text-xl font-bold">MPFST — v3 (Aug 2025)</h3>
                   <p className="text-sm text-gray-300">“From an 11‑D Lattice Action to 4‑D Einstein–Maxwell–Schrödinger.”</p>
-                  <a className="inline-flex mt-3 items-center px-4 py-2 border border-emerald-500 rounded hover:bg-emerald-600/10 whitespace-nowrap"
+                  <a className="inline-flex mt-3 items-center px-4 py-2 border border-emerald-500 rounded hover:bg-emerald-600/10"
                      href="/MPFST_v3.pdf" target="_blank" rel="noopener">
                     <Download className="w-4 h-4 mr-2" /> Download v3 (PDF)
                   </a>
@@ -281,7 +283,7 @@ export default function MPFSTWebsite() {
                 <div className="p-4 border border-gray-700 rounded-lg">
                   <h3 className="text-xl font-bold">MPFST — legacy (v1/v2)</h3>
                   <p className="text-sm text-gray-300">Original public manuscript kept for archival reference.</p>
-                  <a className="inline-flex mt-3 items-center px-4 py-2 border border-gray-500 rounded hover:bg-gray-600/10 whitespace-nowrap"
+                  <a className="inline-flex mt-3 items-center px-4 py-2 border border-gray-500 rounded hover:bg-gray-600/10"
                      href="/MPFST_PUBLICATION_MANUSCRIPT-10.pdf" target="_blank" rel="noopener">
                     <Download className="w-4 h-4 mr-2" /> Download legacy (PDF)
                   </a>
