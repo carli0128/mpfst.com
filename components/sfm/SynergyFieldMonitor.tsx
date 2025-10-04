@@ -4,7 +4,7 @@ import { useStream } from "./hooks";
 
 const WS_URL = process.env.NEXT_PUBLIC_SFM_WS;
 
-export default function SintergicFieldMonitor() {
+export default function SynergyFieldMonitor() {
   if (!WS_URL) {
     return (
       <div className="bg-red-700 text-white p-2">NEXT_PUBLIC_SFM_WS not set</div>
@@ -18,7 +18,7 @@ export default function SintergicFieldMonitor() {
 
   return (
     <div className="text-white space-y-2">
-      <h3 className="text-xl font-semibold">Sintergic Field Monitor – Live</h3>
+      <h3 className="text-xl font-semibold">Synergy Field Monitor – Live</h3>
       {!tick ? (
         <p>Connecting to backend…</p>
       ) : (
