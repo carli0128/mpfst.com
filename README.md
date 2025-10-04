@@ -1,19 +1,15 @@
-# MPFST drop‑in (component + CSS tweaks)
+# MPFST isolatedModules fix (drop‑in)
 
 This ZIP contains:
-- `components/MPFSTWebsite.tsx` — corrected JSX (responsive tables, no stray closing tags).
-- `styles/_mpfst-mobile-fixes.css` — optional CSS guards for mobile overflow.
+- `components/MPFSTWebsite.tsx` — **Client Component** with imports + `export {}` to satisfy `--isolatedModules`.
+- `styles/_mpfst-mobile-fixes.css` — optional CSS helpers to prevent horizontal overflow on phones.
 
 ## How to use
-1. **Copy** `components/MPFSTWebsite.tsx` into your repo at the same path, replacing the old file.
-2. EITHER:
-   - Do nothing else — the component already injects minimal global CSS via `styled-jsx`.
-   - OR, for extra safety, **also** copy `styles/_mpfst-mobile-fixes.css` and import it in `pages/_app.tsx`:
+1. Copy `components/MPFSTWebsite.tsx` into your repo (same path), replacing the current file.
+2. (Optional) Copy `styles/_mpfst-mobile-fixes.css` and import it from `pages/_app.tsx`:
 
 ```ts
-// pages/_app.tsx
-import "@/styles/globals.css";
-import "@/styles/_mpfst-mobile-fixes.css"; // add this line
+import "@/styles/_mpfst-mobile-fixes.css";
 ```
 
-No other changes are required.
+No other changes are required. Build should succeed on Next.js 15.x with TypeScript `isolatedModules: true`.
