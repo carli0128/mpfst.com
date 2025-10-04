@@ -1,13 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* --------- Global mobile polish specific to tabs/tables (minimal) --------- */
 
-/* Mobile polish for tables & code */
+/* Ensure the page background is black even if child elements extend beyond a container */
+html, body {
+  background-color: #000;
+  overflow-x: hidden; /* prevent page-wide sideways scroll; inner containers can still scroll */
+  color-scheme: dark;
+}
+
+/* hide scrollbar but keep swipe on horizontal containers (e.g., TabsList) */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Tables: keep words intact; let wrapper handle horizontal scroll */
-table { max-width: 100%; border-collapse: collapse; }
+/* Tables: keep words intact; scrolling happens inside their wrapper */
 table.mpfst-table th,
 table.mpfst-table td {
   word-break: normal;
@@ -16,4 +20,7 @@ table.mpfst-table td {
 }
 
 /* Code/URLs: wrap safely on small screens */
-pre, code { white-space: pre-wrap; overflow-wrap: anywhere; }
+pre, code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
