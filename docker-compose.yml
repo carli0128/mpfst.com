@@ -21,7 +21,7 @@ services:
     depends_on:
       - backend
     ports:
-      - "3000:3000"
+      - "8000:8000"
     environment:
       - NEXT_PUBLIC_SFM_WS=ws://localhost:8000/ws
       - NEXT_PUBLIC_CHAT_WS=ws://localhost:8000/brain/ws/chat

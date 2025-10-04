@@ -1,3 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+/* === MPFST mobile tabs hotfix (surgical; keeps original design) === */
+/* On phones, make the tab strip a single-row, horizontally scrollable flex row.
+   We scope to the central layout container to avoid touching other components. */
+@media (max-width: 640px) {
+  .max-w-5xl [role="tablist"] {
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    -ms-overflow-style: none;     /* IE/Edge */
+    scrollbar-width: none;        /* Firefox */
+    padding-bottom: 0.25rem;      /* room for underline */
+  }
+  .max-w-5xl [role="tablist"]::-webkit-scrollbar { display: none; } /* WebKit */
+
+  /* Individual tabs: do not wrap or shrink; preserve underline visuals */
+  .max-w-5xl [role="tablist"] > [role="tab"] {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+}

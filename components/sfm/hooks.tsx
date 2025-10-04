@@ -7,14 +7,26 @@ export interface Tick {
   conflict: number;
 }
 
-export function useStream(endpoint?: string) {
+export function useStream(endpoint?: string): Tick | null {
   const [tick, setTick] = useState<Tick | null>(null);
 
   useEffect(() => {
     if (!endpoint) return;
+
     const ws = new WebSocket(endpoint);
-    ws.onmessage = (ev) => setTick(JSON.parse(ev.data));
-    return () => ws.close();
+
+    ws.onmessage = (ev: MessageEvent) => {
+      try {
+        const data = JSON.parse(ev.data) as Tick;
+        setTick(data);
+      } catch (err) {
+        console.error("useStream parse error", err);
+      }
+    };
+
+    ws.onerror = (err) => console.error("WebSocket error", err);
+
+    return () => { ws.close(); };
   }, [endpoint]);
 
   return tick;
