@@ -1,23 +1,23 @@
-/* ---- Minimal mobile fixes for tab strip & tables (no other changes) ---- */
 
-/* Force page background to black and avoid page-wide horizontal scroll */
-html, body {
-  background-color: #000;
-  overflow-x: hidden;
-  color-scheme: dark;
+/* === MPFST mobile tabs hotfix (surgical; keeps original design) === */
+/* On phones, make the tab strip a single-row, horizontally scrollable flex row.
+   We scope to the central layout container to avoid touching other components. */
+@media (max-width: 640px) {
+  .max-w-5xl [role="tablist"] {
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    -ms-overflow-style: none;     /* IE/Edge */
+    scrollbar-width: none;        /* Firefox */
+    padding-bottom: 0.25rem;      /* room for underline */
+  }
+  .max-w-5xl [role="tablist"]::-webkit-scrollbar { display: none; } /* WebKit */
+
+  /* Individual tabs: do not wrap or shrink; preserve underline visuals */
+  .max-w-5xl [role="tablist"] > [role="tab"] {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
 }
-
-/* Keep horizontal swipe containers (e.g., TabsList) clean */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* Tables: keep words intact; horizontal scroll handled by wrappers you already added */
-table.mpfst-table th,
-table.mpfst-table td {
-  word-break: normal;
-  white-space: normal;
-  overflow-wrap: normal;
-}
-
-/* Long code/URLs wrap safely on small screens */
-pre, code { white-space: pre-wrap; overflow-wrap: anywhere; }
