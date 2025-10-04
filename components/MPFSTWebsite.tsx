@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import SintergicFieldMonitor from "@/components/sfm/SintergicFieldMonitor";
+import SynergyFieldMonitor from "@/components/sfm/SynergyFieldMonitor";
 import { Input } from "@/components/ui/input";
 import MotionDiv from "@/components/ui/MotionDiv";
 import {
@@ -43,7 +43,7 @@ export default function MPFSTWebsite() {
           transition={{ duration: 1 }}
         >
           <h1 className="text-5xl font-bold tracking-wide">MPFST</h1>
-          <p className="text-lg text-gray-400">Multi-Plane Field Sintergic Theory</p>
+          <p className="text-lg text-gray-400">Multi-Plane Field Synergy Theory</p>
         </MotionDiv>
 
         <MotionDiv
@@ -61,14 +61,14 @@ export default function MPFSTWebsite() {
 
       {/* TABS */}
       <Tabs defaultValue="overview" className="max-w-5xl mx-auto">
-        <div className="relative -mx-4 px-4"><TabsList className="flex gap-2 w-full overflow-x-auto whitespace-nowrap no-scrollbar md:grid md:grid-cols-6 md:overflow-visible md:whitespace-normal mb-6">
-          <TabsTrigger className="shrink-0 text-xs md:text-sm px-3 py-2" value="overview">Overview</TabsTrigger>
-          <TabsTrigger className="shrink-0 text-xs md:text-sm px-3 py-2" value="predictions">Predictions</TabsTrigger>
-          <TabsTrigger className="shrink-0 text-xs md:text-sm px-3 py-2" value="validations">Validations</TabsTrigger>
-          <TabsTrigger className="shrink-0 text-xs md:text-sm px-3 py-2" value="manuscript">Manuscript</TabsTrigger>
-          <TabsTrigger className="shrink-0 text-xs md:text-sm px-3 py-2" value="sfm">Sintergic Field</TabsTrigger>
-          <TabsTrigger className="shrink-0 text-xs md:text-sm px-3 py-2" value="initiation">Access</TabsTrigger>
-        </TabsList></div>
+        <TabsList className="flex gap-2 w-full overflow-x-auto whitespace-nowrap no-scrollbar md:grid md:grid-cols-6 md:overflow-visible md:whitespace-normal mb-6">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="predictions">Predictions</TabsTrigger>
+          <TabsTrigger value="validations">Validations</TabsTrigger>
+          <TabsTrigger value="manuscript">Manuscript</TabsTrigger>
+          <TabsTrigger value="sfm">Synergy Field</TabsTrigger>
+          <TabsTrigger value="initiation">Access</TabsTrigger>
+        </TabsList>
 
         {/* OVERVIEW */}
         <TabsContent value="overview">
@@ -76,7 +76,7 @@ export default function MPFSTWebsite() {
             <CardContent className="p-6 space-y-4">
               <h2 className="text-xl sm:text-2xl font-semibold">Overview</h2>
               <section className="space-y-8 text-white">
-                <h2 className="text-2xl sm:text-3xl font-bold">MULTI‑PLANE FIELD SINTERGIC THEORY</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold">MULTI‑PLANE FIELD SYNERGY THEORY</h2>
                 <p className="italic">A concise primer for first‑time visitors</p>
 
                 <hr />
@@ -365,7 +365,7 @@ export default function MPFSTWebsite() {
                 </p>
                 <div className="overflow-x-auto">
                   <div className="w-full overflow-x-auto -mx-2 sm:mx-0 bg-gray-900">
-                    <table className="mpfst-table min-w-[640px] table-auto w-full border-collapse border border-gray-600 text-xs sm:text-sm whitespace-normal break-words">
+                    <table className="mpfst-table min-w-[640px] table-auto w-full border-collapse border border-gray-600 text-xs sm:text-sm">
                       <thead>
                         <tr>
                           <th className="border px-2 py-1">#</th>
@@ -411,16 +411,18 @@ export default function MPFSTWebsite() {
           </Card>
         </TabsContent>
 
-        
-{/* MANUSCRIPT */}
+        {
+/* MANUSCRIPT */}
         <TabsContent value="manuscript">
           <Card className="bg-gray-900">
             <CardContent className="p-6 text-center space-y-6">
               <h2 className="text-xl sm:text-2xl font-semibold flex justify-center items-center gap-2">
                 <Download className="w-5 h-5" />
-                MPFST Manuscripts
+                MPFST Manuscript
               </h2>
-              <p className="text-gray-300">Download the current and legacy versions:</p>
+              <p className="text-gray-300">
+                Download the current v3 manuscript, or browse the legacy public version.
+              </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <a
                   href="MPFST_v3.pdf"
@@ -436,22 +438,24 @@ export default function MPFSTWebsite() {
                   className="inline-flex items-center gap-2 px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800 whitespace-nowrap"
                 >
                   <Download className="w-5 h-5" />
-                  Download v1 (legacy)
+                  Legacy v1 (public)
                 </a>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
-{/* SINTERGIC FIELD MONITOR */}
+
+
+        {/* SINTERGIC FIELD MONITOR */}
         <TabsContent value="sfm">
           <Card className="bg-gray-900">
             <CardContent className="p-6 space-y-4">
               <h2 className="text-xl sm:text-2xl font-semibold flex items-center gap-2">
                 <CalendarCheck className="w-5 h-5" />
-                Sintergic Field Monitor
+                Synergy Field Monitor
               </h2>
               <div className="flex justify-center">
-                <SintergicFieldMonitor />
+                <SynergyFieldMonitor />
               </div>
             </CardContent>
           </Card>
@@ -503,9 +507,8 @@ export default function MPFSTWebsite() {
       {/* mobile polish as global CSS (styled-jsx) */}
       <style jsx global>{`
         /* prevent long tokens from forcing sideways scroll on phones */
-        table.mpfst-table th,
-        table.mpfst-table td { word-break: normal; white-space: normal; overflow-wrap: normal; }
-        pre, code { white-space: pre-wrap; overflow-wrap: anywhere; }
+        table, th, td { word-break: break-word; }
+        pre, code { white-space: pre-wrap; word-break: break-word; }
       `}</style>
     </div>
   );
