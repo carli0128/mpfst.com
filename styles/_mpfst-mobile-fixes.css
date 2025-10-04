@@ -1,17 +1,5 @@
-/* MPFST mobile polish (only if you want external CSS, otherwise inline styled-jsx is enough) */
+/* Optional mobile fixes (import in pages/_app.tsx if desired) */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* SAFARI/iOS: don't break words mid-letter in tables */
-table.mpfst-table th,
-table.mpfst-table td {
-  word-break: normal;
-  white-space: normal;
-  overflow-wrap: normal;
-}
-
-/* Allow long code/URLs to wrap without forcing sideways scroll */
-pre, code {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
+table, th, td { word-break: break-word; }
+pre, code { white-space: pre-wrap; word-break: break-word; }

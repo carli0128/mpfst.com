@@ -6,8 +6,16 @@
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Prevent overflow on small screens */
-table { word-break: break-word; }
-th, td { word-break: break-word; }
+/* Keep pages from horizontally scrolling; let wide tables scroll in their wrappers */
+html, body { overflow-x: hidden; }
 
-pre, code { white-space: pre-wrap; word-break: break-word; }
+/* Safer defaults: avoid mid-letter breaks inside table cells on iOS Safari */
+table { max-width: 100%; border-collapse: collapse; }
+th, td { word-break: normal; white-space: normal; overflow-wrap: normal; }
+
+/* Scoped class for our docs tables */
+table.mpfst-table th, 
+table.mpfst-table td { word-break: normal; white-space: normal; overflow-wrap: normal; }
+
+/* Long tokens in code/inline code should wrap without forcing horizontal scroll */
+pre, code { white-space: pre-wrap; overflow-wrap: anywhere; }
