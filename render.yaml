@@ -1,0 +1,40 @@
+services:
+  # ——— FRONTEND (Next.js) ————————————————————————————
+  - type: web
+    name: mpfst-frontend
+    env: node
+    plan: pro
+    rootDir: .
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      # WebSocket URL for your Field‐Synergy monitor hook
+      - key: NEXT_PUBLIC_SFM_WS
+        value: wss://mpfst-backend.onrender.com/ws
+
+      # SSE URL for your Chat UI (must match ChatButton.tsx)
+      - key: NEXT_PUBLIC_CHAT_SSE
+        value: https://mpfst-backend.onrender.com/chat
+
+  # ——— BACKEND (Docker, FastAPI + RIL-VM) ————————————
+  - type: web
+    name: mpfst-backend
+    env: docker
+    plan: pro
+    dockerfilePath: ./sfm/backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /version
+    envVars:
+      # How often (in seconds) to push synergy updates over WS
+      - key: SFM_UPDATE_SEC
+        value: "60"
+
+      # RIL-VM entropy budget; keep as you had it
+      - key: RIL_ENTROPY_BUDGET
+        value: "30000"
+
+      # Your ACLED credentials, forwarded from Render’s account settings
+      - key: ACLED_EMAIL
+        fromEnvVar: ACLED_EMAIL
+      - key: ACLED_API_TOKEN
+        fromEnvVar: ACLED_API_TOKEN

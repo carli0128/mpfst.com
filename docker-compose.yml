@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  backend:
+    build:
+      context: ./sfm/backend
+      args:
+        SFM_SHA: ${SFM_SHA:-dev}
+    environment:
+      - RIL_ENTROPY_BUDGET=${RIL_ENTROPY_BUDGET:-30000}
+      - ACLED_EMAIL=${ACLED_EMAIL:-}
+      - ACLED_API_TOKEN=${ACLED_API_TOKEN:-}
+    ports:
+      - "8000:8000"
+  mpfst:
+    build:
+      context: .
+      args:
+        SFM_WS: ws://localhost:8000/ws  # override with SFM_WS=ws://host/ws
+        SFM_SHA: ${SFM_SHA:-dev}
+        SFM_CHAT: ws://localhost:8000/brain/ws/chat
+    depends_on:
+      - backend
+    ports:
+      - "8000:8000"
+    environment:
+      - NEXT_PUBLIC_SFM_WS=ws://localhost:8000/ws
+      - NEXT_PUBLIC_CHAT_WS=ws://localhost:8000/brain/ws/chat
+      - SFM_SHA=${SFM_SHA:-dev}
