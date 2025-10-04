@@ -28,7 +28,7 @@ interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
 export function TabsList({ children, className, ...props }: TabsListProps) {
   return (
     <div
-      className={`flex space-x-2 border-b border-gray-700 ${className}`}
+      className={`flex flex-nowrap space-x-2 border-b border-gray-700 ${className}`}
       {...props}
     >
       {children}
@@ -40,7 +40,7 @@ interface TabsTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
   value: string;
 }
 
-export function TabsTrigger({ value, children, ...props }: TabsTriggerProps) {
+export function TabsTrigger({ value, children, className = "", ...props }: TabsTriggerProps) {
   const context = React.useContext(TabsContext);
   if (!context) {
     throw new Error("TabsTrigger must be used within a <Tabs> component.");
@@ -50,9 +50,10 @@ export function TabsTrigger({ value, children, ...props }: TabsTriggerProps) {
   return (
     <button
       onClick={() => context.onChange(value)}
-      className={`px-4 py-2 -mb-px border-b-2 ${
+      {...props}
+      className={`shrink-0 whitespace-nowrap px-4 py-2 -mb-px border-b-2 ${
         isActive ? "border-blue-500 text-blue-400" : "border-transparent"
-      }`}
+      } ${className}`}
       {...props}
     >
       {children}
