@@ -1,25 +1,28 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@/lib/utils";
 
 /**
  * Minimal, dependency-free Tabs implementation compatible with the API used by the site.
- * It preserves your markup: <Tabs defaultValue="..."><TabsList>...<TabsTrigger value="x" />...
- * and <TabsContent value="x" />. No external libraries required.
+ * Preserves: <Tabs defaultValue="..."><TabsList>...<TabsTrigger value="x" />...<TabsContent value="x" />.
+ * Adds only mobile behavior: the tab bar becomes a single-row, swipeable container on phones.
  */
 
-type Ctx = {
+// Local utility to merge class names (no external deps)
+function cn(...parts: Array<string | false | null | undefined>) {
+  return parts.filter(Boolean).join(" ");
+}
+
+type TabsCtx = {
   value: string;
   setValue: (v: string) => void;
   idBase: string;
 };
 
-const TabsCtx = React.createContext<Ctx | null>(null);
-
-function useTabsCtx(): Ctx {
-  const ctx = React.useContext(TabsCtx);
-  if (!ctx) throw new Error("Tabs.* must be used inside <Tabs> root");
+const Ctx = React.createContext<TabsCtx | null>(null);
+function useTabsCtx(): TabsCtx {
+  const ctx = React.useContext(Ctx);
+  if (!ctx) throw new Error("Tabs components must be used inside <Tabs>");
   return ctx;
 }
 
@@ -52,10 +55,10 @@ export const Tabs: React.FC<TabsProps> = ({
 
   return (
     <div className={className} {...rest}>
-      <TabsCtx.Provider value={{ value: current, setValue, idBase }}>
+      <Ctx.Provider value={{ value: current, setValue, idBase }}>
         {children}
-      </TabsCtx.Provider>
-      {/* Tiny global helper so the tab bar can swipe without showing a scrollbar */}
+      </Ctx.Provider>
+      {/* Keep the scrollbar hidden while preserving horizontal swipe */}
       <style jsx global>{`
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -108,6 +111,7 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
         aria-controls={panelId}
         data-state={isActive ? "active" : "inactive"}
         className={cn(
+          // Prevent label wrapping and shrinking on small screens
           "shrink-0 whitespace-nowrap px-3 py-2 text-xs md:text-sm",
           className
         )}
@@ -152,5 +156,5 @@ export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
 );
 TabsContent.displayName = "TabsContent";
 
-// Keep TS happy with --isolatedModules
+// Satisfy --isolatedModules
 export {};
