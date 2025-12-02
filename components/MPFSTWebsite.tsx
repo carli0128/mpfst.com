@@ -140,6 +140,16 @@ const articles: Article[] = [
     blurb:
       "Updated manuscript reflecting later refinements and clarifications. Kept here as an archival, citable packaging of the evolving theory.",
   },
+  {
+    id: "qft-bridge",
+    category: "Manuscripts",
+    title: "MPFST Mapped to Quantum Field Theory (working notes)",
+    pdfPath: "/MPFST-Mapped-to-QFT.pdf",
+    year: "2025",
+    blurb:
+      "Bridge document translating the 11‑D MPFST lattice into standard QFT language: plane‑by‑plane dictionary, measurement model via fractional gates, and a proposed (still open) Standard Model embedding.",
+    highlight: "QFT bridge for field theorists.",
+  },
 ];
 
 const categoryOrder: ArticleCategory[] = [
@@ -224,6 +234,7 @@ export default function MPFSTWebsite() {
           <TabsList className="flex flex-wrap gap-2 border-b border-slate-700 pb-2 mb-6">
             <TabsTrigger value="overview">Journal Overview</TabsTrigger>
             <TabsTrigger value="theory">Core Theory</TabsTrigger>
+            <TabsTrigger value="qft">QFT Bridge</TabsTrigger>
             <TabsTrigger value="avalanche">Avalanche Mechanism & Toolkit</TabsTrigger>
             <TabsTrigger value="evidence">Empirical Evidence</TabsTrigger>
             <TabsTrigger value="archive">Papers & Archive</TabsTrigger>
@@ -317,6 +328,18 @@ export default function MPFSTWebsite() {
                     </ul>
                   </div>
                 </section>
+                <div className="rounded-lg border border-slate-700 bg-slate-950/60 p-4 text-sm text-slate-300">
+                  Prefer a field-theory dictionary first? The working notes
+                  <a
+                    href="/MPFST-Mapped-to-QFT.pdf"
+                    className="text-emerald-300 font-medium hover:underline mx-1"
+                  >
+                    “MPFST Mapped to Quantum Field Theory”
+                  </a>
+                  walk QFT-trained readers through the Stage/Occupant/Mask planes,
+                  show how Einstein–Maxwell–Schrödinger dynamics emerge in the gate-closed
+                  regime, and spell out which Standard Model pieces remain open.
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
@@ -401,6 +424,95 @@ export default function MPFSTWebsite() {
                     </a>
                   </div>
                 </section>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* QFT BRIDGE */}
+          <TabsContent value="qft">
+            <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
+              <CardContent className="p-6 space-y-6">
+                <h2 className="text-2xl font-semibold flex items-center gap-2">
+                  <Atom className="w-5 h-5 text-sky-300" />
+                  MPFST ↔ Quantum Field Theory
+                </h2>
+
+                <p className="text-slate-200">
+                  This working-note document constructs an explicit dictionary between the
+                  11‑D tri-plane lattice of MPFST and standard quantum field theory (QFT).
+                  It shows how the Einstein–Maxwell–Schrödinger sector and familiar QFT
+                  objects (fields, propagators, gauge structure, renormalization,
+                  measurement) arise as effective limits of the MPFST lattice and its
+                  projection functional, while keeping the full Standard Model derivation
+                  clearly marked as an open programme rather than a solved problem.
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-6 text-sm text-slate-300">
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-lg text-slate-100">
+                      What the mapping covers
+                    </h3>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>
+                        Synopsis of MPFST’s 11‑D tri-plane geometry (Stage, Occupant,
+                        Mask/Source) and master action.
+                      </li>
+                      <li>
+                        Dimensional reduction to a 4‑D Einstein–Maxwell–Schrödinger sector
+                        reproducing GR + Maxwell + scalar QFT in the gate-closed regime.
+                      </li>
+                      <li>
+                        Plane-by-plane dictionary linking Stage blocks, Occupant fields,
+                        and Mask/Source channels to QFT fields, gauge potentials,
+                        propagators, and vacuum stress.
+                      </li>
+                      <li>
+                        Coherence/measurement model via fractional-memory projection and
+                        a two-tier gate instead of an ad hoc collapse postulate.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-lg text-slate-100">
+                      Status and open questions
+                    </h3>
+                    <ul className="list-disc list-inside space-y-1">
+                      <li>
+                        Standard Model embedding is proposed but incomplete: non-Abelian
+                        sectors, chiral spinors, and Yukawa structure remain open.
+                      </li>
+                      <li>
+                        High-coherence, six-PDE lattice dynamics plus early-universe / CMB
+                        signatures are active research threads.
+                      </li>
+                      <li>
+                        Avalanche/gating dynamics are validated across domains, but the
+                        full quantum-information formulation of the projection map is
+                        ongoing work.
+                      </li>
+                      <li>
+                        Exotic propulsion claims are constrained: local stress-energy
+                        conservation is respected and there is no path to reactionless
+                        drives within the current mapping.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-slate-800 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <p className="text-sm text-slate-300">
+                    For the complete technical dictionary, derivations, and open-problem
+                    list, download the working notes.
+                  </p>
+                  <a
+                    href="/MPFST-Mapped-to-QFT.pdf"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm border border-emerald-500 rounded-md text-emerald-200 hover:bg-emerald-500/10 transition"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download “MPFST Mapped to QFT”
+                  </a>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
