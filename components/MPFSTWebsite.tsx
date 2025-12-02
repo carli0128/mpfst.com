@@ -90,6 +90,17 @@ const articles: Article[] = [
     highlight: "One meter, two gates, one detector across domains.",
   },
   {
+    id: "negative-control",
+    category: "Empirical dossiers",
+    title:
+      "Validation of MPFST via Negative-Control Scaling Law Violations in Stochastic Incoherent Systems",
+    pdfPath: "/Validation-of-MPFST-Negative-Control-Scaling-Law-Violations.pdf",
+    year: "2025",
+    blurb:
+      "Applies the coherence meter to nominally incoherent stochastic systems run under negative-control conditions and tracks scaling-law exponents. Observes controlled violations—µ softening, γ steepening, H drift—only when the hidden MPFST gate is forced open, with all anomalies collapsing under shuffled controls.",
+    highlight: "Negative-control stress test for the gate picture.",
+  },
+  {
     id: "rindler",
     category: "Domain studies",
     title:
@@ -507,7 +518,7 @@ export default function MPFSTWebsite() {
                   </p>
                 </section>
 
-                <section className="grid md:grid-cols-3 gap-6 text-sm">
+                <section className="grid md:grid-cols-3 lg:grid-cols-4 gap-6 text-sm">
                   <div className="space-y-2">
                     <h3 className="font-semibold text-slate-100">
                       Physics & chemistry set
@@ -582,6 +593,32 @@ export default function MPFSTWebsite() {
                     >
                       <Download className="w-4 h-4" />
                       EEG–Occupant mapping PDF
+                    </a>
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-slate-100">
+                      Negative-control dossier
+                    </h3>
+                    <ul className="list-disc list-inside text-slate-300 space-y-1">
+                      <li>
+                        Runs the MPFST coherence meter on stochastic, nominally
+                        incoherent systems under strict negative controls.
+                      </li>
+                      <li>
+                        Detects systematic scaling-law violations only when the
+                        hidden gate is forced open—µ softens, γ steepens, H drifts.
+                      </li>
+                      <li>
+                        All anomalies collapse under shuffled or inverted controls,
+                        reinforcing falsifiability of the gate mechanism.
+                      </li>
+                    </ul>
+                    <a
+                      href="/Validation-of-MPFST-Negative-Control-Scaling-Law-Violations.pdf"
+                      className="inline-flex items-center gap-2 text-blue-300 hover:text-blue-200"
+                    >
+                      <Download className="w-4 h-4" />
+                      Negative-control validation PDF
                     </a>
                   </div>
                 </section>
