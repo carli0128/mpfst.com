@@ -15,6 +15,6 @@ COPY . .
 RUN npm run build
 RUN npm prune --production
 
-ENV PORT=3000
-EXPOSE 3000
+ENV PORT=8000
+EXPOSE 8000
 CMD ["npm","start"]

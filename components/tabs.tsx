@@ -3,26 +3,35 @@
 import * as React from "react";
 
 /**
- * Minimal, dependency-free Tabs implementation compatible with the API used by the site.
- * Preserves: <Tabs defaultValue="..."><TabsList>...<TabsTrigger value="x" />...<TabsContent value="x" />.
- * Adds only mobile behavior: the tab bar becomes a single-row, swipeable container on phones.
+ * Dependency‑free Tabs that keeps the original look:
+ *  - Underlined active tab
+ *  - Subtle hover color
+ *  - No global CSS required
+ *  - Mobile-safe: triggers don't wrap or shrink; no page overflow
+ *
+ * API matches your existing usage:
+ *   <Tabs defaultValue="overview">
+ *     <TabsList className="grid grid-cols-6 mb-6">
+ *       <TabsTrigger value="overview">Overview</TabsTrigger>
+ *       ...
+ *     </TabsList>
+ *     <TabsContent value="overview">...</TabsContent>
+ *   </Tabs>
  */
 
-// Local utility to merge class names (no external deps)
 function cn(...parts: Array<string | false | null | undefined>) {
   return parts.filter(Boolean).join(" ");
 }
 
-type TabsCtx = {
+type Ctx = {
   value: string;
   setValue: (v: string) => void;
   idBase: string;
 };
-
-const Ctx = React.createContext<TabsCtx | null>(null);
-function useTabsCtx(): TabsCtx {
-  const ctx = React.useContext(Ctx);
-  if (!ctx) throw new Error("Tabs components must be used inside <Tabs>");
+const TabsCtx = React.createContext<Ctx | null>(null);
+function useTabsCtx(): Ctx {
+  const ctx = React.useContext(TabsCtx);
+  if (!ctx) throw new Error("Tabs.* must be used within <Tabs>");
   return ctx;
 }
 
@@ -44,7 +53,6 @@ export const Tabs: React.FC<TabsProps> = ({
   const [inner, setInner] = React.useState<string>(defaultValue ?? "");
   const current = controlled ? (value as string) : inner;
   const idBase = React.useId();
-
   const setValue = React.useCallback(
     (v: string) => {
       if (!controlled) setInner(v);
@@ -52,17 +60,11 @@ export const Tabs: React.FC<TabsProps> = ({
     },
     [controlled, onValueChange]
   );
-
   return (
     <div className={className} {...rest}>
-      <Ctx.Provider value={{ value: current, setValue, idBase }}>
+      <TabsCtx.Provider value={{ value: current, setValue, idBase }}>
         {children}
-      </Ctx.Provider>
-      {/* Keep the scrollbar hidden while preserving horizontal swipe */}
-      <style jsx global>{`
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
+      </TabsCtx.Provider>
     </div>
   );
 };
@@ -70,23 +72,25 @@ export const Tabs: React.FC<TabsProps> = ({
 export interface TabsListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
-  ({ className, children, ...rest }, ref) => {
-    return (
-      <div
-        ref={ref}
-        role="tablist"
-        className={cn(
-          // Mobile: single row & horizontal swipe; Desktop: normal layout
-          "flex items-center gap-2 w-full max-w-full overflow-x-auto whitespace-nowrap no-scrollbar",
-          "md:overflow-visible md:whitespace-normal",
-          className
-        )}
-        {...rest}
-      >
-        {children}
-      </div>
-    );
-  }
+  ({ className, children, ...rest }, ref) => (
+    <div
+      ref={ref}
+      role="tablist"
+      // Keep whatever layout you pass (grid/flex), but ensure it never
+      // forces page overflow on phones. If the grid is wider than the
+      // viewport, the strip will scroll *inside itself*.
+      className={cn(
+        "w-full max-w-full overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none]",
+        className
+      )}
+      {...rest}
+    >
+      <div className="no-scrollbar">{children}</div>
+      <style jsx>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+      `}</style>
+    </div>
+  )
 );
 TabsList.displayName = "TabsList";
 
@@ -110,9 +114,18 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
         aria-selected={isActive}
         aria-controls={panelId}
         data-state={isActive ? "active" : "inactive"}
+        // Style to match your original simple tabs: gray text, blue underline when active
         className={cn(
-          // Prevent label wrapping and shrinking on small screens
-          "shrink-0 whitespace-nowrap px-3 py-2 text-xs md:text-sm",
+          // prevent wrapping/shrinking on mobile
+          "shrink-0 whitespace-nowrap",
+          // spacing and typography close to the original
+          "px-3 py-2 text-xs md:text-sm font-normal transition-colors",
+          // base color and hover
+          "text-gray-300 hover:text-white",
+          // underline style
+          "border-b-2 border-transparent data-[state=active]:border-blue-500",
+          // active color
+          "data-[state=active]:text-white",
           className
         )}
         onClick={(e) => {
@@ -156,5 +169,4 @@ export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
 );
 TabsContent.displayName = "TabsContent";
 
-// Satisfy --isolatedModules
 export {};
