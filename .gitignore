@@ -2,3 +2,7 @@ node_modules
 .next
 .DS_Store
 .env.local
+tsconfig.tsbuildinfo
+newkey
+newkey.pub
+__pycache__/
