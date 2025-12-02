@@ -125,7 +125,7 @@ const articles: Article[] = [
   {
     id: "manuscript-9",
     category: "Manuscripts",
-    title: "MPFST Journal Manuscript v9 (pre‑packaged submission)",
+  title: "The MUlti-Plane Field Syntergic THeory MPFST Jounral Manuscript v9 (pre‑packaged submission)",
     pdfPath: "/MPFST-Publication-Manuscript-9.pdf",
     year: "2025",
     blurb:
@@ -134,7 +134,7 @@ const articles: Article[] = [
   {
     id: "manuscript-10",
     category: "Manuscripts",
-    title: "MPFST Journal Manuscript v10 (updated submission)",
+  title: "The MUlti-Plane Field Syntergic THeory MPFST Jounral Manuscript v10 (updated submission)",
     pdfPath: "/MPFST-Publication-Manuscript-10.pdf",
     year: "2025",
     blurb:
@@ -182,7 +182,7 @@ export default function MPFSTWebsite() {
             className="space-y-3"
           >
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              MPFST Journal
+              The MUlti-Plane Field Syntergic THeory MPFST Jounral
             </h1>
             <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
               A living scientific record for the Multi‑Plane Field Syntergic
@@ -972,14 +972,16 @@ export default function MPFSTWebsite() {
                   <p className="font-mono text-slate-300">
                     MPFST Working Group. (2025). MPFST Complements v9:
                     Post-publication validations, fractional-exponent pinning,
-                    and device-level control. MPFST Journal. Retrieved from
+                    and device-level control. The MUlti-Plane Field Syntergic
+                    THeory MPFST Jounral. Retrieved from
                     https://mpfst.com/MPFST-Complements-V9.pdf
                   </p>
                   <p className="font-mono text-slate-300">
                     MPFST Working Group. (2025). MPFST Avalanche Addendum:
                     Two-tier coherence gating and avalanche statistics across
-                    gravitational, photonic, and neural systems. MPFST
-                    Journal. Retrieved from
+                    gravitational, photonic, and neural systems. The
+                    MUlti-Plane Field Syntergic THeory MPFST Jounral.
+                    Retrieved from
                     https://mpfst.com/Avalanche-MPFST.pdf
                   </p>
                 </section>
@@ -991,19 +993,20 @@ export default function MPFSTWebsite() {
                   <p className="font-mono text-slate-300">
                     MPFST Working Group. (2025). MPFST Cross-Domain Empirical
                     Validations: Consolidated dossier (physics, chemistry,
-                    biology). MPFST Journal. Retrieved from
+                    biology). The MUlti-Plane Field Syntergic THeory MPFST
+                    Jounral. Retrieved from
                     https://mpfst.com/Empirical-Evidence-MPFST.pdf
                   </p>
                   <p className="font-mono text-slate-300">
                     MPFST Working Group. (2025). Empirical support for MPFST
-                    predictions in successive Rindler data. MPFST Journal.
-                    Retrieved from
+                    predictions in successive Rindler data. The MUlti-Plane
+                    Field Syntergic THeory MPFST Jounral. Retrieved from
                     https://mpfst.com/Empirical-Support-Rindler-MPFST.pdf
                   </p>
                   <p className="font-mono text-slate-300">
                     MPFST Working Group. (2025). Mapping EEG bands to MPFST
-                    Occupant fields: Analysis and results. MPFST Journal.
-                    Retrieved from
+                    Occupant fields: Analysis and results. The MUlti-Plane
+                    Field Syntergic THeory MPFST Jounral. Retrieved from
                     https://mpfst.com/Mapping-EEG-Bands-to-MPFST-Occupant-Fields.pdf
                   </p>
                 </section>
@@ -1025,8 +1028,8 @@ export default function MPFSTWebsite() {
 
         {/* FOOTER */}
         <footer className="text-center mt-16 text-slate-500 text-xs">
-          &copy; {new Date().getFullYear()} MPFST Journal &middot; All rights
-          reserved.
+          &copy; {new Date().getFullYear()} The MUlti-Plane Field Syntergic
+          THeory MPFST Jounral &middot; All rights reserved.
         </footer>
       </div>
     </div>
