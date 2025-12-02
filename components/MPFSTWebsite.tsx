@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { card as Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import MotionDiv from "@/components/ui/MotionDiv";
+import { initScrollNav } from "@/lib/scrollNav";
 import {
   Sparkles,
   BrainCircuit,
@@ -160,9 +161,25 @@ const categoryOrder: ArticleCategory[] = [
   "Manuscripts",
 ];
 
+const sectionNav = [
+  { id: "overview", label: "Journal overview" },
+  { id: "theory", label: "Core theory" },
+  { id: "qft", label: "QFT bridge" },
+  { id: "avalanche", label: "Avalanche toolkit" },
+  { id: "evidence", label: "Empirical evidence" },
+  { id: "archive", label: "Archive" },
+  { id: "repro", label: "Data & replication" },
+  { id: "cite", label: "How to cite" },
+];
+
 export default function MPFSTWebsite() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+
+  useEffect(() => {
+    const cleanup = initScrollNav();
+    return () => cleanup();
+  }, []);
 
   const handleSubscribe = () => {
     if (email.includes("@")) {
@@ -226,24 +243,36 @@ export default function MPFSTWebsite() {
               <Key className="w-4 h-4" />
               Avalanche & coherence toolkit (DOI)
             </a>
+            <Link
+              href="/experimentalists"
+              className="inline-flex items-center gap-2 rounded-md bg-emerald-500/90 hover:bg-emerald-500 px-4 py-2 text-sm font-semibold text-white transition"
+            >
+              Field protocols for experimentalists
+            </Link>
           </MotionDiv>
         </header>
 
-        {/* TABS */}
-        <Tabs defaultValue="overview" className="mt-4">
-          <TabsList className="flex flex-wrap gap-2 border-b border-slate-700 pb-2 mb-6">
-            <TabsTrigger value="overview">Journal Overview</TabsTrigger>
-            <TabsTrigger value="theory">Core Theory</TabsTrigger>
-            <TabsTrigger value="qft">QFT Bridge</TabsTrigger>
-            <TabsTrigger value="avalanche">Avalanche Mechanism & Toolkit</TabsTrigger>
-            <TabsTrigger value="evidence">Empirical Evidence</TabsTrigger>
-            <TabsTrigger value="archive">Papers & Archive</TabsTrigger>
-            <TabsTrigger value="repro">Data, Code & Replication</TabsTrigger>
-            <TabsTrigger value="cite">How to Cite</TabsTrigger>
-          </TabsList>
+        <nav
+          className="sticky top-0 z-10 bg-gradient-to-b from-slate-950 via-slate-950/95 to-transparent py-3"
+          aria-label="Journal sections"
+        >
+          <ul className="flex flex-wrap gap-2 overflow-x-auto" data-scroll-nav>
+            {sectionNav.map((section) => (
+              <li key={section.id}>
+                <button
+                  type="button"
+                  data-scroll-link={section.id}
+                  className="scroll-pill rounded-full border border-slate-700/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-slate-300 transition data-[active=true]:bg-blue-500 data-[active=true]:text-white"
+                >
+                  {section.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-          {/* OVERVIEW */}
-          <TabsContent value="overview">
+  {/* OVERVIEW */}
+  <section id="overview" data-scroll-section className="scroll-section pt-8 scroll-mt-32">
             <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
               <CardContent className="p-6 space-y-8">
                 <section className="space-y-3">
@@ -342,10 +371,10 @@ export default function MPFSTWebsite() {
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
+        </section>
 
-          {/* CORE THEORY */}
-          <TabsContent value="theory">
+        {/* CORE THEORY */}
+  <section id="theory" data-scroll-section className="scroll-section pt-10 scroll-mt-32">
             <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
               <CardContent className="p-6 space-y-8">
                 <section className="space-y-3">
@@ -426,10 +455,10 @@ export default function MPFSTWebsite() {
                 </section>
               </CardContent>
             </Card>
-          </TabsContent>
+        </section>
 
-          {/* QFT BRIDGE */}
-          <TabsContent value="qft">
+        {/* QFT BRIDGE */}
+  <section id="qft" data-scroll-section className="scroll-section pt-10 scroll-mt-32">
             <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
               <CardContent className="p-6 space-y-6">
                 <h2 className="text-2xl font-semibold flex items-center gap-2">
@@ -515,10 +544,10 @@ export default function MPFSTWebsite() {
                 </div>
               </CardContent>
             </Card>
-          </TabsContent>
+        </section>
 
-          {/* AVALANCHE & TOOLKIT */}
-          <TabsContent value="avalanche">
+        {/* AVALANCHE & TOOLKIT */}
+  <section id="avalanche" data-scroll-section className="scroll-section pt-10 scroll-mt-32">
             <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
               <CardContent className="p-6 space-y-8">
                 <section className="space-y-3">
@@ -610,10 +639,10 @@ export default function MPFSTWebsite() {
                 </section>
               </CardContent>
             </Card>
-          </TabsContent>
+        </section>
 
-          {/* EMPIRICAL EVIDENCE */}
-          <TabsContent value="evidence">
+        {/* EMPIRICAL EVIDENCE */}
+  <section id="evidence" data-scroll-section className="scroll-section pt-10 scroll-mt-32">
             <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
               <CardContent className="p-6 space-y-8">
                 <section className="space-y-3">
@@ -736,10 +765,10 @@ export default function MPFSTWebsite() {
                 </section>
               </CardContent>
             </Card>
-          </TabsContent>
+        </section>
 
-          {/* ARCHIVE */}
-          <TabsContent value="archive">
+        {/* ARCHIVE */}
+  <section id="archive" data-scroll-section className="scroll-section pt-10 scroll-mt-32">
             <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
               <CardContent className="p-6 space-y-8">
                 <section className="space-y-3">
@@ -821,10 +850,10 @@ export default function MPFSTWebsite() {
                 })}
               </CardContent>
             </Card>
-          </TabsContent>
+        </section>
 
-          {/* DATA, CODE & REPLICATION */}
-          <TabsContent value="repro">
+        {/* DATA, CODE & REPLICATION */}
+  <section id="repro" data-scroll-section className="scroll-section pt-10 scroll-mt-32">
             <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
               <CardContent className="p-6 space-y-8">
                 <section className="space-y-3">
@@ -934,10 +963,10 @@ export default function MPFSTWebsite() {
                 </section>
               </CardContent>
             </Card>
-          </TabsContent>
+        </section>
 
-          {/* HOW TO CITE */}
-          <TabsContent value="cite">
+        {/* HOW TO CITE */}
+  <section id="cite" data-scroll-section className="scroll-section pt-10 scroll-mt-32">
             <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
               <CardContent className="p-6 space-y-6">
                 <section className="space-y-3">
@@ -1023,8 +1052,7 @@ export default function MPFSTWebsite() {
                 </section>
               </CardContent>
             </Card>
-          </TabsContent>
-        </Tabs>
+        </section>
 
         {/* FOOTER */}
         <footer className="text-center mt-16 text-slate-500 text-xs">
