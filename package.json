@@ -5,7 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "tsc --noEmit"
+    "test": "tsc --noEmit",
+    "export:subscribers": "ts-node --transpile-only scripts/export-subscribers.ts"
   },
   "dependencies": {
     "@types/pg": "^8.15.6",
@@ -14,17 +15,21 @@
     "framer-motion": "^9.0.0",
     "lucide-react": "^0.268.0",
     "next": "15.2.4",
+    "nodemailer": "^6.9.11",
     "pg": "^8.16.3",
     "postcss": "^8.4.21",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "dotenv": "^16.4.5",
     "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
+    "@types/nodemailer": "^6.4.15",
     "@types/d3": "^7.4.3",
     "@types/node": "^18.15.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "ts-node": "^10.9.2",
     "typescript": "^4.9.5"
   }
 }

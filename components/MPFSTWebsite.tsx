@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { card as Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -179,10 +179,22 @@ export default function MPFSTWebsite() {
     "idle"
   );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchFeedback, setSearchFeedback] = useState<string | null>(null);
+  const highlightRef = useRef<HTMLElement | null>(null);
+  const highlightTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const cleanup = initScrollNav();
     return () => cleanup();
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (highlightTimeoutRef.current) {
+        window.clearTimeout(highlightTimeoutRef.current);
+      }
+    };
   }, []);
 
   const handleSubscribe = async () => {
@@ -211,6 +223,54 @@ export default function MPFSTWebsite() {
     } catch (error) {
       setStatus("error");
       setErrorMessage((error as Error).message);
+    }
+  };
+
+  const handleSearch = (event?: FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
+    if (typeof document === "undefined") return;
+
+    const trimmed = searchQuery.trim().toLowerCase();
+    if (!trimmed) {
+      setSearchFeedback("Enter keywords to search the journal.");
+      return;
+    }
+
+    const terms = trimmed.split(/\s+/).filter(Boolean);
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-scroll-section]")
+    );
+    const match = sections.find((section) => {
+      const text = section.textContent?.toLowerCase() ?? "";
+      return terms.every((term) => text.includes(term));
+    });
+
+    const highlightClasses = [
+      "ring-2",
+      "ring-emerald-400",
+      "ring-offset-2",
+      "ring-offset-slate-900",
+    ];
+
+    if (match) {
+      const heading = match
+        .querySelector("h2, h3, h4")
+        ?.textContent?.trim();
+      const label = heading || match.id || "section";
+      match.scrollIntoView({ behavior: "smooth", block: "start" });
+      highlightRef.current?.classList.remove(...highlightClasses);
+      match.classList.add(...highlightClasses);
+      highlightRef.current = match;
+      if (highlightTimeoutRef.current) {
+        window.clearTimeout(highlightTimeoutRef.current);
+      }
+      highlightTimeoutRef.current = window.setTimeout(() => {
+        match.classList.remove(...highlightClasses);
+        highlightRef.current = null;
+      }, 2500);
+      setSearchFeedback(`Jumped to “${label || "section"}”.`);
+    } else {
+      setSearchFeedback("No sections include those keywords yet.");
     }
   };
 
@@ -298,6 +358,36 @@ export default function MPFSTWebsite() {
           </ul>
         </nav>
 
+        <section className="mt-6" aria-label="Site search">
+          <form
+            onSubmit={handleSearch}
+            className="flex flex-col gap-3 md:flex-row"
+          >
+            <Input
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search for keywords (e.g. avalanche coherence)"
+              className="bg-slate-900/80 border-slate-700 text-slate-100"
+              aria-label="Search the MPFST journal"
+            />
+            <Button
+              type="submit"
+              className="md:w-auto w-full bg-emerald-500/90 hover:bg-emerald-500"
+            >
+              Search
+            </Button>
+          </form>
+          {searchFeedback && (
+            <p
+              className="mt-2 text-sm text-slate-300"
+              role="status"
+              aria-live="polite"
+            >
+              {searchFeedback}
+            </p>
+          )}
+        </section>
+
   {/* OVERVIEW */}
   <section id="overview" data-scroll-section className="scroll-section pt-8 scroll-mt-32">
             <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
@@ -328,10 +418,10 @@ export default function MPFSTWebsite() {
                   <h3 className="text-lg font-semibold">Contact the team</h3>
                   <p className="text-sm text-slate-300">
                     MPFST is growing through public critique and cross-domain
-                    validation. If you have replication notes, questions about the
-                    coherence meter, or want to propose a new experimental docket,
-                    send us a line—every dataset, success, or failure adds to the
-                    evidence ledger.
+                    validation. If you have replication notes, questions about
+                    the coherence meter, or want to propose a new experimental
+                    docket, send us a line—every dataset, success, or failure
+                    adds to the evidence ledger.
                   </p>
                   <a
                     href="mailto:info@mpfst.com"

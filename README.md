@@ -76,3 +76,25 @@ SELECT email, created_at FROM email_subscriptions ORDER BY created_at DESC LIMIT
 ```
 
 This keeps the mailing list entirely within your Render footprint.
+
+### Automated CSV + email export
+
+Run `npm run export:subscribers` to generate a timestamped CSV (written to
+`./exports`) and email it to the configured recipient. The script expects the
+following environment variables (add them to `.env.local` or your Render cron
+job):
+
+| Variable | Description |
+| --- | --- |
+| `RENDER_SUBSCRIBER_DB_URL` | Postgres connection string (already used by the site). |
+| `SMTP_HOST` | SMTP server hostname (e.g., `smtp.sendgrid.net`). |
+| `SMTP_PORT` | SMTP port (defaults to `587`). Set to `465` and `SMTP_SECURE=true` for implicit TLS. |
+| `SMTP_USER` / `SMTP_PASS` | Credentials for the SMTP server (leave unset for unauthenticated relays). |
+| `SMTP_SECURE` | Set to `true` if your SMTP provider requires TLS on connect. |
+| `SUBSCRIBER_EXPORT_FROM` | From email address (default `no-reply@mpfst.com`). |
+| `SUBSCRIBER_EXPORT_TO` | Recipient email (default `carlos@mpfst.com`). |
+
+You can schedule the command using a Render Cron Job or any CI runner. For
+example, create a cron job in Render that executes `npm install && npm run
+export:subscribers` daily with the same environment variables as the frontend
+service.
