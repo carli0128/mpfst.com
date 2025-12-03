@@ -50,3 +50,29 @@ successfully – redeploy the backend and check container logs for `RIL-VM ready
 
 The web interface will be available at <http://localhost:3000> and streams
 real-time `meltdownFrac` values under the **Synergy Field Monitor** tab.
+
+## Email subscriptions (Render)
+
+The “Notify me” form now POSTs to `/api/subscribe`, which stores addresses in
+Render Postgres. Provision a managed Postgres instance on Render, attach it to
+the frontend service, and expose the connection string via the
+`RENDER_SUBSCRIBER_DB_URL` environment variable (see `render.yaml`).
+
+The API automatically runs:
+
+```sql
+CREATE EXTENSION IF NOT EXISTS citext;
+CREATE TABLE IF NOT EXISTS email_subscriptions (
+	id SERIAL PRIMARY KEY,
+	email CITEXT UNIQUE NOT NULL,
+	created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+```
+
+You can query the latest signups from psql:
+
+```sql
+SELECT email, created_at FROM email_subscriptions ORDER BY created_at DESC LIMIT 50;
+```
+
+This keeps the mailing list entirely within your Render footprint.

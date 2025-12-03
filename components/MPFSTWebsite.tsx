@@ -175,15 +175,42 @@ const sectionNav = [
 export default function MPFSTWebsite() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+    "idle"
+  );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const cleanup = initScrollNav();
     return () => cleanup();
   }, []);
 
-  const handleSubscribe = () => {
-    if (email.includes("@")) {
+  const handleSubscribe = async () => {
+    if (!email.includes("@")) {
+      setStatus("error");
+      setErrorMessage("Enter a valid email address first.");
+      return;
+    }
+
+    try {
+      setStatus("loading");
+      setErrorMessage(null);
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({ error: "" }));
+        throw new Error(payload.error || "Unable to save subscription.");
+      }
+
       setSubscribed(true);
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage((error as Error).message);
     }
   };
 
@@ -294,6 +321,27 @@ export default function MPFSTWebsite() {
                     hosts the core theory, technical complements, avalanche
                     and coherence toolkits, and cross‑domain empirical
                     dossiers, together with explicit replication resources.
+                  </p>
+                </section>
+
+                <section className="space-y-3 rounded-lg border border-slate-700/70 bg-slate-950/60 p-4">
+                  <h3 className="text-lg font-semibold">Contact the team</h3>
+                  <p className="text-sm text-slate-300">
+                    MPFST is growing through public critique and cross-domain
+                    validation. If you have replication notes, questions about the
+                    coherence meter, or want to propose a new experimental docket,
+                    send us a line—every dataset, success, or failure adds to the
+                    evidence ledger.
+                  </p>
+                  <a
+                    href="mailto:info@mpfst.com"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 hover:text-emerald-200"
+                  >
+                    info@mpfst.com
+                  </a>
+                  <p className="text-xs text-slate-400">
+                    You can also drop feedback about the site itself—accessibility,
+                    missing PDFs, or improvements to the toolkits—at the same inbox.
                   </p>
                 </section>
                 <section className="grid md:grid-cols-2 gap-6">
@@ -950,15 +998,21 @@ export default function MPFSTWebsite() {
                         placeholder="you@institution.edu"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        disabled={status === "loading"}
                         className="flex-1 bg-slate-950/80 border-slate-600 text-slate-100"
                       />
-                      <Button onClick={handleSubscribe}>Notify me</Button>
+                      <Button onClick={handleSubscribe} disabled={status === "loading"}>
+                        {status === "loading" ? "Sending..." : "Notify me"}
+                      </Button>
                     </div>
                   ) : (
                     <div className="text-sm text-emerald-300">
-                      Thanks — treat this as subscribed. Wire this box to your
-                      actual mailing backend when you deploy.
+                      Thanks — you’re on the release list. You can change the
+                      destination backend any time via /api/subscribe.
                     </div>
+                  )}
+                  {status === "error" && errorMessage && (
+                    <p className="text-sm text-rose-300">{errorMessage}</p>
                   )}
                 </section>
               </CardContent>
