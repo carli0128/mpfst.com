@@ -14,8 +14,7 @@ export default function Experimentalists() {
             <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">Canonical replication</p>
             <h1 className="text-3xl md:text-4xl font-bold">Replication protocols for experimentalists (canonical, v10)</h1>
             <p className="text-gray-200 text-lg">
-              This page summarizes how to test MPFST using the canonical gate definition: meltdown threshold + meltdownFrac. Older protocols that
-              compute mu, gamma, H and mℓ are preserved as legacy but are not the canonical definition of coherence in MPFST.
+              Recommended workflows for testing MPFST using the canonical gate definition (meltdown threshold + meltdownFrac). Older protocols that compute mu, gamma, H and mℓ are preserved as legacy proxies and are not the canonical definition of coherence in MPFST.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -55,24 +54,27 @@ export default function Experimentalists() {
             <CardContent className="space-y-3">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-5 h-5 text-emerald-400" />
-                <h2 className="text-xl font-semibold">Protocol A: Simulation-true gate state (meltdownFrac)</h2>
+                <h2 className="text-xl font-semibold">Protocol A: Simulation-true gate state (recommended workflow)</h2>
               </div>
+              <p className="text-gray-200 text-sm">
+                Goal: derive the canonical gate state directly from simulated fields. Report all parameter files and solver settings; use the same gate definition across runs.
+              </p>
               <ol className="list-decimal ml-6 space-y-2 text-gray-200">
                 <li>
-                  Compute the combined synergy amplitude:
+                  Define the combined synergy amplitude (canonical):
                   <div className="bg-black/40 border border-gray-800 rounded p-3 mt-2 text-sm font-mono text-gray-100 space-y-1">
                     <p>M(x,t) = u4(x,t) + u5(x,t) + u6(x,t) + u7(x,t) + u8(x,t) + d(x,t)</p>
                   </div>
                 </li>
                 <li>
-                  Compute partial and full gate fractions (recommended):
+                  Compute partial and full gate fractions (defaults, report what you use):
                   <div className="bg-black/40 border border-gray-800 rounded p-3 mt-2 text-sm font-mono text-gray-100 space-y-1">
                     <p>partial_meltdownFrac(t) = fraction of domain where M(x,t) &gt; 0.5*Mth</p>
                     <p>full_meltdownFrac(t) = fraction of domain where M(x,t) &gt; 0.8*Mth</p>
                   </div>
                 </li>
                 <li>
-                  Classify system state:
+                  Classify system state using these thresholds (or documented alternatives):
                   <ul className="list-disc ml-6 space-y-1">
                     <li>No transition: partial = 0 and full = 0</li>
                     <li>Partial transition: partial &gt; 0 and full = 0</li>
@@ -80,7 +82,7 @@ export default function Experimentalists() {
                   </ul>
                 </li>
                 <li>
-                  Validate invariances across runs. Parameter files and solver settings must be logged and reproducible; the same gate definition must be used across runs.
+                  Minimum reporting: gating thresholds used, spatial/temporal resolution, solver settings, and any boundary/initial condition choices. Optional upgrades: sensitivity analysis across nearby thresholds; cross-check with structured nulls.
                 </li>
               </ol>
             </CardContent>
@@ -95,11 +97,11 @@ export default function Experimentalists() {
                 <h2 className="text-xl font-semibold">Protocol B: Experimental gate proxy (for real-world datasets)</h2>
               </div>
               <p className="text-gray-200">
-                Because u4..u8 and d are latent model fields, experimental data must use an explicit proxy variable S(t) designed to track "synergy amplitude" in a domain-appropriate way.
+                Because u4..u8 and d are latent model fields, experimental data should use an explicit proxy variable S(t) designed to track "synergy amplitude" in a modality-appropriate way. Requirements vary by modality (EEG/MEG/LFP/optics/mechanics); deviations are reportable parameters, not failures.
               </p>
               <ol className="list-decimal ml-6 space-y-3 text-gray-200">
                 <li>
-                  Define S(t) before analysis (pre-registration). Examples include:
+                  Define S(t) before analysis (pre-registration).
                   <ul className="list-disc ml-6 space-y-1">
                     <li>EEG: weighted sum of band-limited amplitude envelopes plus a phase-alignment term.</li>
                     <li>Plasma: edge/pedestal instability amplitude proxy plus fast transient detector.</li>
@@ -107,15 +109,22 @@ export default function Experimentalists() {
                   </ul>
                 </li>
                 <li>
-                  Define a threshold rule before looking at outcomes. If you cannot directly map Mth, use a physically motivated threshold or a preregistered baseline window to set thresholds; report sensitivity analyses across a small, prespecified range.
+                  Thresholding (tiered guidance):
+                  <ul className="list-disc ml-6 space-y-1">
+                    <li>Minimum: declare the threshold rule in advance (baseline window or physically motivated criterion).</li>
+                    <li>Recommended: report sensitivity across a small, preregistered range.</li>
+                    <li>Optional (high-precision): external calibration or disciplined clocking to validate timing/latency.</li>
+                  </ul>
                 </li>
                 <li>
-                  Define proxy_meltdownFrac on a rolling window: proxy_meltdownFrac = fraction of samples (or TF bins) in window where S exceeds threshold.
+                  Define proxy_meltdownFrac on a rolling window: proxy_meltdownFrac = fraction of samples (or TF bins) in window where S exceeds threshold. Report window length and hop size.
                 </li>
                 <li>
                   Run structured nulls: phase-scrambled controls, time-shift controls, and surrogate data matched on power spectrum where appropriate.
                 </li>
-                <li>Report effect sizes, null distributions, and robustness to preprocessing choices.</li>
+                <li>
+                  Minimum viable reporting: sampling rate and latency characteristics, preprocessing (filtering/referencing/artifact handling), threshold rule, and null controls used. Optional: hardware coherence validation and independent reruns across sites.
+                </li>
               </ol>
             </CardContent>
           </Card>
@@ -129,9 +138,9 @@ export default function Experimentalists() {
                 <h2 className="text-xl font-semibold">Replication standard</h2>
               </div>
               <p className="text-gray-200">
-                MPFST is intended to be evaluated by independent teams using transparent pipelines, structured nulls, and explicit preregistration where possible. Code outputs are not treated as empirical proof; they are test generators.
+                MPFST is intended to be evaluated by independent teams using transparent pipelines, structured nulls, and explicit preregistration where possible. Code outputs are test generators, not empirical proof. HPC tooling assists exploration of the PDE system but is not a magic predictor.
               </p>
-              <p className="text-gray-400 text-sm">HPC tooling assists exploration of the PDE system but is not a magic predictor.</p>
+              <p className="text-gray-400 text-sm">Modality-specific defaults can be adapted; changes should be logged and treated as parameters for comparison, not as protocol breaks.</p>
             </CardContent>
           </Card>
         </section>
@@ -144,7 +153,7 @@ export default function Experimentalists() {
                 <h2 className="text-xl font-semibold">Legacy protocol (archived)</h2>
               </div>
               <p className="text-gray-200">
-                The prior mu–gamma–H experimental protocol is archived for transparency and historical reproducibility. It is under reevaluation relative to the canonical meltdownFrac gate and should not be treated as the definition of coherence.
+                The prior mu–gamma–H experimental protocol is archived for transparency and historical reproducibility. It is under reevaluation relative to the canonical meltdownFrac gate and should be treated as an observational proxy, not the definition of coherence.
               </p>
               <Link className="underline text-amber-200 hover:text-amber-100" href="/legacy/experimentalists-manifold">
                 View the legacy mu–gamma–H protocol
