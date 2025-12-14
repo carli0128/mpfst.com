@@ -43,7 +43,7 @@ export default function MPFSTWebsite() {
               Multi-Plane Field Synergy Theory (MPFST)
             </h1>
             <p className="text-lg text-gray-200 max-w-4xl">
-              An 11-plane action/PDE proposal centered on a meltdown threshold + meltdownFrac gate used to model coherence transitions. Plane 9 is treated as essential (fractional / nonlocal influence), and the gate is driven by the combined occupant + illusions field sum. This site is a living preprint + replication archive.
+              An 11-plane action/PDE proposal centered on a meltdown threshold + meltdownFrac gate used to model coherence transitions. Plane 9 is treated as a fractional nonlocal perturbation field d, and the gate is driven by the combined primary wave fields (Planes 4–8) plus the fractional nonlocal field. This site is a living preprint + replication archive.
             </p>
             <div className="flex flex-wrap gap-3">
               <a className={primaryCta} href="/MPFST-Publication-Manuscript-10.pdf" target="_blank" rel="noopener">
@@ -111,6 +111,21 @@ export default function MPFSTWebsite() {
               </div>
             </CardContent>
           </Card>
+
+          <Card className="bg-gray-900/80 border-gray-800">
+            <CardContent className="space-y-2">
+              <h3 className="text-lg font-semibold">Terminology &amp; glossary (standard label → legacy alias)</h3>
+              <ul className="list-disc ml-6 space-y-2 text-gray-200">
+                <li>Plane-9 d: fractional nonlocal perturbation field (legacy: illusions-doping sabotage field).</li>
+                <li>Plane-10 v: boundary regulator (reservoir) field (legacy: vantage-doping collector field).</li>
+                <li>Primary wave fields u4–u8 (Planes 4–8) (legacy: occupant-doping fields).</li>
+                <li>Graph priors: geometric graph priors (legacy: sacred templates; e.g., hexagonal packing / hierarchical modular graph / log-spiral octave embedding).</li>
+                <li>h field: entropy-reservoir field (legacy: entropic back-wash / negative-entropy storage language).</li>
+                <li>mel: normalized coherence order parameter (legacy: coherence slider).</li>
+                <li>Sub-threshold burst event (legacy: synergy flicker); global coherence-locked arc (GCSA) (legacy: Global Crimson Synergy Arc).</li>
+              </ul>
+            </CardContent>
+          </Card>
         </section>
 
         <section id="canonical" className="space-y-8 mt-10">
@@ -124,8 +139,8 @@ export default function MPFSTWebsite() {
                 MPFST is a proposed 11-plane lattice/action framework. Under explicit reduction assumptions in the manuscripts, it is constructed to yield an effective 4-D sector intended to mirror key structures of Einstein–Maxwell dynamics coupled to a Schrödinger-type matter description, plus a fractional-memory coherence block and a projection-defined gate. Parameter values used in the current drafts are constrained via a documented calibration procedure on public datasets (e.g., Casimir-scale constraints, cosmological observations, physiological time-series), with uncertainties noted for replication.
               </p>
               <ul className="list-disc ml-6 space-y-2 text-gray-200">
-                <li>Occupant-doping fields (Planes 4–8) form the active synergy domain.</li>
-                <li>Illusions-doping (Plane 9) is treated as a fractional/nonlocal influence that introduces memory, nonlocal transport, and gate-like irreversibility.</li>
+                <li>Primary wave fields u4–u8 (Planes 4–8) form the active synergy domain (legacy: occupant-doping).</li>
+                <li>Plane-9 fractional nonlocal perturbation field d introduces memory, nonlocal transport, and gate-like irreversibility (legacy: illusions-doping sabotage field).</li>
                 <li>A candidate meltdown threshold (Mth) and a measurable gate state (meltdownFrac) classify partial versus full transitions; thresholds are estimable quantities, not asserted universals.</li>
               </ul>
               <p className="text-gray-200">
@@ -153,12 +168,12 @@ export default function MPFSTWebsite() {
 
                 <div className="space-y-1">
                   <h4 className="font-semibold text-white">2) Plane 9 is essential (fractional / nonlocal dynamics).</h4>
-                  <p>Plane-9 illusions-doping is not optional; it provides the nonlocal influence and memory needed for the gate-like irreversibility in this formulation.</p>
+                  <p>Plane-9 fractional nonlocal perturbation field d is not optional; it provides the nonlocal influence and memory needed for the gate-like irreversibility in this formulation.</p>
                 </div>
 
                 <div className="space-y-1">
                   <h4 className="font-semibold text-white">3) Symbolic geometry = adjacency specification in code.</h4>
-                  <p>Symbolic overlays (Tree-of-Life, Flower-of-Life, etc.) map to explicit coupling/adjacency tensors that declare which planes couple, where, and with what phase dependence.</p>
+                  <p>Geometric graph priors (e.g., hexagonal packing, hierarchical modular graphs, log-spiral octave embeddings) map to explicit coupling/adjacency tensors that declare which planes couple, where, and with what phase dependence.</p>
                 </div>
 
                 <div className="space-y-1">
