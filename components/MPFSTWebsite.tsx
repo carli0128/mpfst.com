@@ -114,6 +114,25 @@ export default function MPFSTWebsite() {
 
           <Card className="bg-gray-900/80 border-gray-800">
             <CardContent className="space-y-2">
+              <h3 className="text-lg font-semibold">Operational coherence (definition vs proxy)</h3>
+              <ul className="list-disc ml-6 space-y-2 text-gray-200">
+                <li><strong>Model-internal (PDE):</strong> coherence is defined by meltdownFrac(t), the fraction of spatial sites where the multi-plane synergy field exceeds a fixed threshold (partial/full gates).</li>
+                <li><strong>Data-analytic proxy:</strong> observational metrics (e.g., scaling exponents, coherence indices) are used as proxies when working with time-series; they do not define coherence in the theory.</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gray-900/80 border border-red-800/70">
+            <CardContent className="space-y-2">
+              <h3 className="text-lg font-semibold">Falsifiability / null controls</h3>
+              <p className="text-gray-200 text-sm">
+                Effects are considered non-supporting if they fail to track the operational coherence proxy (meltdownFrac or declared proxy) or persist under pre-specified null transformations (time/phase/label/graph shuffles, surrogate data). These nulls and thresholds should be declared before outcome inspection wherever possible.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gray-900/80 border-gray-800">
+            <CardContent className="space-y-2">
               <h3 className="text-lg font-semibold">Terminology &amp; glossary (standard label → legacy alias)</h3>
               <ul className="list-disc ml-6 space-y-2 text-gray-200">
                 <li>Plane-9 d: fractional nonlocal perturbation field (legacy: illusions-doping sabotage field).</li>
@@ -221,6 +240,21 @@ export default function MPFSTWebsite() {
             </CardContent>
           </Card>
         </section>
+        <section id="working-notes" className="space-y-8 mt-10">
+          <Card className="bg-gray-900/80 border border-amber-800/70">
+            <CardContent className="space-y-3">
+              <div className="flex items-center gap-2">
+                <ArchiveIcon className="w-5 h-5 text-amber-300" />
+                <h3 className="text-xl font-semibold">Working notes / mappings (not peer-reviewed)</h3>
+              </div>
+              <p className="text-gray-200">
+                Exploratory mappings built on top of the core PDE engine: MPFST ↔ QFT dictionary (measurement/adjacency/gauge structure), EFT/RG sketches, cosmology/GR connections, and avalanche/segmentation toolchains. Use them as hypotheses and code resources, not as settled claims.
+              </p>
+            </CardContent>
+          </Card>
+        </section>
+
+
 
         <section id="legacy" className="space-y-8 mt-12">
           <Card className="bg-gray-900/80 border border-amber-800/70">
@@ -284,7 +318,7 @@ export default function MPFSTWebsite() {
                   <ul className="list-disc ml-5 space-y-2">
                     <li>
                       <a className="underline text-gray-200 hover:text-white" href="/MPFST-V9.pdf" target="_blank" rel="noopener">
-                        MPFST core theory (v9) — historical snapshot
+                        MPFST core theory (v9) — superseded historical snapshot
                       </a>
                     </li>
                   </ul>
