@@ -40,7 +40,7 @@ export default function MPFSTWebsite() {
               <span>Open theory + replication hub</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold">
-              Multi-Plane Field Synergy Theory (MPFST)
+              Multi-Plane Field Syntergic Theory (MPFST)
             </h1>
             <p className="text-lg text-gray-200 max-w-4xl">
               An 11-plane action/PDE proposal centered on a meltdown threshold + meltdownFrac gate used to model coherence transitions. Plane 9 is treated as a fractional nonlocal perturbation field d, and the gate is driven by the combined primary wave fields (Planes 4–8) plus the fractional nonlocal field. This site is a living preprint + replication archive.
