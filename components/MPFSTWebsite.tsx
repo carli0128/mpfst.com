@@ -286,9 +286,10 @@ export default function MPFSTWebsite() {
             >
               MPFST Publication Manuscript (v10)
             </a>
-            . Earlier site material that frames MPFST around a µ–γ–H "coherence
-            meter / manifold" is preserved for transparency but is now archived
-            as legacy and under reevaluation.
+            . Earlier site material that frames MPFST around a µ–γ–H (mu-gamma-H)
+            "coherence meter / manifold"—where µ, γ, and H are scaling
+            exponents—is preserved for transparency but is now archived as
+            legacy and under reevaluation.
           </p>
           <div className="flex flex-wrap gap-3 text-sm">
             <a
@@ -323,7 +324,7 @@ export default function MPFSTWebsite() {
             className="space-y-3"
           >
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              Multi‑Plane Field Synergy Theory (MPFST)
+              Multi‑Plane Field Syntergic Theory (MPFST)
             </h1>
             <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
               An 11‑plane action/PDE framework centered on a single gate

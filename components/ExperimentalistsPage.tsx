@@ -109,7 +109,7 @@ export default function ExperimentalistsPage() {
               <div className="flex items-center gap-3 text-emerald-300">
                 <BrainCircuit className="w-5 h-5" />
                 <h2 className="text-2xl font-semibold text-white">
-                  Page title + intro
+                  Introduction to canonical protocols
                 </h2>
               </div>
               <p className="text-slate-300">
@@ -136,6 +136,11 @@ export default function ExperimentalistsPage() {
                   <span className="font-semibold text-slate-100">
                     Compute the combined synergy amplitude:
                   </span>
+                  <p className="ml-6 mt-1 text-sm text-slate-400">
+                    where u4–u8 are occupant-doping fields (Planes 4–8), d is
+                    the Plane-9 illusions-doping field, x is spatial position,
+                    and t is time.
+                  </p>
                   <div className="ml-6 mt-2 p-3 bg-slate-950/60 rounded border border-slate-700 font-mono text-sm">
                     M(x,t) = u4(x,t) + u5(x,t) + u6(x,t) + u7(x,t) + u8(x,t) +
                     d(x,t)

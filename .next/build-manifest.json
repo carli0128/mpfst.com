@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/0XXuHSErsCcr3jifeMa7w/_buildManifest.js",
-    "static/0XXuHSErsCcr3jifeMa7w/_ssgManifest.js"
+    "static/OmDKi69Qm2_w1Q7Gu7Kmc/_buildManifest.js",
+    "static/OmDKi69Qm2_w1Q7Gu7Kmc/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "rootMainFilesTree": {},
@@ -16,7 +16,7 @@
       "static/chunks/framework-3522b0d93c8e64f4.js",
       "static/chunks/main-cff7252b33a9e0e5.js",
       "static/chunks/589-bfcf187d8a6b1555.js",
-      "static/chunks/pages/index-dfbc43dd607d8164.js"
+      "static/chunks/pages/index-7b49cdc9bdef6174.js"
     ],
     "/_app": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
@@ -36,14 +36,14 @@
       "static/chunks/framework-3522b0d93c8e64f4.js",
       "static/chunks/main-cff7252b33a9e0e5.js",
       "static/chunks/589-bfcf187d8a6b1555.js",
-      "static/chunks/pages/experimentalists-db90f1efb02a540d.js"
+      "static/chunks/pages/experimentalists-b3b85e5d732250b6.js"
     ],
     "/legacy/experimentalists-manifold": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-3522b0d93c8e64f4.js",
       "static/chunks/main-cff7252b33a9e0e5.js",
       "static/chunks/589-bfcf187d8a6b1555.js",
-      "static/chunks/pages/legacy/experimentalists-manifold-cc04d0aca2a2c1a5.js"
+      "static/chunks/pages/legacy/experimentalists-manifold-42cca1fa69727084.js"
     ]
   },
   "ampFirstPages": []

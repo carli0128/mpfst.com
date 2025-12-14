@@ -33,8 +33,9 @@ export default function LegacyExperimentalistsPage() {
       <div className="max-w-5xl mx-auto px-4 lg:px-0 py-10 space-y-10">
         {/* LEGACY NOTICE BANNER */}
         <div className="rounded-lg border-2 border-amber-500/50 bg-amber-950/30 p-6 backdrop-blur">
-          <h2 className="text-xl font-bold text-amber-200 mb-3">
-            ⚠️ LEGACY / ARCHIVED PROTOCOL (µ–γ–H framework)
+          <h2 className="text-xl font-bold text-amber-200 mb-3" role="alert">
+            <span aria-label="Warning">⚠️</span> LEGACY / ARCHIVED PROTOCOL
+            (µ–γ–H framework)
           </h2>
           <p className="text-slate-200 mb-3">
             This page describes the legacy µ–γ–H coherence meter protocol. It is
