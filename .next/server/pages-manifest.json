@@ -1,7 +1,10 @@
 {
   "/_app": "pages/_app.js",
-  "/": "pages/index.html",
   "/_error": "pages/_error.js",
+  "/api/subscribe": "pages/api/subscribe.js",
+  "/experimentalists": "pages/experimentalists.html",
+  "/": "pages/index.html",
+  "/legacy/experimentalists-manifold": "pages/legacy/experimentalists-manifold.html",
   "/_document": "pages/_document.js",
   "/404": "pages/404.html"
 }

@@ -18,11 +18,9 @@ import {
 const TOOLKIT_DOI_URL = "https://doi.org/10.5281/zenodo.17776043";
 
 type ArticleCategory =
-  | "Core theory"
-  | "Addenda & technical"
-  | "Empirical dossiers"
-  | "Domain studies"
-  | "Manuscripts";
+  | "Canonical"
+  | "Prior core / historical"
+  | "Legacy analyses (under reevaluation)";
 
 interface Article {
   id: string;
@@ -37,30 +35,40 @@ interface Article {
 
 const articles: Article[] = [
   {
+    id: "manuscript-10",
+    category: "Canonical",
+    title: "MPFST Publication Manuscript (v10)",
+    pdfPath: "/MPFST-Publication-Manuscript-10.pdf",
+    year: "2025",
+    blurb:
+      "Canonical reference for MPFST. Defines the meltdownFrac gate mechanism, Plane 4-8 occupant doping fields, Plane 9 illusions doping (fractional/nonlocal), and the universal meltdown threshold. This is the primary source of truth for MPFST.",
+    highlight: "Canonical reference (v10)",
+  },
+  {
     id: "mpfst-v9",
-    category: "Core theory",
+    category: "Prior core / historical",
     title:
       "Multi-Plane Field Syntergic Theory (MPFST): From an 11‑D Lattice Action to 4‑D Einstein–Maxwell–Schrödinger Thermodynamics",
     pdfPath: "/MPFST-V9.pdf",
     year: "2025",
     blurb:
       "Canonical presentation of MPFST. A single 11‑D lattice action yields an effective 4‑D Einstein–Maxwell–Schrödinger sector, a fractional entropy balance law, and a projection threshold linking cosmological vacuum energy to biological coherence. All constants are fixed by public data.",
-    highlight: "Core theoretical reference.",
+    highlight: "Historical snapshot (v9-era)",
   },
   {
     id: "complements-v9",
-    category: "Addenda & technical",
+    category: "Legacy analyses (under reevaluation)",
     title:
       "MPFST Complements v9: Post‑Publication Validations, Fractional‑Exponent Pinning, and Device‑Level Control",
     pdfPath: "/MPFST-Complements-V9.pdf",
     year: "2025",
     blurb:
       "Consolidates refinements after the main v9 text: two‑tier gate on the downward projection, explicit fractional operator on Plane 9, live inference of (µ, γ, H), a coherence meter, Spectral Shell Monitor, and an instrument‑grade analysis toolbox with reproducible code.",
-    highlight: "Technical supplement & analysis toolbox.",
+    highlight: "Legacy v9-era supplement",
   },
   {
     id: "further-dev",
-    category: "Addenda & technical",
+    category: "Legacy analyses (under reevaluation)",
     title: "Further Development of MPFST: Avalanche Mechanism and EFT Structure",
     pdfPath: "/Further-Development-of-MPFST.pdf",
     year: "2025",
@@ -70,29 +78,29 @@ const articles: Article[] = [
   },
   {
     id: "avalanche-addendum",
-    category: "Addenda & technical",
+    category: "Legacy analyses (under reevaluation)",
     title:
       "MPFST Avalanche Addendum: Two‑Tier Coherence Gating and Avalanche Statistics",
     pdfPath: "/Avalanche-MPFST.pdf",
     year: "2025",
     blurb:
       "Defines a time‑resolved coherence meter, latent gate trace, and soft two‑tier valve that convert coherence fluctuations into avalanches with heavy‑tailed size statistics. Implements a cross‑domain avalanche pipeline for gravitational‑wave ringdowns, laser SFI, and resting‑state EEG.",
-    highlight: "Formal definition of the avalanche mechanism.",
+    highlight: "Legacy µ–γ–H avalanche framework",
   },
   {
     id: "empirical-evidence",
-    category: "Empirical dossiers",
+    category: "Legacy analyses (under reevaluation)",
     title:
       "MPFST Cross‑Domain Empirical Validations: Consolidated Dossier (Physics, Chemistry, Biology)",
     pdfPath: "/Empirical-Evidence-MPFST.pdf",
     year: "2025",
     blurb:
       "Applies a single coherence meter mℓ(µ, γ, H), two universal gates (m1, m2), and a Spectral Shell Monitor across quantum measurement, dark‑sector residuals, GW overtones, high‑Tc superconductors, plasma ELMs, heterogeneous catalysis, water anomalies, batteries, EEG entrainment, and multi‑organ coherence.",
-    highlight: "One meter, two gates, one detector across domains.",
+    highlight: "Legacy µ–γ–H cross-domain validations",
   },
   {
     id: "negative-control",
-    category: "Empirical dossiers",
+    category: "Legacy analyses (under reevaluation)",
     title:
       "Validation of MPFST via Negative-Control Scaling Law Violations in Stochastic Incoherent Systems",
     pdfPath: "/Validation-of-MPFST-Negative-Control-Scaling-Law-Violations.pdf",
@@ -103,7 +111,7 @@ const articles: Article[] = [
   },
   {
     id: "rindler",
-    category: "Domain studies",
+    category: "Legacy analyses (under reevaluation)",
     title:
       "Empirical Support for MPFST Predictions in Successive Rindler Data",
     pdfPath: "/Empirical-Support-Rindler-MPFST.pdf",
@@ -114,7 +122,7 @@ const articles: Article[] = [
   },
   {
     id: "eeg-mapping",
-    category: "Domain studies",
+    category: "Legacy analyses (under reevaluation)",
     title:
       "Mapping EEG Bands to MPFST Occupant Fields: Analysis and Results",
     pdfPath: "/Mapping-EEG-Bands-to-MPFST-Occupant-Fields.pdf",
@@ -125,7 +133,7 @@ const articles: Article[] = [
   },
   {
     id: "manuscript-9",
-    category: "Manuscripts",
+    category: "Legacy analyses (under reevaluation)",
   title: "The MUlti-Plane Field Syntergic Theory MPFST Journal Manuscript v9 (pre‑packaged submission)",
     pdfPath: "/MPFST-Publication-Manuscript-9.pdf",
     year: "2025",
@@ -133,17 +141,8 @@ const articles: Article[] = [
       "Journal‑style formatting of the core MPFST theory for external peer‑review. Content overlaps with MPFST v9, tuned for conventional article structure.",
   },
   {
-    id: "manuscript-10",
-    category: "Manuscripts",
-  title: "The MUlti-Plane Field Syntergic Theory MPFST Journal Manuscript v10 (updated submission)",
-    pdfPath: "/MPFST-Publication-Manuscript-10.pdf",
-    year: "2025",
-    blurb:
-      "Updated manuscript reflecting later refinements and clarifications. Kept here as an archival, citable packaging of the evolving theory.",
-  },
-  {
     id: "qft-bridge",
-    category: "Manuscripts",
+    category: "Legacy analyses (under reevaluation)",
     title: "MPFST Mapped to Quantum Field Theory (working notes)",
     pdfPath: "/MPFST-Mapped-to-QFT.pdf",
     year: "2025",
@@ -154,19 +153,16 @@ const articles: Article[] = [
 ];
 
 const categoryOrder: ArticleCategory[] = [
-  "Core theory",
-  "Addenda & technical",
-  "Empirical dossiers",
-  "Domain studies",
-  "Manuscripts",
+  "Canonical",
+  "Prior core / historical",
+  "Legacy analyses (under reevaluation)",
 ];
 
 const sectionNav = [
   { id: "overview", label: "Journal overview" },
   { id: "theory", label: "Core theory" },
   { id: "qft", label: "QFT bridge" },
-  { id: "avalanche", label: "Avalanche toolkit" },
-  { id: "evidence", label: "Empirical evidence" },
+  { id: "legacy", label: "Legacy archive" },
   { id: "archive", label: "Archive" },
   { id: "repro", label: "Data & replication" },
   { id: "cite", label: "How to cite" },
@@ -277,6 +273,47 @@ export default function MPFSTWebsite() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-black text-slate-50">
       <div className="max-w-6xl mx-auto px-4 lg:px-0 py-10">
+        {/* CANONICAL ALIGNMENT BANNER */}
+        <section className="mb-8 rounded-lg border-2 border-amber-500/50 bg-amber-950/30 p-6 backdrop-blur">
+          <h2 className="text-xl font-bold text-amber-200 mb-3">
+            CANONICAL ALIGNMENT NOTICE (v10)
+          </h2>
+          <p className="text-slate-200 mb-3">
+            MPFST's canonical reference is the{" "}
+            <a
+              href="/MPFST-Publication-Manuscript-10.pdf"
+              className="font-semibold text-emerald-300 hover:text-emerald-200 underline"
+            >
+              MPFST Publication Manuscript (v10)
+            </a>
+            . Earlier site material that frames MPFST around a µ–γ–H "coherence
+            meter / manifold" is preserved for transparency but is now archived
+            as legacy and under reevaluation.
+          </p>
+          <div className="flex flex-wrap gap-3 text-sm">
+            <a
+              href="/MPFST-Publication-Manuscript-10.pdf"
+              className="text-emerald-300 hover:text-emerald-200 underline"
+            >
+              Read the canonical manuscript
+            </a>
+            <span className="text-slate-500">|</span>
+            <a
+              href="/experimentalists"
+              className="text-emerald-300 hover:text-emerald-200 underline"
+            >
+              Replication protocols (canonical)
+            </a>
+            <span className="text-slate-500">|</span>
+            <a
+              href="#legacy"
+              className="text-emerald-300 hover:text-emerald-200 underline"
+            >
+              Legacy archive
+            </a>
+          </div>
+        </section>
+
         {/* HERO */}
         <header className="text-center mb-12 space-y-6">
           <MotionDiv
@@ -286,13 +323,13 @@ export default function MPFSTWebsite() {
             className="space-y-3"
           >
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              The MUlti-Plane Field Syntergic Theory MPFST Journal
+              Multi‑Plane Field Synergy Theory (MPFST)
             </h1>
             <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
-              A living scientific record for the Multi‑Plane Field Syntergic
-              Theory — from the 11‑D lattice action to empirical avalanche and
-              coherence signatures across physical, chemical, and biological
-              systems.
+              An 11‑plane action/PDE framework centered on a single gate
+              mechanism—meltdown threshold + meltdownFrac—used to model
+              coherence transitions and "synergy reorganizations" across
+              domains.
             </p>
           </MotionDiv>
 
@@ -315,27 +352,24 @@ export default function MPFSTWebsite() {
             transition={{ delay: 0.7, duration: 0.6 }}
           >
             <a
-              href="/MPFST-V9.pdf"
+              href="/MPFST-Publication-Manuscript-10.pdf"
               className="inline-flex items-center gap-2 rounded-md bg-blue-600 hover:bg-blue-700 px-4 py-2 text-sm font-semibold text-white transition"
             >
               <Download className="w-4 h-4" />
-              Download core theory (v9)
-            </a>
-            <a
-              href={TOOLKIT_DOI_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-md border border-slate-600 hover:bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-100 transition"
-            >
-              <Key className="w-4 h-4" />
-              Avalanche & coherence toolkit (DOI)
+              Read canonical manuscript (v10)
             </a>
             <Link
               href="/experimentalists"
               className="inline-flex items-center gap-2 rounded-md bg-emerald-500/90 hover:bg-emerald-500 px-4 py-2 text-sm font-semibold text-white transition"
             >
-              Field protocols for experimentalists
+              Replication protocols (canonical)
             </Link>
+            <a
+              href="#legacy"
+              className="inline-flex items-center gap-2 rounded-md border border-slate-600 hover:bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-100 transition"
+            >
+              Legacy archive (v9 + µ–γ–H tools)
+            </a>
           </MotionDiv>
         </header>
 
@@ -398,19 +432,34 @@ export default function MPFSTWebsite() {
                     Aims & scope
                   </h2>
                   <p className="text-slate-200">
-                    MPFST is a single 11‑dimensional lattice action that
-                    reproduces an effective 4‑D Einstein–Maxwell–Schrödinger
-                    sector, a fractional entropy balance law, and a projection
-                    threshold that ties cosmological vacuum energy to
-                    coherence‑bearing mesoscopic systems. The constants are
-                    fixed by public Casimir, cosmological, and HRV datasets,
-                    leaving no free parameters to tune.
+                    MPFST is presented as a transdisciplinary framework that
+                    models coupled field dynamics across an 11‑plane lattice and
+                    organizes "coherence transitions" using a single gate
+                    variable derived from the PDEs: meltdownFrac.
                   </p>
+                  <p className="text-slate-200">
+                    The canonical manuscript defines:
+                  </p>
+                  <ul className="list-disc list-inside text-slate-300 space-y-1">
+                    <li>
+                      Occupant‑doping fields (Planes 4–8) as the active synergy
+                      domain.
+                    </li>
+                    <li>
+                      Illusions‑doping (Plane 9) as a fractional/nonlocal
+                      influence that introduces memory, nonlocal transport, and
+                      irreversible gating behavior.
+                    </li>
+                    <li>
+                      A universal meltdown threshold (Mth) and a measurable gate
+                      state (meltdownFrac) that classifies partial vs. full
+                      transitions.
+                    </li>
+                  </ul>
                   <p className="text-slate-300">
-                    This site functions as a dedicated journal for MPFST: it
-                    hosts the core theory, technical complements, avalanche
-                    and coherence toolkits, and cross‑domain empirical
-                    dossiers, together with explicit replication resources.
+                    This site hosts the canonical manuscript, replication
+                    protocols, and an openly versioned archive of
+                    supporting/legacy materials.
                   </p>
                 </section>
 
@@ -452,10 +501,9 @@ export default function MPFSTWebsite() {
                         shoulders and long‑memory kernels.
                       </li>
                       <li>
-                        <span className="font-semibold">Avalanche regime:</span>{" "}
-                        a reduced (mℓ, V) system whose heavy‑tailed
-                        avalanche statistics probe the same fractional order as
-                        dwell‑time, spectral, and memory exponents.
+                        <span className="font-semibold">Canonical protocols:</span>{" "}
+                        meltdownFrac-based replication pathways for independent
+                        verification and multi-institutional testing.
                       </li>
                       <li>
                         <span className="font-semibold">Cross‑domain evidence:</span>{" "}
@@ -468,29 +516,30 @@ export default function MPFSTWebsite() {
                   </div>
                   <div className="space-y-3">
                     <h3 className="text-lg font-semibold">
-                      Design principles
+                      Canonical mechanics (v10)
                     </h3>
                     <ul className="list-disc list-inside text-slate-300 space-y-1">
                       <li>
-                        <span className="font-semibold">Single meter, two gates:</span>{" "}
-                        one coherence score mℓ(µ, γ, H) and two thresholds
-                        (m1, m2) organize “slip” and “lock” regimes across
-                        platforms.
+                        <span className="font-semibold">Gate variable is meltdownFrac:</span>{" "}
+                        the fraction of domain where combined field amplitude
+                        exceeds a fixed fraction of the meltdown threshold
+                        (partial: 0.5·Mth, full: 0.8·Mth).
                       </li>
                       <li>
-                        <span className="font-semibold">Public data only:</span>{" "}
-                        all validations are constructed to be re‑run from open
-                        archives and scripted notebooks.
+                        <span className="font-semibold">Plane 9 is essential:</span>{" "}
+                        fractional/nonlocal dynamics introduce memory and
+                        gate-like irreversibility that drive coherence transitions.
                       </li>
                       <li>
-                        <span className="font-semibold">Falsifiability:</span>{" "}
-                        signatures must tier with mℓ and disappear under
-                        structured nulls (time/phase/label shuffles).
+                        <span className="font-semibold">Symbolic geometry:</span>{" "}
+                        adjacency specification in code—explicit coupling topology
+                        that defines which planes couple and with what phase dependence.
                       </li>
                       <li>
-                        <span className="font-semibold">Versioned narrative:</span>{" "}
-                        each PDF is a frozen snapshot; this journal records how
-                        the theory and evidence evolve.
+                        <span className="font-semibold">HPC simulations:</span>{" "}
+                        a disclosed implementation tool for exploring the PDE
+                        system—not the definition of the theory. Predictions
+                        must be evaluated via transparent replication.
                       </li>
                     </ul>
                   </div>
@@ -685,14 +734,27 @@ export default function MPFSTWebsite() {
         </section>
 
         {/* AVALANCHE & TOOLKIT */}
-  <section id="avalanche" data-scroll-section className="scroll-section pt-10 scroll-mt-32">
+  <section id="legacy" data-scroll-section className="scroll-section pt-10 scroll-mt-32">
             <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
               <CardContent className="p-6 space-y-8">
                 <section className="space-y-3">
                   <h2 className="text-2xl font-semibold flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-yellow-300" />
-                    Avalanche mechanism
+                    Legacy / archived materials (µ–γ–H coherence meter)
                   </h2>
+                  <div className="rounded-lg border-2 border-amber-500/50 bg-amber-950/30 p-4 mb-4">
+                    <p className="text-amber-200 font-semibold mb-2">
+                      ⚠️ Not canonical; under reevaluation
+                    </p>
+                    <p className="text-slate-300 text-sm">
+                      Some prior MPFST site material used a µ–γ–H "coherence meter"
+                      and a derived score mℓ(µ,γ,H) as an observational proxy layer.
+                      This layer is now considered legacy and is under reevaluation
+                      relative to the canonical (v10) gate definition (meltdownFrac).
+                      It remains available for transparency and for historical
+                      reproducibility, but it is not the canonical formulation.
+                    </p>
+                  </div>
                   <p className="text-slate-200">
                     In the gate‑controlled regime, MPFST compresses the
                     coherence dynamics into a reduced pair (mℓ(t), V(t)):
@@ -748,16 +810,17 @@ export default function MPFSTWebsite() {
 
                   <div className="space-y-3">
                     <h3 className="text-lg font-semibold">
-                      Avalanche & Coherence Toolkit (DOI)
+                      Legacy µ–γ–H toolkit (DOI, archived)
                     </h3>
                     <p className="text-sm text-slate-300">
-                      The toolkit at the Zenodo DOI below packages the
+                      <span className="font-semibold text-amber-300">Note:</span> The
+                      toolkit at the Zenodo DOI below packages the
                       avalanche pipeline: exponent estimation, coherence meter
                       construction, valve dynamics, avalanche segmentation,
                       tail fits with BCa intervals, and surrogate null tests
                       for gravitational-wave ringdowns, laser
                       self-frequency-instability traces, and resting-state
-                      EEG.
+                      EEG. This is based on the µ–γ–H framework (legacy).
                     </p>
                     <div className="rounded-md border border-slate-600 bg-slate-900/70 px-4 py-3 text-sm">
                       <div className="font-mono break-all">
@@ -770,135 +833,9 @@ export default function MPFSTWebsite() {
                         className="mt-2 inline-flex items-center gap-2 text-blue-300 hover:text-blue-200"
                       >
                         <Key className="w-4 h-4" />
-                        Open toolkit on Zenodo
+                        Legacy µ–γ–H toolkit on Zenodo
                       </a>
                     </div>
-                  </div>
-                </section>
-              </CardContent>
-            </Card>
-        </section>
-
-        {/* EMPIRICAL EVIDENCE */}
-  <section id="evidence" data-scroll-section className="scroll-section pt-10 scroll-mt-32">
-            <Card className="bg-slate-900/60 backdrop-blur border-slate-700">
-              <CardContent className="p-6 space-y-8">
-                <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold flex items-center gap-2">
-                    <BookOpenCheck className="w-5 h-5 text-emerald-300" />
-                    Cross-domain evidence
-                  </h2>
-                  <p className="text-slate-200">
-                    The empirical program is built around one meter mℓ(µ, γ, H),
-                    two fixed gates m1, m2, and a Spectral Shell Monitor
-                    detecting octave-like slips and jumps. Effects must tier
-                    with mℓ and vanish under time, phase, label, or graph
-                    shuffles to count as support.
-                  </p>
-                </section>
-
-                <section className="grid md:grid-cols-3 lg:grid-cols-4 gap-6 text-sm">
-                  <div className="space-y-2">
-                    <h3 className="font-semibold text-slate-100">
-                      Physics & chemistry set
-                    </h3>
-                    <ul className="list-disc list-inside text-slate-300 space-y-1">
-                      <li>
-                        Quantum “measurement” without ad-hoc collapse:
-                        slips at m1, locks at m2, nulls kill the tiering.
-                      </li>
-                      <li>
-                        Dark-sector residuals as coherence budget:
-                        residual variance drops with coherence conditioning.
-                      </li>
-                      <li>
-                        GW overtones, high-Tc, plasma ELMs, catalysis, water
-                        anomalies, and batteries all show gate-tied slips,
-                        locks, and shell jumps.
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="font-semibold text-slate-100">
-                      Rindler spacetime experiment
-                    </h3>
-                    <ul className="list-disc list-inside text-slate-300 space-y-1">
-                      <li>
-                        Successive Rindler detector shows Δγ ≈ +0.2, heavier
-                        bursts (µ↓), and higher H in the higher-tier frame.
-                      </li>
-                      <li>
-                        SSM reveals an intra-shell slip followed by an
-                        inter-shell jump as the detector locks into a Planckian
-                        steady state.
-                      </li>
-                      <li>
-                        Time-domain dynamics exhibit a clear slip→lock
-                        transition at m1 ≈ 0.33 and m2 ≈ 0.66 that vanishes
-                        under structured nulls.
-                      </li>
-                    </ul>
-                    <a
-                      href="/Empirical-Support-Rindler-MPFST.pdf"
-                      className="inline-flex items-center gap-2 text-blue-300 hover:text-blue-200"
-                    >
-                      <Download className="w-4 h-4" />
-                      Rindler support PDF
-                    </a>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="font-semibold text-slate-100">
-                      Neuroscience & physiology
-                    </h3>
-                    <ul className="list-disc list-inside text-slate-300 space-y-1">
-                      <li>
-                        EEG bands map one-to-one to latent Occupant fields; the
-                        monotone mapping model decisively outperforms null and
-                        inverted models.
-                      </li>
-                      <li>
-                        Shell jumps produce band-specific power changes that
-                        disappear under label shuffles.
-                      </li>
-                      <li>
-                        Gate-dependent entrainment and brain–heart–gut–pelvis
-                        coherence show driver→system directionality only at
-                        mℓ ≥ m2.
-                      </li>
-                    </ul>
-                    <a
-                      href="/Mapping-EEG-Bands-to-MPFST-Occupant-Fields.pdf"
-                      className="inline-flex items-center gap-2 text-blue-300 hover:text-blue-200"
-                    >
-                      <Download className="w-4 h-4" />
-                      EEG–Occupant mapping PDF
-                    </a>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="font-semibold text-slate-100">
-                      Negative-control dossier
-                    </h3>
-                    <ul className="list-disc list-inside text-slate-300 space-y-1">
-                      <li>
-                        Runs the MPFST coherence meter on stochastic, nominally
-                        incoherent systems under strict negative controls.
-                      </li>
-                      <li>
-                        Detects systematic scaling-law violations only when the
-                        hidden gate is forced open—µ softens, γ steepens, H drifts.
-                      </li>
-                      <li>
-                        All anomalies collapse under shuffled or inverted controls,
-                        reinforcing falsifiability of the gate mechanism.
-                      </li>
-                    </ul>
-                    <a
-                      href="/Validation-of-MPFST-Negative-Control-Scaling-Law-Violations.pdf"
-                      className="inline-flex items-center gap-2 text-blue-300 hover:text-blue-200"
-                    >
-                      <Download className="w-4 h-4" />
-                      Negative-control validation PDF
-                    </a>
                   </div>
                 </section>
               </CardContent>

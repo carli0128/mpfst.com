@@ -13,13 +13,11 @@ import {
 } from "lucide-react";
 
 const sections = [
-  { id: "mission", label: "Mission" },
-  { id: "apparatus", label: "Apparatus" },
-  { id: "acquisition", label: "Acquisition" },
-  { id: "calibration", label: "Calibration" },
-  { id: "analysis", label: "Analysis" },
-  { id: "controls", label: "Controls" },
-  { id: "handoff", label: "Submission" },
+  { id: "intro", label: "Introduction" },
+  { id: "protocol-a", label: "Protocol A" },
+  { id: "protocol-b", label: "Protocol B" },
+  { id: "replication", label: "Replication" },
+  { id: "legacy-link", label: "Legacy protocol" },
 ];
 
 export default function ExperimentalistsPage() {
@@ -31,6 +29,25 @@ export default function ExperimentalistsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-black text-slate-100">
       <div className="max-w-5xl mx-auto px-4 lg:px-0 py-10 space-y-10">
+        {/* CANONICAL BANNER */}
+        <div className="rounded-lg border-2 border-emerald-500/50 bg-emerald-950/30 p-6 backdrop-blur">
+          <h2 className="text-xl font-bold text-emerald-200 mb-3">
+            CANONICAL REPLICATION PROTOCOLS (v10)
+          </h2>
+          <p className="text-slate-200">
+            This page summarizes how to test MPFST using the canonical gate
+            definition: meltdown threshold + meltdownFrac. Older protocols that
+            compute µ, γ, H and mℓ are preserved as{" "}
+            <a
+              href="/legacy/experimentalists-manifold"
+              className="font-semibold text-amber-300 hover:text-amber-200 underline"
+            >
+              legacy
+            </a>{" "}
+            but are not the canonical definition of coherence in MPFST.
+          </p>
+        </div>
+
         <header className="space-y-6 text-center">
           <MotionDiv
             initial={{ opacity: 0, y: 20 }}
@@ -39,16 +56,15 @@ export default function ExperimentalistsPage() {
             className="space-y-4"
           >
             <p className="text-sm uppercase tracking-[0.2em] text-emerald-300/80">
-              Field manual
+              Canonical protocols
             </p>
             <h1 className="text-4xl md:text-5xl font-bold text-white">
-              For experimentalists deploying the MPFST protocol
+              Replication protocols for experimentalists (canonical, v10)
             </h1>
             <p className="text-lg text-slate-300 max-w-3xl mx-auto">
-              Use this page as the operational checklist when you want to
-              instrument a platform with the MPFST coherence meter mℓ(µ, γ, H),
-              run the two-gate projection test, and report avalanche statistics
-              that line up with the public dossiers.
+              Test MPFST using the canonical gate definition based on
+              meltdownFrac and the meltdown threshold. These protocols enable
+              independent verification and structured replication.
             </p>
           </MotionDiv>
 
@@ -60,17 +76,17 @@ export default function ExperimentalistsPage() {
               ← Back to the MPFST journal
             </Link>
             <a
-              href="mailto:lab@mpfst.com?subject=MPFST%20experimental%20handoff"
+              href="mailto:lab@mpfst.com?subject=MPFST%20canonical%20replication"
               className="rounded-full bg-emerald-500 px-6 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-500/30 hover:bg-emerald-400"
             >
-              Coordinate a lab handoff
+              Coordinate replication
             </a>
           </div>
         </header>
 
         <nav
           className="sticky top-0 z-20 bg-gradient-to-b from-slate-950 via-slate-950/90 to-transparent py-4"
-          aria-label="Experimentalist sections"
+          aria-label="Protocol sections"
         >
           <ul className="flex flex-wrap gap-2" data-scroll-nav>
             {sections.map((section) => (
@@ -87,187 +103,230 @@ export default function ExperimentalistsPage() {
           </ul>
         </nav>
 
-        <section id="mission" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
+        <section id="intro" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
           <Card className="bg-slate-900/70 border border-slate-800">
             <CardContent className="p-6 space-y-4">
               <div className="flex items-center gap-3 text-emerald-300">
                 <BrainCircuit className="w-5 h-5" />
                 <h2 className="text-2xl font-semibold text-white">
-                  What counts as a compliant MPFST experiment?
+                  Page title + intro
                 </h2>
               </div>
               <p className="text-slate-300">
-                Choose a platform where coherence, avalanches, or fractional
-                memory are expected or contested. The MPFST programme asks that
-                you log all raw acquisitions, publish the scripts that estimate
-                (µ, γ, H), and share the gate trajectories mℓ(t), m1, m2 so that
-                other teams can replay your run. If your apparatus can be moved
-                or replicated off-site, plan for a traveling calibration bundle
-                (noise source + reference sample) so the handoff retains the
-                same gate settings.
+                This page summarizes how to test MPFST using the canonical gate
+                definition: meltdown threshold + meltdownFrac. Older protocols
+                that compute µ, γ, H and mℓ are preserved as legacy but are not
+                the canonical definition of coherence in MPFST.
               </p>
             </CardContent>
           </Card>
         </section>
 
-        <section id="apparatus" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
+        <section id="protocol-a" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
           <Card className="bg-slate-900/70 border border-slate-800">
             <CardContent className="p-6 space-y-4">
               <div className="flex items-center gap-3 text-sky-300">
                 <Layers className="w-5 h-5" />
                 <h2 className="text-2xl font-semibold text-white">
-                  Minimum apparatus stack
+                  Protocol A: Simulation-true gate state (meltdownFrac)
                 </h2>
               </div>
-              <ul className="list-disc list-inside text-slate-300 space-y-1">
+              <ol className="list-decimal list-inside text-slate-300 space-y-3">
                 <li>
                   <span className="font-semibold text-slate-100">
-                    Sensor chain:
-                  </span>{" "}
-                  simultaneous readings at ≥1 kHz for the driven channel,
-                  auxiliary channels, and environmental monitors.
-                </li>
-                <li>
-                  <span className="font-semibold text-slate-100">
-                    Analog front-end:
-                  </span>{" "}
-                  DC-coupled, flat phase across the capture band, with a
-                  documented transfer function for de-embedding.
+                    Compute the combined synergy amplitude:
+                  </span>
+                  <div className="ml-6 mt-2 p-3 bg-slate-950/60 rounded border border-slate-700 font-mono text-sm">
+                    M(x,t) = u4(x,t) + u5(x,t) + u6(x,t) + u7(x,t) + u8(x,t) +
+                    d(x,t)
+                  </div>
                 </li>
                 <li>
                   <span className="font-semibold text-slate-100">
-                    Timing:
-                  </span>{" "}
-                  disciplined clock (GPSDO or rubidium) with &lt;10 µs jitter
-                  and PPS capture in the log for later alignment.
+                    Compute partial and full gate fractions (recommended):
+                  </span>
+                  <div className="ml-6 mt-2 p-3 bg-slate-950/60 rounded border border-slate-700 font-mono text-sm space-y-1">
+                    <div>
+                      partial_meltdownFrac(t) = fraction of domain where M(x,t)
+                      &gt; 0.5·Mth
+                    </div>
+                    <div>
+                      full_meltdownFrac(t) = fraction of domain where M(x,t)
+                      &gt; 0.8·Mth
+                    </div>
+                  </div>
                 </li>
                 <li>
                   <span className="font-semibold text-slate-100">
-                    Reference path:
-                  </span>{" "}
-                  matched dummy load / dark channel to establish the gate-closed
-                  spectrum in situ.
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-        </section>
-
-        <section id="acquisition" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
-          <Card className="bg-slate-900/70 border border-slate-800">
-            <CardContent className="p-6 space-y-4">
-              <div className="flex items-center gap-3 text-purple-300">
-                <Activity className="w-5 h-5" />
-                <h2 className="text-2xl font-semibold text-white">
-                  Acquisition cadence
-                </h2>
-              </div>
-              <ol className="list-decimal list-inside text-slate-300 space-y-1">
-                <li>Warm up the instrument until drift &lt; 1%/hr.</li>
-                <li>
-                  Run a "gate closed" control with the reference sample and log
-                  at least 10 minutes of data.
+                    Classify system state:
+                  </span>
+                  <ul className="ml-6 mt-2 list-disc list-inside text-slate-300 space-y-1">
+                    <li>No transition: partial=0 and full=0</li>
+                    <li>Partial transition: partial&gt;0 and full=0</li>
+                    <li>Full transition: full&gt;0</li>
+                  </ul>
                 </li>
                 <li>
-                  Switch to the active sample or field condition and log ≥1e6
-                  samples per channel.
-                </li>
-                <li>
-                  Capture environmental covariates (temperature, pressure,
-                  vibration) on the same clock.
-                </li>
-                <li>
-                  Archive raw binaries + JSON metadata (sample rate, gain,
-                  filter settings, instrument serials).
+                  <span className="font-semibold text-slate-100">
+                    Validate invariances:
+                  </span>
+                  <ul className="ml-6 mt-2 list-disc list-inside text-slate-300 space-y-1">
+                    <li>
+                      The same gate definition must be used across runs.
+                    </li>
+                    <li>
+                      Parameter files and solver settings must be logged and
+                      reproducible.
+                    </li>
+                  </ul>
                 </li>
               </ol>
             </CardContent>
           </Card>
         </section>
 
-        <section id="calibration" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
+        <section id="protocol-b" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
           <Card className="bg-slate-900/70 border border-slate-800">
             <CardContent className="p-6 space-y-4">
-              <div className="flex items-center gap-3 text-pink-300">
-                <Beaker className="w-5 h-5" />
+              <div className="flex items-center gap-3 text-purple-300">
+                <Activity className="w-5 h-5" />
                 <h2 className="text-2xl font-semibold text-white">
-                  Calibration bundle
+                  Protocol B: Experimental gate proxy (for real-world datasets)
                 </h2>
               </div>
               <p className="text-slate-300">
-                Provide a repeatable three-point calibration: (1) thermal noise
-                source with known effective temperature, (2) fractional noise
-                board that sets γ = 1.5 ± 0.02, and (3) a synthetic avalanche
-                trace used to verify segmentation thresholds. Include STL or
-                PCB files so other sites can fabricate the same boards.
+                Because u4..u8 and d are latent model fields, experimental data
+                must use an explicit proxy variable S(t) designed to track
+                "synergy amplitude" in a domain-appropriate way.
               </p>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-semibold text-slate-100 mb-2">
+                    Minimum requirements for an acceptable proxy protocol:
+                  </h3>
+                  <ol className="list-decimal list-inside text-slate-300 space-y-2">
+                    <li>
+                      <span className="font-semibold">
+                        Define S(t) before analysis (pre-registration).
+                      </span>{" "}
+                      Examples:
+                      <ul className="ml-6 mt-1 list-disc list-inside text-sm">
+                        <li>
+                          EEG: a weighted sum of band-limited amplitude
+                          envelopes + a phase-alignment term.
+                        </li>
+                        <li>
+                          Plasma: an edge/pedestal instability amplitude proxy +
+                          fast transient detector.
+                        </li>
+                        <li>
+                          GW strain: a post-merger residual/echo-energy proxy in
+                          defined windows.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span className="font-semibold">
+                        Define a threshold rule BEFORE looking at outcomes.
+                      </span>
+                      <ul className="ml-6 mt-1 list-disc list-inside text-sm">
+                        <li>
+                          If you cannot directly map Mth, use a physically
+                          motivated threshold OR a preregistered baseline window
+                          to set thresholds.
+                        </li>
+                        <li>
+                          Report sensitivity analyses across a small,
+                          prespecified range.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span className="font-semibold">
+                        Define proxy_meltdownFrac on a rolling window:
+                      </span>
+                      <div className="ml-6 mt-2 p-3 bg-slate-950/60 rounded border border-slate-700 font-mono text-sm">
+                        proxy_meltdownFrac = fraction of samples (or TF bins) in
+                        window where S exceeds threshold.
+                      </div>
+                    </li>
+                    <li>
+                      <span className="font-semibold">Run structured nulls:</span>
+                      <ul className="ml-6 mt-1 list-disc list-inside text-sm">
+                        <li>phase-scrambled controls</li>
+                        <li>time-shift controls</li>
+                        <li>
+                          surrogate data matched on power spectrum (where
+                          appropriate)
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span className="font-semibold">Report:</span>
+                      <ul className="ml-6 mt-1 list-disc list-inside text-sm">
+                        <li>effect sizes</li>
+                        <li>null distributions</li>
+                        <li>robustness to preprocessing choices</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </section>
 
-        <section id="analysis" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
+        <section id="replication" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
+          <Card className="bg-slate-900/70 border border-slate-800">
+            <CardContent className="p-6 space-y-4">
+              <div className="flex items-center gap-3 text-pink-300">
+                <ShieldCheck className="w-5 h-5" />
+                <h2 className="text-2xl font-semibold text-white">
+                  Replication standard
+                </h2>
+              </div>
+              <p className="text-slate-300">
+                MPFST is intended to be evaluated by independent teams using
+                transparent pipelines, structured nulls, and explicit
+                preregistration where possible. Code outputs are not treated as
+                empirical proof; they are test generators.
+              </p>
+              <div className="rounded-lg border border-amber-500/50 bg-amber-950/20 p-4">
+                <h3 className="font-semibold text-amber-200 mb-2">
+                  HPC is not a magic predictor
+                </h3>
+                <p className="text-slate-300 text-sm">
+                  High-performance computing simulations are a disclosed
+                  implementation tool for exploring the PDE system and
+                  generating testable signatures. The canonical claim is:
+                  predictions must be evaluated via transparent, independent
+                  replication and structured null controls—not accepted based on
+                  code output alone.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        <section id="legacy-link" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
           <Card className="bg-slate-900/70 border border-slate-800">
             <CardContent className="p-6 space-y-4">
               <div className="flex items-center gap-3 text-amber-300">
                 <ClipboardCheck className="w-5 h-5" />
                 <h2 className="text-2xl font-semibold text-white">
-                  Analysis deliverables
-                </h2>
-              </div>
-              <ul className="list-disc list-inside text-slate-300 space-y-1">
-                <li>
-                  Publish the notebook / CLI command that estimates (µ, γ, H)
-                  and returns the mℓ trajectory.
-                </li>
-                <li>
-                  Include plots for PSD fits, DFA-2 slopes, avalanche rank
-                  plots with CSN fits, and Spectral Shell Monitor outputs.
-                </li>
-                <li>
-                  Provide BCa intervals for each tail exponent and confirm they
-                  overlap the theoretical fractional order within error bars.
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-        </section>
-
-        <section id="controls" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
-          <Card className="bg-slate-900/70 border border-slate-800">
-            <CardContent className="p-6 space-y-4">
-              <div className="flex items-center gap-3 text-rose-300">
-                <ShieldCheck className="w-5 h-5" />
-                <h2 className="text-2xl font-semibold text-white">
-                  Controls & falsifiability
+                  Legacy protocol (archived)
                 </h2>
               </div>
               <p className="text-slate-300">
-                Run at least one negative-control in which the gate should stay
-                closed (shuffled labels, inverted drive, or thermalized sample).
-                Report the flat mℓ trajectory alongside the active run. Add a
-                structured null (IAAFT or phase-randomized surrogate) to show
-                that avalanche tails collapse when coherence is removed.
+                The prior µ–γ–H experimental protocol is archived for
+                transparency:
               </p>
-            </CardContent>
-          </Card>
-        </section>
-
-        <section id="handoff" data-scroll-section className="scroll-section scroll-mt-36 space-y-4">
-          <Card className="bg-slate-900/70 border border-slate-800">
-            <CardContent className="p-6 space-y-4">
-              <div className="flex items-center gap-3 text-cyan-300">
-                <BrainCircuit className="w-5 h-5" />
-                <h2 className="text-2xl font-semibold text-white">
-                  Submission & lab swaps
-                </h2>
-              </div>
-              <p className="text-slate-300">
-                Once your package includes raw data, metadata, calibration
-                bundle, and notebooks, send the Zenodo/OSF link to
-                lab@mpfst.com with a two-paragraph summary and any safety
-                considerations. We coordinate peer swaps so another lab can
-                install your apparatus or rerun the protocol on a mirrored rig.
-              </p>
+              <a
+                href="/legacy/experimentalists-manifold"
+                className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-amber-500 rounded-md text-amber-200 hover:bg-amber-500/10 transition"
+              >
+                View legacy µ–γ–H protocol
+              </a>
             </CardContent>
           </Card>
         </section>

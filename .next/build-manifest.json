@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/RhABuVXg_CiEgh03RJea6/_buildManifest.js",
-    "static/RhABuVXg_CiEgh03RJea6/_ssgManifest.js"
+    "static/84-D2OHAVOLErt97yDpxO/_buildManifest.js",
+    "static/84-D2OHAVOLErt97yDpxO/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "rootMainFilesTree": {},
@@ -15,14 +15,14 @@
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-3522b0d93c8e64f4.js",
       "static/chunks/main-cff7252b33a9e0e5.js",
-      "static/chunks/5-17c473a88d9fdc58.js",
-      "static/chunks/pages/index-6a97dbc90843c2de.js"
+      "static/chunks/589-bfcf187d8a6b1555.js",
+      "static/chunks/pages/index-dfbc43dd607d8164.js"
     ],
     "/_app": [
       "static/chunks/webpack-8cac0b4b405cede1.js",
       "static/chunks/framework-3522b0d93c8e64f4.js",
       "static/chunks/main-cff7252b33a9e0e5.js",
-      "static/css/4a983044d3f0fe19.css",
+      "static/css/833efb55eed357ab.css",
       "static/chunks/pages/_app-48e49d6afe408d10.js"
     ],
     "/_error": [
@@ -30,6 +30,20 @@
       "static/chunks/framework-3522b0d93c8e64f4.js",
       "static/chunks/main-cff7252b33a9e0e5.js",
       "static/chunks/pages/_error-41608b100cc61246.js"
+    ],
+    "/experimentalists": [
+      "static/chunks/webpack-8cac0b4b405cede1.js",
+      "static/chunks/framework-3522b0d93c8e64f4.js",
+      "static/chunks/main-cff7252b33a9e0e5.js",
+      "static/chunks/589-bfcf187d8a6b1555.js",
+      "static/chunks/pages/experimentalists-db90f1efb02a540d.js"
+    ],
+    "/legacy/experimentalists-manifold": [
+      "static/chunks/webpack-8cac0b4b405cede1.js",
+      "static/chunks/framework-3522b0d93c8e64f4.js",
+      "static/chunks/main-cff7252b33a9e0e5.js",
+      "static/chunks/589-bfcf187d8a6b1555.js",
+      "static/chunks/pages/legacy/experimentalists-manifold-cc04d0aca2a2c1a5.js"
     ]
   },
   "ampFirstPages": []
