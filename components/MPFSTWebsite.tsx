@@ -74,6 +74,9 @@ export default function MPFSTWebsite() {
             <Link href="#archive" className="px-3 py-2 rounded border border-gray-800 hover:border-emerald-400/70 hover:text-white">
               Archive
             </Link>
+            <Link href="/warren" className="px-3 py-2 rounded border border-amber-600/50 text-amber-400 hover:border-amber-400 hover:text-amber-300 flex items-center gap-1.5">
+              🔒 Locked Tools
+            </Link>
           </nav>
         </header>
 
