@@ -1,0 +1,9 @@
+services:
+  # ——— FRONTEND (Next.js) ————————————————————————————
+  - type: web
+    name: mpfst-backend
+    env: node
+    plan: pro
+    rootDir: .
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
