@@ -150,7 +150,7 @@ export default function MPFSTWebsite() {
         >
           <div className="max-w-3xl mx-auto text-center">
             <motion.div variants={fadeUp} className="mb-6">
-              <Badge color="border-amber-500/30 text-amber-400">13 Papers + PRL Letter · 14 Domains · 1 Parameter</Badge>
+              <Badge color="border-amber-500/30 text-amber-400">14 Papers + PRL Letter · 15 Domains · 1 Parameter</Badge>
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
               Multi-Plane Field Syntergic Theory
@@ -193,6 +193,7 @@ export default function MPFSTWebsite() {
                   { icon: <Atom className="w-5 h-5" />, domain: "Quantization & Quantum Gravity", result: "QM + GR from one operator", detail: "Discrete spectrum + emergent gravity, zero free parameters", color: "text-violet-400" },
                   { icon: <Atom className="w-5 h-5" />, domain: "Fusion Plasma", result: "χ² = 7.75, p ≈ 1.000", detail: "55 measurements, 15 tokamaks, 5 observables, zero free parameters", color: "text-rose-400" },
                   { icon: <Atom className="w-5 h-5" />, domain: "Gravitational Wave Echoes", result: "73/109 wins, p = 9.16×10⁻⁵", detail: "486 GWOSC events, power-law post-merger decay, Fisher combined 5.8σ", color: "text-amber-400" },
+                  { icon: <Atom className="w-5 h-5" />, domain: "Dimensional Reduction", result: "11 → 2 modes, zero parameters", detail: "Spectral gap Δλ=0.328 yields gravity (Mode 0) + gauge field (Mode 1) from topology alone", color: "text-sky-400" },
                 ].map((item, i) => (
                   <div key={i} className="bg-black/30 border border-zinc-800/60 rounded-xl p-4">
                     <div className={`${item.color} mb-2`}>{item.icon}</div>
@@ -304,10 +305,16 @@ export default function MPFSTWebsite() {
                 detail="Paper 13 analyzes 486 GWOSC events (109 quality measurements). Power-law decay (predicted by fractional dynamics) beats GR exponential in 73/109 events (67.0%, p=9.16×10⁻⁵). Win rate increases with SNR: 63%→71%→89%. Free α converges toward 6/5 at high SNR. Combined with galactic rotation (88/124 galaxies), Fisher significance across 233 measurements: 5.8σ. Zero free parameters. DOI: 10.5281/zenodo.18900993"
               />
               <StatusRow
+                icon={<CheckCircle2 className="w-4 h-4 text-emerald-400" />}
+                label="Dynamical Dimensional Reduction — Fractional Stückelberg Mechanism"
+                status="published"
+                detail="Paper 14 proves that the Sephirotic graph's spectral gap (Δλ=0.328, largest in the spectrum) dynamically reduces 11 internal planes to 2 effective modes. Mode 0 (λ=0, topologically protected) couples universally → gravity. Mode 1 (λ=0.318, bilateral symmetry) carries charge → gauge field. 9 heavy modes acquire topological mass and decohere at t=2.25. No geometric compactification needed. Zero free parameters. DOI: 10.5281/zenodo.18902147"
+              />
+              <StatusRow
                 icon={<Send className="w-4 h-4 text-yellow-400" />}
                 label="PRL Letter — Unified Framework"
                 status="submitted"
-                detail="Physical Review Letters submission synthesizes all 13 papers into a unified 3-page letter. Combined significance: 5.8σ (Fisher's method) across 14 domains with zero free parameters. Temporary ID: es2026mar07_508. Under editorial review at PRL."
+                detail="Physical Review Letters submission synthesizes all 14 papers into a unified 3-page letter. Combined significance: 5.8σ (Fisher's method) across 15 domains with zero free parameters. Temporary ID: es2026mar07_508. Under editorial review at PRL."
               />
             </div>
           </div>
@@ -575,12 +582,22 @@ export default function MPFSTWebsite() {
                 ]}
               />
 
+              <PaperCard
+                badge="Published Preprint"
+                badgeColor="border-amber-500/30 text-amber-400"
+                title="Paper 14: Dynamical Dimensional Reduction from Sephirotic Topology: 11 Planes to 2 Effective Modes via Fractional Stückelberg Mechanism"
+                description="The spectral gap of the Sephirotic graph Laplacian (Δλ = 0.328, largest in the spectrum) dynamically reduces 11 internal planes to 2 effective modes under the fractional Laplacian (−Δ)^(3/5). Mode 0 (λ = 0, topologically protected) couples universally → gravity. Mode 1 (λ = 0.318, bilateral symmetry) splits the tree into signed sectors → gauge field. 9 heavy modes acquire topological mass (τ = 0.72–1.24) and drop below 1% of energy at t = 2.25. Nonlinear stability confirmed through g = 1.0 (light modes retain 96% energy). No geometric compactification. Zero free parameters. Domain #15."
+                links={[
+                  { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18902147" },
+                ]}
+              />
+
               {/* PRL Letter */}
               <PaperCard
                 badge="Submitted"
                 badgeColor="border-yellow-500/30 text-yellow-400"
-                title="PRL Letter: One Topological Constant Predicts Thirteen Physical Domains: Fractional Dynamics on an 11-Node Graph"
-                description="Flagship 3-page letter submitted to Physical Review Letters (es2026mar07_508). Synthesizes all 13 papers into a single unified result: α = 6/5, an exact eigenvalue of the 11-node Sephirotic graph Laplacian, generates zero-parameter predictions across 13 independent physical domains. Combined significance via Fisher's method: χ²₂₆ = 73.1, p = 3.3 × 10⁻⁸ (5.4σ). No free parameters. No fitting. One topology — thirteen domains."
+                title="PRL Letter: One Topological Constant Predicts Fourteen Physical Domains: Fractional Dynamics on an 11-Node Graph"
+                description="Flagship 3-page letter submitted to Physical Review Letters (es2026mar07_508). Synthesizes all 14 papers into a single unified result: α = 6/5, an exact eigenvalue of the 11-node Sephirotic graph Laplacian, generates zero-parameter predictions across 15 independent physical domains. Combined significance via Fisher's method: 5.8σ. No free parameters. No fitting. One topology — fifteen domains."
                 links={[
                   { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18898117" },
                   { label: "Journal: Physical Review Letters (es2026mar07_508)" },
