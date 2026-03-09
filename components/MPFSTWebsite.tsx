@@ -150,7 +150,7 @@ export default function MPFSTWebsite() {
         >
           <div className="max-w-3xl mx-auto text-center">
             <motion.div variants={fadeUp} className="mb-6">
-              <Badge color="border-amber-500/30 text-amber-400">14 Papers + PRL Letter · 15 Domains · 1 Parameter</Badge>
+              <Badge color="border-amber-500/30 text-amber-400">16 Papers + PRL Letter · 17 Domains · 1 Parameter</Badge>
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
               Multi-Plane Field Syntergic Theory
@@ -161,7 +161,7 @@ export default function MPFSTWebsite() {
               across neuroscience, particle physics, galactic dynamics, collider physics, general relativity, quantum information, condensed matter, fusion plasma, and gravitational wave post-merger signals.
             </motion.p>
             <motion.p variants={fadeUp} className="text-sm text-zinc-500 leading-relaxed max-w-2xl mx-auto">
-              Thirteen papers plus a PRL letter. Three papers in peer review at Chaos, Solitons &amp; Fractals.
+              Sixteen papers plus a PRL letter. Three papers in peer review at Chaos, Solitons &amp; Fractals.
               PRL letter submitted to Physical Review Letters. Latest: gravitational wave echoes across 486 LIGO/Virgo events. All code and data publicly available.
             </motion.p>
           </div>
@@ -172,7 +172,7 @@ export default function MPFSTWebsite() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-amber-500/5 to-transparent border border-amber-500/20 rounded-2xl p-8">
               <div className="text-center mb-8">
-                <h2 className="text-xl font-bold text-white mb-2">One Parameter. Thirteen Domains. Zero Free Parameters.</h2>
+                <h2 className="text-xl font-bold text-white mb-2">One Parameter. Seventeen Domains. Zero Free Parameters.</h2>
                 <p className="text-sm text-zinc-400">
                   &alpha; = 6/5 is an exact eigenvalue of the normalized Laplacian of the theory&apos;s own coupling topology — the 11-sephirot Tree of Life with Da&apos;at.
                   It was never fitted. The same value independently produces significant results in every domain tested.
@@ -194,6 +194,8 @@ export default function MPFSTWebsite() {
                   { icon: <Atom className="w-5 h-5" />, domain: "Fusion Plasma", result: "χ² = 7.75, p ≈ 1.000", detail: "55 measurements, 15 tokamaks, 5 observables, zero free parameters", color: "text-rose-400" },
                   { icon: <Atom className="w-5 h-5" />, domain: "Gravitational Wave Echoes", result: "73/109 wins, p = 9.16×10⁻⁵", detail: "486 GWOSC events, power-law post-merger decay, Fisher combined 5.8σ", color: "text-amber-400" },
                   { icon: <Atom className="w-5 h-5" />, domain: "Dimensional Reduction", result: "11 → 2 modes, zero parameters", detail: "Spectral gap Δλ=0.328 yields gravity (Mode 0) + gauge field (Mode 1) from topology alone", color: "text-sky-400" },
+                  { icon: <Shield className="w-5 h-5" />, domain: "Stochastic Robustness", result: "σ_c = 0.55, Kramers R² = 0.997", detail: "Noise-driven phase transitions, stochastic resonance, zero free parameters", color: "text-teal-400" },
+                  { icon: <Globe2 className="w-5 h-5" />, domain: "Dark Energy / Cosmology", result: "w = −11/15, Δχ² = 0.32 vs ΛCDM", detail: "1,590 Pantheon+ supernovae, DES Y5 measures w=−0.70±0.09 — MPFST predicts −0.733", color: "text-orange-400" },
                 ].map((item, i) => (
                   <div key={i} className="bg-black/30 border border-zinc-800/60 rounded-xl p-4">
                     <div className={`${item.color} mb-2`}>{item.icon}</div>
@@ -589,6 +591,26 @@ export default function MPFSTWebsite() {
                 description="The spectral gap of the Sephirotic graph Laplacian (Δλ = 0.328, largest in the spectrum) dynamically reduces 11 internal planes to 2 effective modes under the fractional Laplacian (−Δ)^(3/5). Mode 0 (λ = 0, topologically protected) couples universally → gravity. Mode 1 (λ = 0.318, bilateral symmetry) splits the tree into signed sectors → gauge field. 9 heavy modes acquire topological mass (τ = 0.72–1.24) and drop below 1% of energy at t = 2.25. Nonlinear stability confirmed through g = 1.0 (light modes retain 96% energy). No geometric compactification. Zero free parameters. Domain #15."
                 links={[
                   { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18902147" },
+                ]}
+              />
+
+              <PaperCard
+                badge="Published Preprint"
+                badgeColor="border-amber-500/30 text-amber-400"
+                title="Paper 15: Stochastic Extensions of the MPFST Coupled PDE System: Noise-Driven Dynamics on the Sephirotic Graph"
+                description="Six computational tests on the stochastic MPFST PDE. Spectral gap survives noise (2 light modes retain >90% energy at σ=0.5). Noise-driven meltdown at σ_c=0.55. Kramers escape with R²=0.997 confirming Arrhenius barrier crossing. Stochastic resonance amplifies gauge mode 2.3× at optimal noise. Zero-noise recovery |ψ_stoch − ψ_det| < 10⁻⁴. Zero free parameters. Domain #16."
+                links={[
+                  { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18902559" },
+                ]}
+              />
+
+              <PaperCard
+                badge="Published Preprint"
+                badgeColor="border-amber-500/30 text-amber-400"
+                title="Paper 16: Accelerated Cosmic Expansion from Fractional Gravity: Dark Energy as a Topological Artifact"
+                description="The fractional Laplacian (−Δ)^(3/5) modifies the gravitational equation of state to w = −(2α−1)/(3α−1) = −11/15 ≈ −0.733. Tested against 1,590 Pantheon+ Type Ia supernovae: MPFST χ² = 684.92 vs ΛCDM χ² = 684.60 (Δχ² = 0.32, statistically indistinguishable). DES Y5 (2024) measures w = −0.70 ± 0.09 — MPFST is 0.37σ away. DESI (2024) measures w₀ = −0.55 ± 0.21 — MPFST within 0.87σ. The cosmological constant Λ is not needed: accelerated expansion is fractional gravity at cosmological scales. Same α = 6/5. Zero free parameters. Domain #17."
+                links={[
+                  { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18930436" },
                 ]}
               />
 
