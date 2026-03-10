@@ -76,7 +76,7 @@ export default function ExperimentalistsPage() {
     <>
       <Head>
         <title>MPFST — For Experimentalists &amp; Collaborators</title>
-        <meta name="description" content="Reproduce any of the 13 MPFST results across 14 domains. All data, code, and analysis scripts are public." />
+        <meta name="description" content="Reproduce any of the 18 MPFST results across 18 domains. All data, code, and analysis scripts are public." />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-b from-gray-950 via-black to-gray-950 text-zinc-300">
@@ -113,7 +113,7 @@ export default function ExperimentalistsPage() {
               Reproduce Any Result
             </motion.h1>
             <motion.p variants={fadeUp} className="text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-              Thirteen papers across fourteen domains. Every analysis script, dataset reference, and statistical test
+              Eighteen papers across eighteen domains. Every analysis script, dataset reference, and statistical test
               is published on Zenodo with DOIs. Download the code, run it, challenge it.
             </motion.p>
           </div>
@@ -128,10 +128,10 @@ export default function ExperimentalistsPage() {
                 Every result below uses the same fractional exponent <span className="font-mono text-amber-300">&alpha; = 1.2</span>,
                 originally measured from human EEG data (Paper 2). This value was then applied — <strong className="text-zinc-200">without
                 refitting</strong> — to neutrino oscillations, galactic rotation curves, LHC collider data,
-                gravitational wave echoes, fusion plasma transport, quantum gravity, and eight other domains. One number, fourteen domains.
+                gravitational wave echoes, fusion plasma transport, quantum gravity, and eleven other domains. One number, eighteen domains.
               </p>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                {["EEG", "Brain", "Neutrinos", "Galaxies", "LHC", "GR", "GW", "Fusion", "QG", "JJ", "Qubits", "PDE", "Topo", "Plasma"].map(d => (
+                {["EEG", "Brain", "Neutrinos", "Galaxies", "LHC", "GR", "GW", "Fusion", "QG", "JJ", "Qubits", "PDE", "Topo", "DimRed", "Stoch", "DarkE", "Cuprate", "BH"].map(d => (
                   <div key={d} className="text-center py-2 px-1 bg-black/30 rounded-lg border border-zinc-800/40">
                     <div className="text-[10px] text-zinc-500 font-medium">{d}</div>
                     <div className="text-xs font-mono text-amber-400 mt-0.5">&alpha; = 1.2</div>
@@ -480,6 +480,100 @@ export default function ExperimentalistsPage() {
               ]}
             />
 
+            <ReproductionCard
+              number="14" title="Dynamical Dimensional Reduction — 11 Planes to 2 Effective Modes"
+              icon={<Radio className="w-5 h-5" />}
+              color="bg-violet-500/10 text-violet-400" borderColor="border-violet-500/20"
+              doi="10.5281/zenodo.18902147"
+              result="Spectral gap Δλ=0.328 splits 11 modes into 2 light + 9 heavy. Light modes retain 96% energy at g=1.0."
+              description="The Sephirotic graph's spectral gap naturally splits 11 fields into 2 light modes (gravity + gauge)
+                and 9 heavy modes that decouple. Mode 0 (λ=0) = gravity (universal coupling, topologically protected).
+                Mode 1 (λ=0.318) = gauge field (bilateral charge structure). Fractional Stückelberg mechanism with
+                zero free parameters."
+              code={[
+                "python mpfst_dimred.py",
+                "",
+                "# Expected: spectral_gap = 0.328",
+                "# Light mode energy fraction > 0.96",
+                "# Heavy mode decay τ = 0.72–1.24",
+              ]}
+            />
+
+            <ReproductionCard
+              number="15" title="Stochastic Extensions — Noise-Driven Dynamics on the Sephirotic Graph"
+              icon={<Radio className="w-5 h-5" />}
+              color="bg-teal-500/10 text-teal-400" borderColor="border-teal-500/20"
+              doi="10.5281/zenodo.18902559"
+              result="Critical noise σ_c = 0.55 triggers phase transition. Kramers escape R² = 0.997. Stochastic resonance at σ ≈ 0.3."
+              description="Six computational tests on the stochastic MPFST PDE system. Spectral gap survives noise (>90% energy
+                in light modes at σ=0.5). Noise-driven meltdown at σ_c=0.55. Kramers escape follows Arrhenius law.
+                Stochastic resonance amplifies gauge mode 2.3× at optimal noise. Zero-noise recovery |ψ_stoch − ψ_det| < 10⁻⁴."
+              code={[
+                "python mpfst_stochastic.py",
+                "",
+                "# Expected: sigma_c = 0.55",
+                "# Kramers R² = 0.997",
+                "# Resonance peak at sigma ≈ 0.3",
+              ]}
+            />
+
+            <ReproductionCard
+              number="16" title="Dark Energy as a Topological Artifact — 1,590 Supernovae"
+              icon={<Radio className="w-5 h-5" />}
+              color="bg-indigo-500/10 text-indigo-400" borderColor="border-indigo-500/20"
+              doi="10.5281/zenodo.18930436"
+              result="MPFST w = −11/15 ≈ −0.733 matches Pantheon+ (Δχ² = 0.32 vs ΛCDM). DES Y5: 0.37σ. DESI: 0.87σ."
+              description="Fractional gravity predicts dark energy equation of state w = −11/15 from α = 6/5 topology.
+                Tested against 1,590 Pantheon+ Type Ia supernovae — statistically indistinguishable from ΛCDM
+                (Δχ² = 0.32). Recent DES Y5 measurement w = −0.70 ± 0.09 is 0.37σ from MPFST prediction.
+                DESI w₀ = −0.55 ± 0.21 is 0.87σ away. Zero free parameters."
+              code={[
+                "python mpfst_cosmology.py",
+                "",
+                "# Expected: w_mpfst = -0.7333",
+                "# LCDM chi2 = 684.60",
+                "# MPFST chi2 = 684.92",
+                "# Delta_chi2 = 0.32",
+              ]}
+            />
+
+            <ReproductionCard
+              number="17" title="Anomalous Self-Energy Scaling in Cuprate Superconductors"
+              icon={<Radio className="w-5 h-5" />}
+              color="bg-rose-500/10 text-rose-400" borderColor="border-rose-500/20"
+              doi="10.5281/zenodo.18930654"
+              result="MPFST β = 4/5 = 0.800 vs MFL β = 1.0. MPFST χ² = 5.6, MFL χ² = 51.0 — MPFST 4.8× better."
+              description="Fractional memory function M(ω) ~ ω^(2−α) = ω^(4/5) predicts optical self-energy exponent
+                β = 0.800. Tested against 16 published measurements from 6 independent studies across 5 cuprate
+                materials (BSCCO, YBCO, Tl-2201, Hg-1201, LSCO). Marginal Fermi Liquid (β = 1.0) excluded at 9.8σ."
+              code={[
+                "python mpfst_cuprate.py",
+                "",
+                "# Expected: beta_mpfst = 0.800",
+                "# MPFST chi2 = 5.6",
+                "# MFL chi2 = 51.0",
+              ]}
+            />
+
+            <ReproductionCard
+              number="18" title="Black Hole Entropy Corrections from Fractional Dynamics"
+              icon={<Radio className="w-5 h-5" />}
+              color="bg-amber-500/10 text-amber-400" borderColor="border-amber-500/20"
+              doi="10.5281/zenodo.18932512"
+              result="c_log = −2/3 matches Asymptotic Safety exactly. LQG (−3/2) and strings (−1/2) disagree."
+              description="Spectral dimension d_s = 2α/2 = 6/5 on 2D horizon yields logarithmic entropy correction
+                c_log = −(d_s/2 − 1) = −2/3. This independently matches the Asymptotic Safety prediction —
+                two completely different frameworks converging on the same number. BH evaporation timescale
+                τ ~ M^(2+α) = M^3.2 instead of standard M³. Zero free parameters."
+              code={[
+                "python mpfst_blackhole.py",
+                "",
+                "# Expected: c_log = -0.6667",
+                "# Matches Asymptotic Safety: -2/3",
+                "# Evaporation: tau ~ M^3.2",
+              ]}
+            />
+
           </div>
         </section>
 
@@ -503,20 +597,20 @@ export default function ExperimentalistsPage() {
                   <tr className="border-b border-zinc-800/40">
                     <td className="p-3">CHAOS-D-26-01867 — Fractional field model</td>
                     <td className="p-3 hidden sm:table-cell">Chaos, Solitons &amp; Fractals</td>
-                    <td className="p-3"><Badge color="border-blue-500/30 text-blue-400">Under Review</Badge></td>
+                    <td className="p-3"><Badge color="border-zinc-500/30 text-zinc-400">Desk Rejected</Badge></td>
                   </tr>
                   <tr className="border-b border-zinc-800/40">
                     <td className="p-3">CHAOS-D-26-01926 — Sephirotic EEG CFC</td>
                     <td className="p-3 hidden sm:table-cell">Chaos, Solitons &amp; Fractals</td>
-                    <td className="p-3"><Badge color="border-blue-500/30 text-blue-400">Under Review</Badge></td>
+                    <td className="p-3"><Badge color="border-zinc-500/30 text-zinc-400">Desk Rejected</Badge></td>
                   </tr>
                   <tr className="border-b border-zinc-800/40">
                     <td className="p-3">CHAOS-D-26-02017 — MiniBooNE neutrino</td>
                     <td className="p-3 hidden sm:table-cell">Chaos, Solitons &amp; Fractals</td>
-                    <td className="p-3"><Badge color="border-blue-500/30 text-blue-400">Under Review</Badge></td>
+                    <td className="p-3"><Badge color="border-zinc-500/30 text-zinc-400">Desk Rejected</Badge></td>
                   </tr>
                   <tr className="border-b border-zinc-800/40">
-                    <td className="p-3">es2026mar07_508 — One Topological Constant, 14 Domains</td>
+                    <td className="p-3">es2026mar07_508 — One Topological Constant, 18 Domains</td>
                     <td className="p-3 hidden sm:table-cell">Physical Review Letters</td>
                     <td className="p-3"><Badge color="border-purple-500/30 text-purple-400">Submitted</Badge></td>
                   </tr>
@@ -565,8 +659,33 @@ export default function ExperimentalistsPage() {
                     <td className="p-3 hidden sm:table-cell">—</td>
                     <td className="p-3"><Badge color="border-green-500/30 text-green-400">Zenodo Published</Badge></td>
                   </tr>
-                  <tr>
+                  <tr className="border-b border-zinc-800/40">
                     <td className="p-3">Paper 13 — GW echoes / gravity unification</td>
+                    <td className="p-3 hidden sm:table-cell">—</td>
+                    <td className="p-3"><Badge color="border-green-500/30 text-green-400">Zenodo Published</Badge></td>
+                  </tr>
+                  <tr className="border-b border-zinc-800/40">
+                    <td className="p-3">Paper 14 — Dimensional reduction (11→2 modes)</td>
+                    <td className="p-3 hidden sm:table-cell">—</td>
+                    <td className="p-3"><Badge color="border-green-500/30 text-green-400">Zenodo Published</Badge></td>
+                  </tr>
+                  <tr className="border-b border-zinc-800/40">
+                    <td className="p-3">Paper 15 — Stochastic PDE extensions</td>
+                    <td className="p-3 hidden sm:table-cell">—</td>
+                    <td className="p-3"><Badge color="border-green-500/30 text-green-400">Zenodo Published</Badge></td>
+                  </tr>
+                  <tr className="border-b border-zinc-800/40">
+                    <td className="p-3">Paper 16 — Dark energy / cosmology</td>
+                    <td className="p-3 hidden sm:table-cell">—</td>
+                    <td className="p-3"><Badge color="border-green-500/30 text-green-400">Zenodo Published</Badge></td>
+                  </tr>
+                  <tr className="border-b border-zinc-800/40">
+                    <td className="p-3">Paper 17 — Cuprate superconductivity</td>
+                    <td className="p-3 hidden sm:table-cell">—</td>
+                    <td className="p-3"><Badge color="border-green-500/30 text-green-400">Zenodo Published</Badge></td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">Paper 18 — Black hole thermodynamics</td>
                     <td className="p-3 hidden sm:table-cell">—</td>
                     <td className="p-3"><Badge color="border-green-500/30 text-green-400">Zenodo Published</Badge></td>
                   </tr>

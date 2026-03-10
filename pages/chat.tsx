@@ -127,7 +127,7 @@ export default function ChatPage() {
         <title>Ask About MPFST — AI Research Assistant</title>
         <meta
           name="description"
-          content="Ask questions about Multi-Plane Field Syntergic Theory, the coupled PDE framework, and published research across 14 domains."
+          content="Ask questions about Multi-Plane Field Syntergic Theory, the coupled PDE framework, and published research across 18 domains."
         />
       </Head>
 

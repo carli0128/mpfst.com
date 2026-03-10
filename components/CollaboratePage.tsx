@@ -31,7 +31,7 @@ export default function CollaboratePage() {
     <>
       <Head>
         <title>Collaborate — MPFST Research</title>
-        <meta name="description" content="Join the MPFST research effort. Fourteen domains validated with one parameter. Open collaboration opportunities for experimentalists, mathematicians, and physicists." />
+        <meta name="description" content="Join the MPFST research effort. Eighteen domains validated with one parameter. Open collaboration opportunities for experimentalists, mathematicians, and physicists." />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-b from-gray-950 via-black to-gray-950 text-zinc-300">
@@ -65,11 +65,11 @@ export default function CollaboratePage() {
               <Badge color="border-amber-500/30 text-amber-400">Open Collaboration</Badge>
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
-              Fourteen Domains. One Parameter.<br />We Need Collaborators.
+              Eighteen Domains. One Parameter.<br />We Need Collaborators.
             </motion.h1>
             <motion.p variants={fadeUp} className="text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto">
               A coupled PDE framework with a single fractional exponent (&alpha;&nbsp;=&nbsp;6/5) has produced
-              statistically significant results across fourteen domains — neuroscience, particle physics, astrophysics,
+              statistically significant results across eighteen domains — neuroscience, particle physics, astrophysics,
               condensed matter, quantum computing, and general relativity. &alpha;&nbsp;=&nbsp;6/5 is now proven to be an
               exact eigenvalue of the Sephirotic graph Laplacian (Paper&nbsp;9), and the full PDE system has been
               proven well-posed (Paper&nbsp;10). The data is public. The code is open.
@@ -81,9 +81,9 @@ export default function CollaboratePage() {
         <section className="pb-16 px-6">
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <NumberCard number="14" label="Domains Tested" sub="Brains to qubits" />
+              <NumberCard number="18" label="Domains Tested" sub="Brains to qubits" />
               <NumberCard number="1" label="Free Parameter" sub="\u03B1 = 6/5 (exact eigenvalue)" />
-              <NumberCard number="13" label="Papers Published" sub="4 under peer review" />
+              <NumberCard number="18" label="Papers Published" sub="+ PRL Letter submitted" />
               <NumberCard number="6.7\u03C3" label="Strongest Signal" sub="LHC dijet correction" />
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function CollaboratePage() {
                 fractional Laplacians (order &alpha;&nbsp;&asymp;&nbsp;1.2) to capture long-range spatial correlations.
               </p>
               <p>
-                What started as a single EEG prediction has expanded to fourteen independent domains, all using
+                What started as a single EEG prediction has expanded to eighteen independent domains, all using
                 the same &alpha;&nbsp;=&nbsp;1.2 measured from human brains. The framework was developed by
                 Carlos Freeman, an independent researcher. The mathematical foundations are being formalized
                 alongside the empirical program — not the other way around.
@@ -283,6 +283,55 @@ export default function CollaboratePage() {
                       <Badge color="border-orange-500/20 text-orange-400">15 tokamaks, 55 measurements</Badge>
                       <Badge color="border-orange-500/20 text-orange-400">Standard models excluded</Badge>
                       <Badge color="border-orange-500/20 text-orange-400">χ² = 7.75, p ≈ 1.0</Badge>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Cosmologists */}
+              <div className="bg-[#181b22] border border-indigo-500/20 rounded-xl p-6">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 flex-shrink-0">
+                    <Star className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold text-white mb-2">
+                      Cosmologists — Dark Energy Without &Lambda;
+                    </h3>
+                    <p className="text-sm text-zinc-400 leading-relaxed mb-3">
+                      The fractional Laplacian predicts an equation of state w&nbsp;=&nbsp;&minus;11/15&nbsp;&asymp;&nbsp;&minus;0.733 — no free parameters.
+                      Tested against 1,590 Pantheon+ Type&nbsp;Ia supernovae: &Delta;&chi;&sup2;&nbsp;=&nbsp;0.32 vs &Lambda;CDM (statistically indistinguishable).
+                      DES&nbsp;Y5 measured w&nbsp;=&nbsp;&minus;0.70&plusmn;0.09 (MPFST 0.37&sigma; away). DESI measured w&#8320;&nbsp;=&nbsp;&minus;0.55&plusmn;0.21 (MPFST 0.87&sigma; away).
+                      Black hole entropy correction c<sub>log</sub>&nbsp;=&nbsp;&minus;2/3 converges with Asymptotic Safety.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge color="border-indigo-500/20 text-indigo-400">Pantheon+ 1,590 SNe</Badge>
+                      <Badge color="border-indigo-500/20 text-indigo-400">w = −11/15 zero parameters</Badge>
+                      <Badge color="border-indigo-500/20 text-indigo-400">Converges with Asymptotic Safety</Badge>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Cuprate / High-Tc */}
+              <div className="bg-[#181b22] border border-pink-500/20 rounded-xl p-6">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-pink-500/10 text-pink-400 flex-shrink-0">
+                    <Zap className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold text-white mb-2">
+                      High-T<sub>c</sub> Superconductivity — Anomalous Self-Energy
+                    </h3>
+                    <p className="text-sm text-zinc-400 leading-relaxed mb-3">
+                      Fractional memory function M(&omega;)&nbsp;~&nbsp;&omega;<sup>4/5</sup> predicts optical self-energy exponent &beta;&nbsp;=&nbsp;0.800.
+                      16 published measurements from 6 independent studies across 5 cuprate families. MPFST &chi;&sup2;&nbsp;=&nbsp;5.6
+                      vs marginal Fermi liquid &chi;&sup2;&nbsp;=&nbsp;51.0 — MPFST is 4.8&times; better. MFL (&beta;&nbsp;=&nbsp;1.0) excluded at 9.8&sigma;.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge color="border-pink-500/20 text-pink-400">6 studies, 5 cuprate families</Badge>
+                      <Badge color="border-pink-500/20 text-pink-400">MFL excluded at 9.8σ</Badge>
+                      <Badge color="border-pink-500/20 text-pink-400">ARPES + optical + Raman</Badge>
                     </div>
                   </div>
                 </div>
