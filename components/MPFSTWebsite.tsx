@@ -150,7 +150,7 @@ export default function MPFSTWebsite() {
         >
           <div className="max-w-3xl mx-auto text-center">
             <motion.div variants={fadeUp} className="mb-6">
-              <Badge color="border-amber-500/30 text-amber-400">18 Papers + PRL Letter · 18 Domains · 1 Parameter</Badge>
+              <Badge color="border-amber-500/30 text-amber-400">19 Papers + PRL Letter · 21 Domains · 1 Parameter</Badge>
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
               Multi-Plane Field Syntergic Theory
@@ -158,21 +158,21 @@ export default function MPFSTWebsite() {
             <motion.p variants={fadeUp} className="text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-4">
               An 11-plane coupled PDE framework with fractional Laplacian operators. A single parameter
               &alpha; = 6/5 — an exact eigenvalue of the Sephirotic coupling topology — produces statistically significant results
-              across neuroscience, particle physics, galactic dynamics, collider physics, general relativity, quantum information, condensed matter, fusion plasma, gravitational wave post-merger signals, and cuprate superconductivity.
+              across neuroscience, particle physics, galactic dynamics, collider physics, general relativity, quantum information, condensed matter, fusion plasma, gravitational wave post-merger signals, cuprate superconductivity, and emergent Platonic geometry.
             </motion.p>
             <motion.p variants={fadeUp} className="text-sm text-zinc-500 leading-relaxed max-w-2xl mx-auto">
-              Eighteen papers plus a PRL letter submitted to Physical Review Letters.
+              Nineteen papers plus a PRL letter submitted to Physical Review Letters.
               Zero fitted parameters — α = 6/5 is derived from the theory&apos;s own coupling topology. All code and data publicly available on Zenodo.
             </motion.p>
           </div>
         </motion.section>
 
-        {/* ── THE KEY RESULT — α = 6/5 ACROSS 18 DOMAINS ── */}
+        {/* ── THE KEY RESULT — α = 6/5 ACROSS 21 DOMAINS ── */}
         <section className="pb-16 px-6">
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-amber-500/5 to-transparent border border-amber-500/20 rounded-2xl p-8">
               <div className="text-center mb-8">
-                <h2 className="text-xl font-bold text-white mb-2">One Parameter. Eighteen Domains. Zero Free Parameters.</h2>
+                <h2 className="text-xl font-bold text-white mb-2">One Parameter. Twenty Domains. Zero Free Parameters.</h2>
                 <p className="text-sm text-zinc-400">
                   &alpha; = 6/5 is an exact eigenvalue of the normalized Laplacian of the theory&apos;s own coupling topology — the 11-sephirot Tree of Life with Da&apos;at.
                   It was never fitted. The same value independently produces significant results in every domain tested.
@@ -198,6 +198,7 @@ export default function MPFSTWebsite() {
                   { icon: <Globe2 className="w-5 h-5" />, domain: "Dark Energy / Cosmology", result: "w = −11/15, Δχ² = 0.32 vs ΛCDM", detail: "1,590 Pantheon+ supernovae, DES Y5 measures w=−0.70±0.09 — MPFST predicts −0.733", color: "text-orange-400" },
                   { icon: <FlaskConical className="w-5 h-5" />, domain: "Cuprate Superconductivity", result: "β = 4/5, χ² 4.8× better than MFL", detail: "Optical self-energy of 16 cuprate measurements across 6 studies — MPFST β=0.800 vs observed 0.765±0.024", color: "text-rose-400" },
                   { icon: <Atom className="w-5 h-5" />, domain: "Black Hole Thermodynamics", result: "c_log = −2/3, matches Asymptotic Safety", detail: "Logarithmic entropy correction from spectral dimension d_s=2α/2=1.2. Same formula as qubit decoherence (Paper 8). Zero free parameters.", color: "text-violet-400" },
+                  { icon: <Globe2 className="w-5 h-5" />, domain: "Timeless Universe Simulation", result: "Cubic geometry, seed-independent", detail: "Self-consistent relaxation finds permanent Platonic geometry. Middle Pillar holds 87.7% of energy. Zero free parameters.", color: "text-yellow-400" },
                 ].map((item, i) => (
                   <div key={i} className="bg-black/30 border border-zinc-800/60 rounded-xl p-4">
                     <div className={`${item.color} mb-2`}>{item.icon}</div>
@@ -272,10 +273,16 @@ export default function MPFSTWebsite() {
                 detail="Paper 18 derives c_log = −(d_s/2 − 1) = −2/3 from the spectral dimension d_s = 2α/2 = 6/5 on the 2D horizon. This matches Asymptotic Safety exactly. LQG predicts −3/2 (different). Strings predict −1/2 (different). Evaporation timescale τ ~ M^(2+α) = M^3.2 vs standard M³. Same derivation as Paper 8 (qubit decoherence). Zero free parameters. DOI: 10.5281/zenodo.18932512"
               />
               <StatusRow
+                icon={<CheckCircle2 className="w-4 h-4 text-emerald-400" />}
+                label="Timeless Universe Simulation — Emergent Platonic Geometry"
+                status="published"
+                detail="Paper 19: Self-consistent relaxation solver (no time-stepping) finds the unique fixed point of the 10-plane coupled PDE on a 96³×16 grid. Cubic/octahedral geometry emerges permanently from pure random noise — cubic excess +0.7516 across all planes. Seed independence proven: structured and random initial conditions converge to identical geometry in 1,616 iterations. Middle Pillar (Kether + Malkuth + Tiferet) holds 87.7% of total energy. meltdownFrac = 1.0. Zero free parameters. DOI: 10.5281/zenodo.18943520"
+              />
+              <StatusRow
                 icon={<FileText className="w-4 h-4 text-blue-400" />}
-                label="PRL Letter Submitted · 18 Papers on Zenodo"
+                label="PRL Letter Submitted · 19 Papers on Zenodo"
                 status="submitted"
-                detail="PRL letter (es2026mar07_508) submitted to Physical Review Letters — unifying 18 domains with 5.8σ combined significance. 18 papers published on Zenodo spanning neuroscience, neutrinos, galactic rotation, LHC dijets, GR recovery, Josephson junctions, qubit decoherence, Sephirotic eigenvalue, PDE well-posedness, quantization & gravity, fusion plasma, GW echoes, dimensional reduction, stochastic PDE, cosmology, cuprate superconductivity, and black hole thermodynamics. All use α = 6/5."
+                detail="PRL letter (es2026mar07_508) submitted to Physical Review Letters — unifying all domains with combined significance via Fisher's method. 19 papers published on Zenodo spanning neuroscience, neutrinos, galactic rotation, LHC dijets, GR recovery, Josephson junctions, qubit decoherence, Sephirotic eigenvalue, PDE well-posedness, quantization & gravity, fusion plasma, GW echoes, dimensional reduction, stochastic PDE, cosmology, cuprate superconductivity, black hole thermodynamics, and timeless universe simulation. All use α = 6/5."
               />
               <StatusRow
                 icon={<Clock className="w-4 h-4 text-zinc-400" />}
@@ -659,12 +666,22 @@ export default function MPFSTWebsite() {
                 ]}
               />
 
+              <PaperCard
+                badge="Preprint"
+                badgeColor="border-blue-500/30 text-blue-400"
+                title="Paper 19: Timeless Universe — Emergent Platonic Geometry from Sephirotic Topology"
+                description="Self-consistent relaxation solver replaces Euler time-stepping to find the unique fixed point of the 10-plane coupled PDE on a 96³×16 grid with fractional Laplacian α = 6/5. Cubic/octahedral geometry emerges permanently from pure random noise — cubic excess +0.7516 across all 10 planes. Seed independence proven: structured and random initial conditions converge to identical geometry in 1,616 iterations (4.5 min). Middle Pillar (Kether 49.5% + Malkuth 24.7% + Tiferet 13.5%) holds 87.7% of total energy. The Platonic geometry is not a transient — it is the structural eigenstate of the system. Zero free parameters. Domains #20–21."
+                links={[
+                  { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18943520" },
+                ]}
+              />
+
               {/* PRL Letter */}
               <PaperCard
                 badge="Submitted"
                 badgeColor="border-yellow-500/30 text-yellow-400"
-                title="PRL Letter: One Topological Constant Predicts Eighteen Physical Domains: Fractional Dynamics on an 11-Node Graph"
-                description="Flagship letter submitted to Physical Review Letters (es2026mar07_508). Synthesizes all 18 papers into a single unified result: α = 6/5, an exact eigenvalue of the 11-node Sephirotic graph Laplacian, generates zero-parameter predictions across 18 independent physical domains. Combined significance via Fisher's method: 5.8σ. No free parameters. No fitting. One topology — eighteen domains."
+                title="PRL Letter: One Topological Constant Predicts Physical Domains: Fractional Dynamics on an 11-Node Graph"
+                description="Flagship letter submitted to Physical Review Letters (es2026mar07_508). Synthesizes all papers into a single unified result: α = 6/5, an exact eigenvalue of the 11-node Sephirotic graph Laplacian, generates zero-parameter predictions across independent physical domains. Combined significance via Fisher's method: 5.8σ. No free parameters. No fitting. One topology — all domains."
                 links={[
                   { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18898117" },
                   { label: "Journal: Physical Review Letters (es2026mar07_508)" },
