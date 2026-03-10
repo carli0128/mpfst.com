@@ -150,7 +150,7 @@ export default function MPFSTWebsite() {
         >
           <div className="max-w-3xl mx-auto text-center">
             <motion.div variants={fadeUp} className="mb-6">
-              <Badge color="border-amber-500/30 text-amber-400">17 Papers + PRL Letter · 18 Domains · 1 Parameter</Badge>
+              <Badge color="border-amber-500/30 text-amber-400">18 Papers + PRL Letter · 19 Domains · 1 Parameter</Badge>
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
               Multi-Plane Field Syntergic Theory
@@ -172,7 +172,7 @@ export default function MPFSTWebsite() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-amber-500/5 to-transparent border border-amber-500/20 rounded-2xl p-8">
               <div className="text-center mb-8">
-                <h2 className="text-xl font-bold text-white mb-2">One Parameter. Eighteen Domains. Zero Free Parameters.</h2>
+                <h2 className="text-xl font-bold text-white mb-2">One Parameter. Nineteen Domains. Zero Free Parameters.</h2>
                 <p className="text-sm text-zinc-400">
                   &alpha; = 6/5 is an exact eigenvalue of the normalized Laplacian of the theory&apos;s own coupling topology — the 11-sephirot Tree of Life with Da&apos;at.
                   It was never fitted. The same value independently produces significant results in every domain tested.
@@ -197,6 +197,7 @@ export default function MPFSTWebsite() {
                   { icon: <Shield className="w-5 h-5" />, domain: "Stochastic Robustness", result: "σ_c = 0.55, Kramers R² = 0.997", detail: "Noise-driven phase transitions, stochastic resonance, zero free parameters", color: "text-teal-400" },
                   { icon: <Globe2 className="w-5 h-5" />, domain: "Dark Energy / Cosmology", result: "w = −11/15, Δχ² = 0.32 vs ΛCDM", detail: "1,590 Pantheon+ supernovae, DES Y5 measures w=−0.70±0.09 — MPFST predicts −0.733", color: "text-orange-400" },
                   { icon: <FlaskConical className="w-5 h-5" />, domain: "Cuprate Superconductivity", result: "β = 4/5, χ² 4.8× better than MFL", detail: "Optical self-energy of 16 cuprate measurements across 6 studies — MPFST β=0.800 vs observed 0.765±0.024", color: "text-rose-400" },
+                  { icon: <Atom className="w-5 h-5" />, domain: "Black Hole Thermodynamics", result: "c_log = −2/3, matches Asymptotic Safety", detail: "Logarithmic entropy correction from spectral dimension d_s=2α/2=1.2. Same formula as qubit decoherence (Paper 8). Zero free parameters.", color: "text-violet-400" },
                 ].map((item, i) => (
                   <div key={i} className="bg-black/30 border border-zinc-800/60 rounded-xl p-4">
                     <div className={`${item.color} mb-2`}>{item.icon}</div>
@@ -622,6 +623,16 @@ export default function MPFSTWebsite() {
                 description="The fractional memory function M(ω) ~ ω^(2−α) = ω^(4/5) predicts optical self-energy exponent β = 0.800 for cuprate high-Tc superconductors. Tested against 16 published measurements across 6 independent studies (BSCCO, YBCO, Tl-2201, Hg-1201, LSCO): MPFST χ² = 5.6 vs Marginal Fermi Liquid χ² = 51.0 — MPFST is 4.8× better. Weighted mean observed β = 0.765 ± 0.024. The 30-year anomalous mid-infrared power law is a direct consequence of fractional transport. Same α = 6/5. Zero free parameters. Domain #18."
                 links={[
                   { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18930654" },
+                ]}
+              />
+
+              <PaperCard
+                badge="Preprint"
+                badgeColor="border-blue-500/30 text-blue-400"
+                title="Paper 18: Black Hole Entropy Corrections from Fractional Dynamics on the Sephirotic Graph"
+                description="The spectral dimension d_s = 2α/2 on a 2D horizon with α = 6/5 predicts logarithmic entropy correction c_log = −(d_s/2 − 1) = −2/3. This matches Asymptotic Safety gravity exactly, while Loop Quantum Gravity (−3/2) and string theory (−1/2) predict different values. Same derivation as Paper 8 qubit decoherence. BH evaporation time scales as M^(2+α) instead of M³ — testable for primordial black holes. Zero free parameters. Domain #19."
+                links={[
+                  { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18930865" },
                 ]}
               />
 
