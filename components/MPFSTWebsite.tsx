@@ -114,7 +114,7 @@ export default function MPFSTWebsite() {
     <>
       <Head>
         <title>MPFST — Multi-Plane Field Syntergic Theory</title>
-        <meta name="description" content="An 11-plane coupled PDE framework with zero free parameters — α=6/5 is an exact topological eigenvalue. Significant results across 18 domains: neuroscience, particle physics, galactic dynamics, general relativity, collider physics, condensed matter, quantum computing, graph spectral theory, PDE well-posedness, emergent quantization with quantum gravity, fusion plasma transport, gravitational wave echoes, dimensional reduction, stochastic robustness, dark energy, cuprate superconductivity, and black hole thermodynamics. 18 papers + PRL letter by Carlos W. Freeman." />
+        <meta name="description" content="An 11-plane coupled PDE framework with zero free parameters — α=6/5 is an exact topological eigenvalue. Significant results across 20 domains: neuroscience, particle physics, galactic dynamics, general relativity, collider physics, condensed matter, quantum computing, graph spectral theory, PDE well-posedness, emergent quantization with quantum gravity, fusion plasma transport, gravitational wave echoes, dimensional reduction, stochastic robustness, dark energy, cuprate superconductivity, and black hole thermodynamics. 18 papers + PRL letter by Carlos W. Freeman." />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-b from-gray-950 via-black to-gray-950 text-zinc-300">
@@ -150,7 +150,7 @@ export default function MPFSTWebsite() {
         >
           <div className="max-w-3xl mx-auto text-center">
             <motion.div variants={fadeUp} className="mb-6">
-              <Badge color="border-amber-500/30 text-amber-400">18 Papers + PRL Letter · 19 Domains · 1 Parameter</Badge>
+              <Badge color="border-amber-500/30 text-amber-400">19 Papers + PRL Letter · 20 Domains · 1 Parameter</Badge>
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
               Multi-Plane Field Syntergic Theory
@@ -158,7 +158,7 @@ export default function MPFSTWebsite() {
             <motion.p variants={fadeUp} className="text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-4">
               An 11-plane coupled PDE framework with fractional Laplacian operators. A single parameter
               &alpha; = 6/5 — an exact eigenvalue of the Sephirotic coupling topology — produces statistically significant results
-              across neuroscience, particle physics, galactic dynamics, collider physics, general relativity, quantum information, condensed matter, fusion plasma, gravitational wave post-merger signals, cuprate superconductivity, black hole thermodynamics, and dark energy.
+              across neuroscience, particle physics, galactic dynamics, collider physics, general relativity, quantum information, condensed matter, fusion plasma, gravitational wave post-merger signals, cuprate superconductivity, black hole thermodynamics, dark energy, and bioelectric morphogenesis.
             </motion.p>
             <motion.p variants={fadeUp} className="text-sm text-zinc-500 leading-relaxed max-w-2xl mx-auto">
               Eighteen papers plus a PRL letter submitted to Physical Review Letters.
@@ -172,7 +172,7 @@ export default function MPFSTWebsite() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-amber-500/5 to-transparent border border-amber-500/20 rounded-2xl p-8">
               <div className="text-center mb-8">
-                <h2 className="text-xl font-bold text-white mb-2">One Parameter. Nineteen Domains. Zero Free Parameters.</h2>
+                <h2 className="text-xl font-bold text-white mb-2">One Parameter. Twenty Domains. Zero Free Parameters.</h2>
                 <p className="text-sm text-zinc-400">
                   &alpha; = 6/5 is an exact eigenvalue of the normalized Laplacian of the theory&apos;s own coupling topology — the 11-sephirot Tree of Life with Da&apos;at.
                   It was never fitted. The same value independently produces significant results in every domain tested.
@@ -198,6 +198,7 @@ export default function MPFSTWebsite() {
                   { icon: <Globe2 className="w-5 h-5" />, domain: "Dark Energy / Cosmology", result: "w = −11/15, Δχ² = 0.32 vs ΛCDM", detail: "1,590 Pantheon+ supernovae, DES Y5 measures w=−0.70±0.09 — MPFST predicts −0.733", color: "text-orange-400" },
                   { icon: <FlaskConical className="w-5 h-5" />, domain: "Cuprate Superconductivity", result: "β = 4/5, χ² 4.8× better than MFL", detail: "Optical self-energy of 16 cuprate measurements across 6 studies — MPFST β=0.800 vs observed 0.765±0.024", color: "text-rose-400" },
                   { icon: <Atom className="w-5 h-5" />, domain: "Black Hole Thermodynamics", result: "c_log = −2/3, matches Asymptotic Safety", detail: "Logarithmic entropy correction from spectral dimension d_s=2α/2=1.2. Same formula as qubit decoherence (Paper 8). Zero free parameters.", color: "text-violet-400" },
+                  { icon: <Brain className="w-5 h-5" />, domain: "Bioelectric Morphogenesis", result: "Fisher combined p = 0.0014", detail: "Sephirotic mode hierarchy predicts AP→LR axis sequence, size-independent regeneration, α=6/5 exact (p=0.015)", color: "text-green-400" },
 
                 ].map((item, i) => (
                   <div key={i} className="bg-black/30 border border-zinc-800/60 rounded-xl p-4">
@@ -658,6 +659,16 @@ export default function MPFSTWebsite() {
                 description="The spectral dimension d_s = 2α/2 on a 2D horizon with α = 6/5 predicts logarithmic entropy correction c_log = −(d_s/2 − 1) = −2/3. This matches Asymptotic Safety gravity exactly, while Loop Quantum Gravity (−3/2) and string theory (−1/2) predict different values. Same derivation as Paper 8 qubit decoherence. BH evaporation time scales as M^(2+α) instead of M³ — testable for primordial black holes. Zero free parameters. Domain #19."
                 links={[
                   { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18932512" },
+                ]}
+              />
+
+              <PaperCard
+                badge="Preprint"
+                badgeColor="border-blue-500/30 text-blue-400"
+                title="Paper 19: Topological Constraints on Bioelectric Morphogenesis: Sephirotic Mode Hierarchy Predicts Developmental Axis Sequence and Size-Independent Regeneration"
+                description="The eigenvalue spectrum of the 11-node Sephirotic graph generates a mode hierarchy that maps to bilaterian developmental axes: Mode 1 (λ=0.291) is bilateral-symmetric anterior-posterior, Mode 3 (λ=0.908) first breaks bilateral symmetry for left-right. This predicts AP axis forms before LR (energy ratio 3.1:1), matching the universal developmental sequence. The constant spectral gap (0.291) explains size-independent regeneration — 1/279th planaria fragments recover patterns because topological encoding doesn't scale with body size. Fisher combined p = 0.0014 across α-exactness (p=0.015), bilateral mode structure (p=0.0001), and bilateral mode count (p=0.010). Zero free parameters. Domain #20."
+                links={[
+                  { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18950374" },
                 ]}
               />
 
