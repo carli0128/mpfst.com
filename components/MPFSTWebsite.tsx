@@ -150,7 +150,7 @@ export default function MPFSTWebsite() {
         >
           <div className="max-w-3xl mx-auto text-center">
             <motion.div variants={fadeUp} className="mb-6">
-              <Badge color="border-amber-500/30 text-amber-400">20 Papers + PRL Letter · 21 Domains · 1 Parameter</Badge>
+              <Badge color="border-amber-500/30 text-amber-400">21 Papers + PRL Letter · 22 Domains · 1 Parameter</Badge>
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
               Multi-Plane Field Syntergic Theory
@@ -158,10 +158,10 @@ export default function MPFSTWebsite() {
             <motion.p variants={fadeUp} className="text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-4">
               An 11-plane coupled PDE framework with fractional Laplacian operators. A single parameter
               &alpha; = 6/5 — an exact eigenvalue of the Sephirotic coupling topology — produces statistically significant results
-              across neuroscience, particle physics, galactic dynamics, collider physics, general relativity, quantum information, condensed matter, fusion plasma, gravitational wave post-merger signals, cuprate superconductivity, black hole thermodynamics, dark energy, and bioelectric morphogenesis.
+              across neuroscience, particle physics, galactic dynamics, collider physics, general relativity, quantum information, condensed matter, fusion plasma, gravitational wave post-merger signals, cuprate superconductivity, black hole thermodynamics, dark energy, bioelectric morphogenesis, and low-energy nuclear reactions (LENR).
             </motion.p>
             <motion.p variants={fadeUp} className="text-sm text-zinc-500 leading-relaxed max-w-2xl mx-auto">
-              Eighteen papers plus a PRL letter submitted to Physical Review Letters.
+              Twenty-one papers plus a PRL letter submitted to Physical Review Letters.
               Zero fitted parameters — α = 6/5 is derived from the theory&apos;s own coupling topology. All code and data publicly available on Zenodo.
             </motion.p>
           </div>
@@ -172,7 +172,7 @@ export default function MPFSTWebsite() {
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-amber-500/5 to-transparent border border-amber-500/20 rounded-2xl p-8">
               <div className="text-center mb-8">
-                <h2 className="text-xl font-bold text-white mb-2">One Parameter. Twenty Domains. Zero Free Parameters.</h2>
+                <h2 className="text-xl font-bold text-white mb-2">One Parameter. Twenty-Two Domains. Zero Free Parameters.</h2>
                 <p className="text-sm text-zinc-400">
                   &alpha; = 6/5 is an exact eigenvalue of the normalized Laplacian of the theory&apos;s own coupling topology — the 11-sephirot Tree of Life with Da&apos;at.
                   It was never fitted. The same value independently produces significant results in every domain tested.
@@ -200,6 +200,7 @@ export default function MPFSTWebsite() {
                   { icon: <Atom className="w-5 h-5" />, domain: "Black Hole Thermodynamics", result: "c_log = −2/3, matches Asymptotic Safety", detail: "Logarithmic entropy correction from spectral dimension d_s=2α/2=1.2. Same formula as qubit decoherence (Paper 8). Zero free parameters.", color: "text-violet-400" },
                   { icon: <Brain className="w-5 h-5" />, domain: "Bioelectric Morphogenesis", result: "Fisher combined p = 0.0014", detail: "Sephirotic mode hierarchy predicts AP→LR axis sequence, size-independent regeneration, α=6/5 exact (p=0.015)", color: "text-green-400" },
                   { icon: <Atom className="w-5 h-5" />, domain: "Microtubule Topology", result: "λ→1.200, p = 0.058, 100K null", detail: "All 5 protofilament architectures (11–15 PF) converge to λ=6/5. Bilateral eigenvector, universal across 8 helical topologies. 100,000-graph GPU null test.", color: "text-cyan-400" },
+                  { icon: <FlaskConical className="w-5 h-5" />, domain: "LENR / Cold Fusion", result: "2697 OoM barrier enhancement", detail: "Fractional tunneling (power-law vs exponential tails) enhances d–d Coulomb penetration by 10²⁶⁹⁷. Sephirotic energy cascade predicts 23.7 MeV/He-4 (observed 24±5). 8/8 qualitative signatures matched.", color: "text-amber-400" },
 
                 ].map((item, i) => (
                   <div key={i} className="bg-black/30 border border-zinc-800/60 rounded-xl p-4">
@@ -683,6 +684,16 @@ export default function MPFSTWebsite() {
                 ]}
               />
 
+              <PaperCard
+                badge="Preprint"
+                badgeColor="border-blue-500/30 text-blue-400"
+                title="Paper 21: Low-Energy Nuclear Reactions from Fractional Tunneling on the Sephirotic Graph"
+                description="Fractional Laplacian (α=6/5) replaces exponential wavefunction tails with power-law tails, enhancing d–d Coulomb barrier penetration by 2,697 orders of magnitude (from 10⁻²⁷²⁸ to 10⁻³¹). Sephirotic energy cascade routes nuclear energy through lattice phonons rather than radiation channels, predicting 23.7 MeV/He-4 (observed 24 ± 5 MeV). Matches 8/8 qualitative LENR signatures. Identifies loading threshold, radiation suppression, and 5 novel testable predictions. Zero free parameters. Domain #22."
+                links={[
+                  { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18973585" },
+                ]}
+              />
+
               {/* PRL Letter */}
               <PaperCard
                 badge="Submitted"
@@ -691,7 +702,7 @@ export default function MPFSTWebsite() {
                 description="Flagship letter submitted to Physical Review Letters (es2026mar07_508). Synthesizes all papers into a single unified result: α = 6/5, an exact eigenvalue of the 11-node Sephirotic graph Laplacian, generates zero-parameter predictions across independent physical domains. Combined significance via Fisher's method: 5.8σ. No free parameters. No fitting. One topology — all domains."
                 links={[
                   { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18898117" },
-                  { label: "Journal: Physical Review Letters (es2026mar07_508)" },
+                  { label: "Journal: Physical Review Letters (LQ19911)" },
                 ]}
               />
 
