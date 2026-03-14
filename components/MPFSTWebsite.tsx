@@ -150,7 +150,7 @@ export default function MPFSTWebsite() {
         >
           <div className="max-w-3xl mx-auto text-center">
             <motion.div variants={fadeUp} className="mb-6">
-              <Badge color="border-amber-500/30 text-amber-400">21 Papers + PRL Letter · 22 Domains · 1 Parameter</Badge>
+              <Badge color="border-amber-500/30 text-amber-400">22 Papers + PRL Letter · 23 Domains · 1 Parameter</Badge>
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
               Multi-Plane Field Syntergic Theory
@@ -158,10 +158,10 @@ export default function MPFSTWebsite() {
             <motion.p variants={fadeUp} className="text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-4">
               An 11-plane coupled PDE framework with fractional Laplacian operators. A single parameter
               &alpha; = 6/5 — an exact eigenvalue of the Sephirotic coupling topology — produces statistically significant results
-              across neuroscience, particle physics, galactic dynamics, collider physics, general relativity, quantum information, condensed matter, fusion plasma, gravitational wave post-merger signals, cuprate superconductivity, black hole thermodynamics, dark energy, bioelectric morphogenesis, and low-energy nuclear reactions (LENR).
+              across neuroscience, particle physics, galactic dynamics, collider physics, general relativity, quantum information, condensed matter, fusion plasma, gravitational wave post-merger signals, cuprate superconductivity, black hole thermodynamics, dark energy, bioelectric morphogenesis, low-energy nuclear reactions (LENR), and microtubule ion transport.
             </motion.p>
             <motion.p variants={fadeUp} className="text-sm text-zinc-500 leading-relaxed max-w-2xl mx-auto">
-              Twenty-one papers plus a PRL letter submitted to Physical Review Letters.
+              Twenty-two papers plus a PRL letter submitted to Physical Review Letters.
               Zero fitted parameters — α = 6/5 is derived from the theory&apos;s own coupling topology. All code and data publicly available on Zenodo.
             </motion.p>
           </div>
@@ -201,6 +201,7 @@ export default function MPFSTWebsite() {
                   { icon: <Brain className="w-5 h-5" />, domain: "Bioelectric Morphogenesis", result: "Fisher combined p = 0.0014", detail: "Sephirotic mode hierarchy predicts AP→LR axis sequence, size-independent regeneration, α=6/5 exact (p=0.015)", color: "text-green-400" },
                   { icon: <Atom className="w-5 h-5" />, domain: "Microtubule Topology", result: "λ→1.200, p = 0.058, 100K null", detail: "All 5 protofilament architectures (11–15 PF) converge to λ=6/5. Bilateral eigenvector, universal across 8 helical topologies. 100,000-graph GPU null test.", color: "text-cyan-400" },
                   { icon: <FlaskConical className="w-5 h-5" />, domain: "LENR / Cold Fusion", result: "2697 OoM barrier enhancement", detail: "Fractional tunneling (power-law vs exponential tails) enhances d–d Coulomb penetration by 10²⁶⁹⁷. Sephirotic energy cascade predicts 23.7 MeV/He-4 (observed 24±5). 8/8 qualitative signatures matched.", color: "text-amber-400" },
+                  { icon: <Zap className="w-5 h-5" />, domain: "MT Lumen Ion Transport", result: "121× pump enhancement, r = 0.995 Meyer-Overton", detail: "Bilateral eigenmode (λ=6/5) of microtubule lattice creates peristaltic pump driving 121× Ca²⁺ enhancement without ATP. Spectral gap 0.0006 explains anesthetic selectivity — reproduces Meyer-Overton correlation (r=0.995) from topology alone.", color: "text-cyan-400" },
 
                 ].map((item, i) => (
                   <div key={i} className="bg-black/30 border border-zinc-800/60 rounded-xl p-4">
@@ -691,6 +692,16 @@ export default function MPFSTWebsite() {
                 description="Fractional Laplacian (α=6/5) replaces exponential wavefunction tails with power-law tails, enhancing d–d Coulomb barrier penetration by 2,697 orders of magnitude (from 10⁻²⁷²⁸ to 10⁻³¹). Sephirotic energy cascade routes nuclear energy through lattice phonons rather than radiation channels, predicting 23.7 MeV/He-4 (observed 24 ± 5 MeV). Matches 8/8 qualitative LENR signatures. Identifies loading threshold, radiation suppression, and 5 novel testable predictions. Zero free parameters. Domain #22."
                 links={[
                   { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18973585" },
+                ]}
+              />
+
+              <PaperCard
+                badge="Preprint"
+                badgeColor="border-blue-500/30 text-blue-400"
+                title="Paper 22: Topological Peristalsis in Microtubule Lumens — Ion Transport, Consciousness, and Anesthesia from a Single Eigenvalue"
+                description="The bilateral eigenmode (λ=6/5) of the 13-protofilament microtubule lattice creates a peristaltic pump driving 121× Ca²⁺ transport enhancement without ATP expenditure. Spectral gap of 0.0006 — 591× smaller than Sephirotic — explains why weak van der Waals anesthetic forces selectively disrupt consciousness. Reproduces Meyer-Overton correlation (r = 0.995) from topology alone. Connects MT topology → ion transport → EEG coherence → anesthesia in one quantitative chain. Zero free parameters. Domain #23."
+                links={[
+                  { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.19021000" },
                 ]}
               />
 
