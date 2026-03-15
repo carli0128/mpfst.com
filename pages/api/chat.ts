@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { readFileSync } from 'fs';
+// fs import removed — no longer needed
 import { PAPERS, FIELDS, STATS } from '@/components/data';
 
 // ─── Build comprehensive MPFST knowledge base for the system prompt ───
@@ -102,12 +102,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Read API key from file written by start.sh at container startup
-  // This bypasses Next.js build-time env var inlining
-  let apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    try { apiKey = readFileSync('/app/.anthropic_key', 'utf8').trim(); } catch {}
-  }
+  // Dynamic access prevents Next.js webpack from inlining at build time
+  // This forces runtime evaluation of the env var
+  const envName = 'ANTHROPIC_API_KEY';
+  let apiKey = process.env[envName];
   if (!apiKey) {
     console.error('ANTHROPIC_API_KEY not available at runtime');
     return res.status(500).json({ error: 'AI service not configured' });
