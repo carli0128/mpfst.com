@@ -109,7 +109,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try { apiKey = readFileSync('/app/.anthropic_key', 'utf8').trim(); } catch {}
   }
   if (!apiKey) {
-    console.error('ANTHROPIC_API_KEY not set. serverRuntimeConfig:', !!serverRuntimeConfig);
+    console.error('ANTHROPIC_API_KEY not available at runtime');
     return res.status(500).json({ error: 'AI service not configured' });
   }
 
