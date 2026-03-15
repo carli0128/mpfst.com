@@ -150,7 +150,7 @@ export default function MPFSTWebsite() {
         >
           <div className="max-w-3xl mx-auto text-center">
             <motion.div variants={fadeUp} className="mb-6">
-              <Badge color="border-amber-500/30 text-amber-400">22 Papers + PRL Letter · 23 Domains · 1 Parameter</Badge>
+              <Badge color="border-amber-500/30 text-amber-400">23 Papers + PRL Letter · 24 Domains · 1 Parameter</Badge>
             </motion.div>
             <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
               Multi-Plane Field Syntergic Theory
@@ -158,7 +158,7 @@ export default function MPFSTWebsite() {
             <motion.p variants={fadeUp} className="text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-4">
               An 11-plane coupled PDE framework with fractional Laplacian operators. A single parameter
               &alpha; = 6/5 — an exact eigenvalue of the Sephirotic coupling topology — produces statistically significant results
-              across neuroscience, particle physics, galactic dynamics, collider physics, general relativity, quantum information, condensed matter, fusion plasma, gravitational wave post-merger signals, cuprate superconductivity, black hole thermodynamics, dark energy, bioelectric morphogenesis, low-energy nuclear reactions (LENR), and microtubule ion transport.
+              across neuroscience, particle physics, galactic dynamics, collider physics, general relativity, quantum information, condensed matter, fusion plasma, gravitational wave post-merger signals, cuprate superconductivity, black hole thermodynamics, dark energy, bioelectric morphogenesis, low-energy nuclear reactions (LENR), microtubule ion transport, and atomic structure.
             </motion.p>
             <motion.p variants={fadeUp} className="text-sm text-zinc-500 leading-relaxed max-w-2xl mx-auto">
               Twenty-two papers plus a PRL letter submitted to Physical Review Letters.
@@ -202,6 +202,7 @@ export default function MPFSTWebsite() {
                   { icon: <Atom className="w-5 h-5" />, domain: "Microtubule Topology", result: "λ→1.200, p = 0.058, 100K null", detail: "All 5 protofilament architectures (11–15 PF) converge to λ=6/5. Bilateral eigenvector, universal across 8 helical topologies. 100,000-graph GPU null test.", color: "text-cyan-400" },
                   { icon: <FlaskConical className="w-5 h-5" />, domain: "LENR / Cold Fusion", result: "2697 OoM barrier enhancement", detail: "Fractional tunneling (power-law vs exponential tails) enhances d–d Coulomb penetration by 10²⁶⁹⁷. Sephirotic energy cascade predicts 23.7 MeV/He-4 (observed 24±5). 8/8 qualitative signatures matched.", color: "text-amber-400" },
                   { icon: <Zap className="w-5 h-5" />, domain: "MT Lumen Ion Transport", result: "121× pump enhancement, r = 0.995 Meyer-Overton", detail: "Bilateral eigenmode (λ=6/5) of microtubule lattice creates peristaltic pump driving 121× Ca²⁺ enhancement without ATP. Spectral gap 0.0006 explains anesthetic selectivity — reproduces Meyer-Overton correlation (r=0.995) from topology alone.", color: "text-cyan-400" },
+                  { icon: <Atom className="w-5 h-5" />, domain: "Atomic Form Factors", result: "β = 1.411, 2.8× closer to MPFST", detail: "Fractional Schrödinger equation predicts form factor cusp F(Q) = 1 − c|Q|^(6/5) instead of standard parabola F(Q) = 1 − bQ². Waasmaier-Kirfel data for 11 atoms (H–Au): free-fit β = 1.411 ± 0.144, MPFST wins 10/11 by BIC. Null test (500 random Gaussians): β = 1.590, cusp preference only 30.2%. Real atoms are 2.8× closer to MPFST prediction. p < 10⁻⁶.", color: "text-violet-400" },
 
                 ].map((item, i) => (
                   <div key={i} className="bg-black/30 border border-zinc-800/60 rounded-xl p-4">
@@ -702,6 +703,16 @@ export default function MPFSTWebsite() {
                 description="The bilateral eigenmode (λ=6/5) of the 13-protofilament microtubule lattice creates a peristaltic pump driving 121× Ca²⁺ transport enhancement without ATP expenditure. Spectral gap of 0.0006 — 591× smaller than Sephirotic — explains why weak van der Waals anesthetic forces selectively disrupt consciousness. Reproduces Meyer-Overton correlation (r = 0.995) from topology alone. Connects MT topology → ion transport → EEG coherence → anesthesia in one quantitative chain. Zero free parameters. Domain #23."
                 links={[
                   { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.19021000" },
+                ]}
+              />
+
+              <PaperCard
+                badge="Preprint"
+                badgeColor="border-blue-500/30 text-blue-400"
+                title="Paper 23: Anomalous Power-Law Behavior in Atomic Form Factors — Evidence for Fractional Schrödinger Dynamics"
+                description="X-ray elastic form factors f₀(Q) from Waasmaier-Kirfel relativistic Dirac-Fock coefficients for 11 atoms (H through Au) fitted to f₀ = Z(1 - cQᵝ). MPFST predicts β=6/5; standard QM predicts β=2. Observed: β = 1.411 ± 0.144, with MPFST preferred by BIC in 10/11 atoms. Null test (500 random Gaussian sums) gives β = 1.590 ± 0.083 with QM winning 69.8%, confirming real atoms are anomalous (t-test p < 10⁻⁶). Observed β is 2.8× closer to MPFST than QM. Zero free parameters. Domain #24."
+                links={[
+                  { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.19027386" },
                 ]}
               />
 
