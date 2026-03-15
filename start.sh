@@ -1,5 +1,5 @@
 #!/bin/sh
-# Write runtime env vars to .env.production so Next.js API routes can read them
-# Render injects env vars at container start, but Next.js sometimes doesn't see them
-echo "ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY" > .env.production
+# Write runtime env vars to a file that API routes can read with fs.readFileSync
+# This bypasses Next.js's build-time env var inlining
+echo "$ANTHROPIC_API_KEY" > /app/.anthropic_key
 exec npm start
