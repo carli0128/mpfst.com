@@ -196,7 +196,7 @@ export default function MPFSTWebsite() {
                   { icon: <Atom className="w-5 h-5" />, domain: "Dimensional Reduction", result: "11 → 2 modes, zero parameters", detail: "Spectral gap Δλ=0.328 yields gravity (Mode 0) + gauge field (Mode 1) from topology alone", color: "text-sky-400" },
                   { icon: <Shield className="w-5 h-5" />, domain: "Stochastic Robustness", result: "σ_c = 0.55, Kramers R² = 0.997", detail: "Noise-driven phase transitions, stochastic resonance, zero free parameters", color: "text-teal-400" },
                   { icon: <Globe2 className="w-5 h-5" />, domain: "Dark Energy / Cosmology", result: "w = −11/15, Δχ² = 0.32 vs ΛCDM", detail: "1,590 Pantheon+ supernovae, DES Y5 measures w=−0.70±0.09 — MPFST predicts −0.733", color: "text-orange-400" },
-                  { icon: <FlaskConical className="w-5 h-5" />, domain: "Cuprate Superconductivity", result: "β = 4/5, χ² 4.8× better than MFL", detail: "Optical self-energy of 16 cuprate measurements across 6 studies — MPFST β=0.800 vs observed 0.765±0.024", color: "text-rose-400" },
+                  { icon: <FlaskConical className="w-5 h-5" />, domain: "Anomalous Transport", result: "25 measurements, 2 material classes, MFL excluded", detail: "Cuprates (16 measurements) + graphene (9 measurements): fractional memory function predicts β=4/5=0.800. Cuprate β=0.765±0.024, graphene β=0.682±0.074. Combined MPFST χ²=4.4 vs MFL χ²=33.5 — MPFST 7.6× better. Cross-system consistency Δ<1.2σ. DOI: 10.5281/zenodo.19027629", color: "text-rose-400" },
                   { icon: <Atom className="w-5 h-5" />, domain: "Black Hole Thermodynamics", result: "c_log = −2/3, matches Asymptotic Safety", detail: "Logarithmic entropy correction from spectral dimension d_s=2α/2=1.2. Same formula as qubit decoherence (Paper 8). Zero free parameters.", color: "text-violet-400" },
                   { icon: <Brain className="w-5 h-5" />, domain: "Bioelectric Morphogenesis", result: "Fisher combined p = 0.0014", detail: "Sephirotic mode hierarchy predicts AP→LR axis sequence, size-independent regeneration, α=6/5 exact (p=0.015)", color: "text-green-400" },
                   { icon: <Atom className="w-5 h-5" />, domain: "Microtubule Topology", result: "λ→1.200, p = 0.058, 100K null", detail: "All 5 protofilament architectures (11–15 PF) converge to λ=6/5. Bilateral eigenvector, universal across 8 helical topologies. 100,000-graph GPU null test.", color: "text-cyan-400" },
@@ -649,10 +649,10 @@ export default function MPFSTWebsite() {
               <PaperCard
                 badge="Preprint"
                 badgeColor="border-blue-500/30 text-blue-400"
-                title="Paper 17: Anomalous Self-Energy Scaling in Cuprate Superconductors from Fractional Dynamics"
-                description="The fractional memory function M(ω) ~ ω^(2−α) = ω^(4/5) predicts optical self-energy exponent β = 0.800 for cuprate high-Tc superconductors. Tested against 16 published measurements across 6 independent studies (BSCCO, YBCO, Tl-2201, Hg-1201, LSCO): MPFST χ² = 5.6 vs Marginal Fermi Liquid χ² = 51.0 — MPFST is 4.8× better. Weighted mean observed β = 0.765 ± 0.024. The 30-year anomalous mid-infrared power law is a direct consequence of fractional transport. Same α = 6/5. Zero free parameters. Domain #18."
+                title="Paper 17: Anomalous Self-Energy Scaling in Cuprates and Graphene from Fractional Dynamics"
+                description="The fractional memory function M(ω) ~ ω^(2−α) = ω^(4/5) predicts optical self-energy exponent β = 0.800. Tested against 25 published measurements across two material classes: 16 cuprate measurements (BSCCO, YBCO, Tl-2201, Hg-1201, LSCO) and 9 graphene measurements (ARPES, IR spectroscopy, Raman). Combined MPFST χ² = 4.4 vs MFL χ² = 33.5 — MPFST 7.6× better. MFL (β=1.0) excluded at >5σ. Cross-system consistency within 1.2σ despite completely different physics. Same α = 6/5. Zero free parameters."
                 links={[
-                  { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.18930654" },
+                  { label: "Zenodo Preprint", url: "https://doi.org/10.5281/zenodo.19027629" },
                 ]}
               />
 
