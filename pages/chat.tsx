@@ -30,7 +30,7 @@ export default function Chat() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [...messages, userMsg] }),
+        body: JSON.stringify({ message: text }),
       });
       const data = await res.json();
       setMessages(prev => [...prev, { role: "assistant", content: data.reply || data.error || "No response." }]);
