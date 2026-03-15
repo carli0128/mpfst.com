@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import getConfig from 'next/config';
 import { PAPERS, FIELDS, STATS } from '@/components/data';
 
 // ─── Build comprehensive MPFST knowledge base for the system prompt ───
@@ -101,9 +102,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const { serverRuntimeConfig } = getConfig() || {};
+  const apiKey = serverRuntimeConfig?.anthropicApiKey || process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    console.error('ANTHROPIC_API_KEY not set');
+    console.error('ANTHROPIC_API_KEY not set. serverRuntimeConfig:', !!serverRuntimeConfig);
     return res.status(500).json({ error: 'AI service not configured' });
   }
 
