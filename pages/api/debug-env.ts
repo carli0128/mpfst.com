@@ -1,20 +1,26 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Dynamic access prevents webpack inlining
-  const envName = 'ANTHROPIC_API_KEY';
-  const envKey = process.env[envName];
+  // List ALL env var keys to see what Render injects
+  const allKeys = Object.keys(process.env).sort();
   
-  // Check ALL env vars that start with ANTHRO
-  const anthroVars = Object.keys(process.env).filter(k => k.toLowerCase().includes('anthro'));
+  // Check for our key specifically
+  const hasKey = 'ANTHROPIC_API_KEY' in process.env;
+  const keyVal = process.env['ANTHROPIC_API_KEY'];
   
-  res.json({
-    envKeySet: !!envKey,
-    envKeyLen: envKey?.length || 0,
-    envKeyPrefix: envKey?.substring(0, 12) || 'none',
-    anthroVars,
-    totalEnvVars: Object.keys(process.env).length,
-    nodeEnv: process.env.NODE_ENV,
-    cwd: process.cwd(),
+  // Look for any key with API or KEY in the name
+  const apiKeys = allKeys.filter(k => k.includes('API') || k.includes('KEY') || k.includes('SECRET'));
+  
+  // Render-specific vars
+  const renderVars = allKeys.filter(k => k.startsWith('RENDER'));
+  
+  res.status(200).json({
+    hasKey,
+    keyLen: keyVal ? keyVal.length : 0,
+    apiRelatedKeys: apiKeys,
+    renderVars,
+    totalKeys: allKeys.length,
+    // Show first 30 chars of each key
+    allKeyNames: allKeys,
   });
 }
