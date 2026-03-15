@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-// fs import removed — no longer needed
+import getConfig from 'next/config';
 import { PAPERS, FIELDS, STATS } from '@/components/data';
 
 // ─── Build comprehensive MPFST knowledge base for the system prompt ───
@@ -102,12 +102,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Dynamic access prevents Next.js webpack from inlining at build time
-  // This forces runtime evaluation of the env var
-  const envName = 'ANTHROPIC_API_KEY';
-  let apiKey = process.env[envName];
+  // Use serverRuntimeConfig — captured at build time, available at runtime via getConfig()
+  const { serverRuntimeConfig } = getConfig() || {};
+  const apiKey = serverRuntimeConfig?.anthropicApiKey || process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    console.error('ANTHROPIC_API_KEY not available at runtime');
+    console.error('ANTHROPIC_API_KEY not available');
     return res.status(500).json({ error: 'AI service not configured' });
   }
 
