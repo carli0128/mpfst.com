@@ -58,8 +58,8 @@ Key facts:
 Answer questions about MPFST research accurately. Cite specific papers and numbers when relevant. Be direct and scientific.`;
 
   try {
-    // Proxy to Warren gateway - use the internal pod IP for speed
-    const warrenUrl = 'http://69.30.85.128:18789/v1/chat/completions';
+    // Proxy to Warren gateway via public tunnel
+    const warrenUrl = 'https://warrenfreeman.io/v1/chat/completions';
     
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 25_000);
