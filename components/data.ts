@@ -320,15 +320,15 @@ export const PAPERS: Paper[] = [
     domains: ["GW spatial mode superposition"],
   },
   {
-    id: 27, title: "1/f-Like Spectra and High-Frequency Burst Dynamics from Fractional Dissipation",
-    shortTitle: "1/f Noise + HFAb",
-    doi: "10.5281/zenodo.19073991", field: "Neuroscience",
-    keyResult: "β = 1.245 ± 0.027 across 7 subjects, 576 iEEG channels; standard β=1 excluded at p < 10⁻¹²⁸",
-    dataPoints: "95 literature measurements + 576 iEEG channels from Nature Neuroscience (Banaie Boroujeni et al. 2025)",
-    prediction: "S(f) ~ f^(-6/5); burst envelope decay ~ t^(-6/5)",
-    dataSource: "Meta-analysis of published 1/f measurements + figshare.30434683 (Nature Neuroscience public data)",
-    howToReproduce: "Download HFAb burst-triggered data, fit power-law to single-channel envelope decay (t > 20ms post-peak), compare β to 1.0 vs 1.2",
-    domains: ["1/f noise spectra", "High-frequency burst dynamics"],
+    id: 27, title: "Spectral Exponents of Intracranial EEG Cluster Near Sephirotic Eigenvalues: Region-Specific 1/f Dynamics from Graph Topology",
+    shortTitle: "iEEG Spectral Eigenvalues",
+    doi: "10.5281/zenodo.19075977", field: "Neuroscience",
+    keyResult: "575 iEEG channels cluster by brain region near Sephirotic eigenvalues (p = 0.0037); Amygdala → λ=2.110, Parietal → λ=1.542; Kruskal-Wallis H=68.68, p=1.93×10⁻¹³",
+    dataPoints: "575 iEEG channels across 6 brain regions from 10 subjects (OpenNeuro ds004752) + 576 channels from 7 subjects (figshare.30434683)",
+    prediction: "β_region ≈ λ_k where λ_k is the nearest Sephirotic eigenvalue; regions map to different eigenmodes",
+    dataSource: "OpenNeuro ds004752 (Fedele et al. stereo-EEG) + figshare.30434683 (Banaie Boroujeni et al. 2025, Nature Neuroscience)",
+    howToReproduce: "Download ds004752, compute 1/f spectral exponent per channel (Welch PSD, 2-50 Hz), group by anatomical label, compare regional means to 11 Sephirotic eigenvalues",
+    domains: ["iEEG spectral eigenvalue mapping", "Region-specific 1/f dynamics"],
   },
 ];
 
@@ -387,8 +387,8 @@ export const DOMAINS: string[] = [
   "First-principles derivation (3 axioms → Tree of Life → α = 6/5)",
   "Bioelectric channel topology (8 internal modes = 8 Levin channels)",
   "GW spatial mode superposition (3 eigenvalues, 8/8 high-SNR, 4.7σ)",
-  "1/f noise spectra (β = 1.245, standard excluded at p < 10⁻¹²⁸)",
-  "High-frequency burst dynamics (Nature Neuroscience iEEG validation)",
+  "iEEG spectral eigenvalue mapping (575 channels, 6 regions, p = 0.0037)",
+  "Region-specific 1/f dynamics (Kruskal-Wallis H=68.68, p = 1.93×10⁻¹³)",
 ];
 
 // Helper to get Zenodo URL from DOI
