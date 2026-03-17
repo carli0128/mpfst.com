@@ -54,7 +54,7 @@ export default function Collaborate() {
             </p>
             <p>
               Constructive challenges focus on: Is α truly 6/5, or is there a better fit nearby?
-              Does the Sephirotic topology have a first-principles derivation, or is it assumed?
+              Paper 24 derives the topology from three axioms — can the uniqueness proof be strengthened?
               Are the statistical tests robust to different analysis choices?
             </p>
             <p>

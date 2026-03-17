@@ -161,8 +161,10 @@ export default function Experimentalists() {
               <h3 className="font-semibold text-zinc-300 mb-2">Limitations</h3>
               <p className="text-zinc-400">
                 The framework has not been peer-reviewed. Some domain tests (LENR, GW echoes) have
-                marginal significance. The origin of the Sephirotic topology is not derived from first
-                principles — it is assumed. The author is an independent researcher without
+                marginal significance. Paper 24 derives the Sephirotic topology from three axioms
+                (existence, isotropy, self-reference) via constructive geometry, though the uniqueness
+                proof relies on discrete classification rather than a variational principle.
+                The author is an independent researcher without
                 institutional affiliation. All limitations are discussed in the individual papers.
               </p>
             </div>
