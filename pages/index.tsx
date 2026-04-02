@@ -26,7 +26,7 @@ export default function Home() {
             <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6">
               One Number.<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">
-                Twenty-Four Domains.
+                Thirty Domains.
               </span><br />
               Zero Free Parameters.
             </h1>
@@ -121,7 +121,7 @@ export default function Home() {
         <h2 className="text-2xl font-bold text-white mb-2">Strongest Results</h2>
         <p className="text-sm text-zinc-500 mb-6">Selected papers with the highest statistical significance</p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[12, 5, 4, 2, 13, 23].map(id => {
+          {[12, 26, 28, 2, 8, 27].map(id => {
             const p = PAPERS.find(pp => pp.id === id)!;
             return (
               <a key={id} href={zenodoUrl(p.doi)} target="_blank" rel="noopener noreferrer"

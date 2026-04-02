@@ -10,6 +10,7 @@ const NAV = [
   { href: "/overview", label: "What is MPFST?" },
   { href: "/papers", label: "Papers" },
   { href: "/domains", label: "Domains" },
+  { href: "/protocol", label: "Mapping Protocol" },
   { href: "/experimentalists", label: "For Scientists" },
   { href: "/collaborate", label: "Collaborate" },
   { href: "/chat", label: "Ask Warren" },

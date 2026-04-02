@@ -2,9 +2,9 @@
 // Every number on mpfst.com comes from this file. Update here, updates everywhere.
 
 export const STATS = {
-  papers: 27,
+  papers: 28,
   prlLetter: 1,
-  domains: 29,
+  domains: 30,
   parameters: 1,
   alpha: "6/5",
   alphaDecimal: 1.2,
@@ -179,8 +179,8 @@ export const PAPERS: Paper[] = [
   {
     id: 14, title: "Dynamical Dimensional Reduction via Fractional Stückelberg Mechanism",
     shortTitle: "Dimensional Reduction",
-    doi: "10.5281/zenodo.18902147", field: "Theoretical Physics",
-    keyResult: "Spectral gap Δλ = 0.328 splits 11 modes → 2 light + 9 heavy",
+    doi: "10.5281/zenodo.19390482", field: "Theoretical Physics",
+    keyResult: "Spectral gap Δλ = 0.458 splits 11 modes → 2 light + 9 heavy (40% stronger on canonical graph)",
     dataPoints: "Analytical + numerical",
     prediction: "11 planes reduce to 2 effective modes: gravity (universal) + gauge (bilateral)",
     dataSource: "Spectral analysis of Sephirotic graph Laplacian",
@@ -190,8 +190,8 @@ export const PAPERS: Paper[] = [
   {
     id: 15, title: "Stochastic Extensions of the MPFST Coupled PDE System",
     shortTitle: "Stochastic PDE",
-    doi: "10.5281/zenodo.18902559", field: "Mathematics",
-    keyResult: "Spectral gap survives noise, Kramers escape R² = 0.997, stochastic resonance at σ ≈ 0.3",
+    doi: "10.5281/zenodo.19390485", field: "Mathematics",
+    keyResult: "Spectral gap (Δλ = 0.458) survives noise, Kramers escape R² = 0.997, stochastic resonance at σ ≈ 0.3",
     dataPoints: "6 computational tests",
     prediction: "Sephirotic structure is robust under stochastic perturbation",
     dataSource: "Computational — stochastic PDE simulation",
@@ -267,7 +267,7 @@ export const PAPERS: Paper[] = [
   {
     id: 22, title: "Topological Peristalsis in Microtubule Lumens",
     shortTitle: "MT Lumen Pump",
-    doi: "10.5281/zenodo.19021000", field: "Biophysics",
+    doi: "10.5281/zenodo.19076621", field: "Biophysics",
     keyResult: "121× Ca²⁺ enhancement (thermal), 302,671× (driven); Meyer-Overton r = 0.995",
     dataPoints: "Anesthetic correlations + ion transport simulations",
     prediction: "Bilateral eigenmode creates peristaltic pump; anesthesia disrupts spectral gap",
@@ -294,7 +294,7 @@ export const PAPERS: Paper[] = [
     dataPoints: "Uniqueness: 0/500,000 random graphs match",
     prediction: "The Sephirotic graph is the UNIQUE topology emerging from (existence, isotropy, self-reference)",
     dataSource: "Pure mathematics — constructive geometry + graph spectral theory",
-    howToReproduce: "Follow axiom chain: void → octahedron → sphere → Vesica Piscis → Flower of Life → Metatron's Cube → Platonic solids → 3-pillar → 11 nodes, 7 rules → 24 edges → verify λ₆ = 6/5",
+    howToReproduce: "Follow axiom chain: 3 axioms → d=3 → Tree of Life (canonical Paper 9 graph). Verify spatial eigenvalues (0.908, 1.200, 1.542) and λ₆ = 6/5 exactly",
     domains: ["First-principles derivation"],
   },
   {
@@ -322,13 +322,24 @@ export const PAPERS: Paper[] = [
   {
     id: 27, title: "Spectral Exponents of Intracranial EEG Cluster Near Sephirotic Eigenvalues: Region-Specific 1/f Dynamics from Graph Topology",
     shortTitle: "iEEG Spectral Eigenvalues",
-    doi: "10.5281/zenodo.19075977", field: "Neuroscience",
-    keyResult: "575 iEEG channels cluster by brain region near Sephirotic eigenvalues (p = 0.0037); Amygdala → λ=2.110, Parietal → λ=1.542; Kruskal-Wallis H=68.68, p=1.93×10⁻¹³",
+    doi: "10.5281/zenodo.19341982", field: "Neuroscience",
+    keyResult: "β_k = 2α/λ_k: χ² = 0.74, p = 0.994 — zero free parameters. 575 iEEG channels across 6 brain regions; Kruskal-Wallis H=68.68, p=1.93×10⁻¹³",
     dataPoints: "575 iEEG channels across 6 brain regions from 10 subjects (OpenNeuro ds004752) + 576 channels from 7 subjects (figshare.30434683)",
-    prediction: "β_region ≈ λ_k where λ_k is the nearest Sephirotic eigenvalue; regions map to different eigenmodes",
+    prediction: "β_k = 2α/λ_k — spectral exponents derived from Sephirotic eigenvalues with zero free parameters",
     dataSource: "OpenNeuro ds004752 (Fedele et al. stereo-EEG) + figshare.30434683 (Banaie Boroujeni et al. 2025, Nature Neuroscience)",
-    howToReproduce: "Download ds004752, compute 1/f spectral exponent per channel (Welch PSD, 2-50 Hz), group by anatomical label, compare regional means to 11 Sephirotic eigenvalues",
+    howToReproduce: "Download ds004752, compute 1/f spectral exponent per channel (Welch PSD, 2-50 Hz), group by anatomical label, compare to derived β_k = 2α/λ_k for each Sephirotic eigenvalue",
     domains: ["iEEG spectral eigenvalue mapping", "Region-specific 1/f dynamics"],
+  },
+  {
+    id: 28, title: "Topological Origin of Frequency-Dependent Cortical Propagation: Independent Confirmation from 608-Subject MEG",
+    shortTitle: "MEG Directional Propagation",
+    doi: "10.5281/zenodo.19341983", field: "Neuroscience",
+    keyResult: "608-subject MEG independently confirms Paper 2v2 prediction: slow=upstream, fast=downstream (d=0.73)",
+    dataPoints: "608 subjects (Liu, Wiesman & Baillet 2026, bioRxiv)",
+    prediction: "Frequency-dependent directional asymmetry from Sephirotic graph topology",
+    dataSource: "Liu, Wiesman & Baillet (2026) bioRxiv — 608-subject MEG",
+    howToReproduce: "Compare Paper 2v2 prediction of frequency-dependent directional asymmetry to Liu et al. MEG data. No post-hoc fitting needed — prediction existed before their data.",
+    domains: ["MEG frequency-dependent directional propagation"],
   },
 ];
 
@@ -346,7 +357,7 @@ export const FIELDS = [
   { name: "Astrophysics", color: "#3b82f6", papers: [4, 13] },
   { name: "Cosmology", color: "#6366f1", papers: [16, 18] },
   { name: "Gravitational Physics", color: "#8b5cf6", papers: [6, 13, 26] },
-  { name: "Neuroscience", color: "#ec4899", papers: [1, 2, 27] },
+  { name: "Neuroscience", color: "#ec4899", papers: [1, 2, 27, 28] },
   { name: "Condensed Matter", color: "#14b8a6", papers: [7, 8, 17] },
   { name: "Plasma Physics", color: "#f59e0b", papers: [12] },
   { name: "Biology", color: "#22c55e", papers: [19, 25] },
@@ -389,6 +400,7 @@ export const DOMAINS: string[] = [
   "GW spatial mode superposition (3 eigenvalues, 8/8 high-SNR, 4.7σ)",
   "iEEG spectral eigenvalue mapping (575 channels, 6 regions, p = 0.0037)",
   "Region-specific 1/f dynamics (Kruskal-Wallis H=68.68, p = 1.93×10⁻¹³)",
+  "MEG frequency-dependent directional propagation (608 subjects, d = 0.73, independent confirmation)",
 ];
 
 // Helper to get Zenodo URL from DOI
