@@ -54,7 +54,7 @@ const PaperRow = ({ p }: { p: typeof PAPERS[0] }) => {
 
 export default function Experimentalists() {
   return (
-    <Layout title="For Scientists" description="Reproduction guide for all 23 MPFST papers — predictions, data sources, and step-by-step instructions">
+    <Layout title="For Scientists" description={`Reproduction guide for all ${STATS.papers} MPFST papers — predictions, data sources, and step-by-step instructions`}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h1 className="text-3xl font-black text-white tracking-tight mb-2">
           For Scientists
@@ -144,7 +144,7 @@ export default function Experimentalists() {
                 11 nodes (Keter, Chokmah, Binah, Da'at, Chesed, Gevurah, Tiferet, Netzach, Hod,
                 Yesod, Malkuth) with 24 edges. Da'at connects only to Chokmah and Binah (degree 2).
                 Tiferet has highest degree (8). The normalized Laplacian's eigenvalues are:
-                0, 0.291, 0.318, 0.791, 0.908, <strong className="text-amber-400">1.200</strong>, 1.209, 1.382, 1.519, 1.527, 1.855.
+                0, 0.291, 0.749, 0.908, 0.926, 1.183, <strong className="text-amber-400">1.200</strong>, 1.278, 1.403, 1.520, 1.542.
               </p>
             </div>
             <div>

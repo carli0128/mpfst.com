@@ -144,7 +144,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── All 24 domains list ─── */}
+      {/* ─── All domains list ─── */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h2 className="text-2xl font-bold text-white mb-2">{STATS.domains} Domains, One Parameter</h2>
         <p className="text-sm text-zinc-500 mb-6">Every domain tested with α = 6/5 and zero fitting</p>
