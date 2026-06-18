@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Layout from "@/components/Layout";
 import { STATS, PAPERS, FIELDS, DOMAINS, PRL, zenodoUrl } from "@/components/data";
-import { FileText, Globe2, Atom, ArrowRight, ExternalLink } from "lucide-react";
+import { FileText, Globe2, Atom, ArrowRight, ExternalLink, Sigma } from "lucide-react";
 
 const Stat = ({ value, label }: { value: string; label: string }) => (
   <div className="text-center">
@@ -52,6 +52,9 @@ export default function Home() {
               <Link href="/overview" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 text-black font-semibold hover:bg-amber-400 transition-colors">
                 What is MPFST? <ArrowRight className="w-4 h-4" />
               </Link>
+              <Link href="/verify" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-zinc-800 text-white font-semibold hover:bg-zinc-700 transition-colors border border-zinc-700">
+                <Sigma className="w-4 h-4" /> Verify α = 6/5 Live
+              </Link>
               <Link href="/papers" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-zinc-800 text-white font-semibold hover:bg-zinc-700 transition-colors border border-zinc-700">
                 <FileText className="w-4 h-4" /> Read the Papers
               </Link>
@@ -95,6 +98,9 @@ export default function Home() {
                   11 nodes · 24 edges<br />
                   <span className="text-zinc-500">λ₆ = 1.200000000000000</span>
                 </div>
+                <Link href="/verify" className="block mt-3 text-center text-xs text-amber-500/80 hover:text-amber-400 font-medium">
+                  Verify it live in your browser →
+                </Link>
               </div>
             </div>
           </div>

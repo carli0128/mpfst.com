@@ -8,6 +8,7 @@ import { STATS } from "./data";
 const NAV = [
   { href: "/", label: "Home" },
   { href: "/overview", label: "What is MPFST?" },
+  { href: "/verify", label: "Verify α = 6/5" },
   { href: "/papers", label: "Papers" },
   { href: "/domains", label: "Domains" },
   { href: "/protocol", label: "Mapping Protocol" },
