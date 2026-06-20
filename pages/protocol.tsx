@@ -77,7 +77,7 @@ export default function Protocol() {
         <p className="text-zinc-400 mb-12 max-w-3xl">
           Every MPFST paper maps the same constant — α = 6/5 — to a different physical domain.
           This page classifies <em>how</em> each paper performs that mapping. Five categories cover
-          all 28 papers.
+          all 27 papers.
         </p>
 
         {/* Category cards */}

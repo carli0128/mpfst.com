@@ -530,3 +530,67 @@ incompatible global p-values should be dropped entirely.
 *Verification provenance: all 29 records fetched from the Zenodo API and read June 2026;
 eigenvalue/eigenvector and every exponent in 7.4 re-derived independently
 (`‖Lv−1.2v‖ = 0`, λ₆−6/5 = 4.4×10⁻¹⁶, all formula values reproduced).*
+
+---
+
+# Part 8 — Paper 22 retraction: what went wrong, and where the effort should go
+
+Paper 22 has been **removed from the live site** (it is retracted on Zenodo). This is not
+"delete and forget" — the underlying *question* is legitimate, the *execution* was not.
+The Zenodo record carries the author's own retraction note, which is unusually candid and
+is the right diagnosis:
+
+> *"RETRACTED: Published without author approval. Analysis contains circular correlations
+> (MT eigenvalue shift defined proportional to lipophilicity then correlated with
+> lipophilicity). Did not analyze actual neural recording data from Eisen and Miller 2026.
+> Conceptual framework may be revisited in future work with proper quantitative analysis."*
+
+## 8.1 What it claimed
+That the bilateral eigenmode (λ = 6/5) of a 13-protofilament microtubule lattice acts as a
+peristaltic ion pump (121× Ca²⁺ thermal, 302,671× driven), that anesthetics work by
+shifting that eigenvalue, and — reaching well past the physics — that this is the mechanism
+of consciousness and its loss under anesthesia (with "NDE download window" / field-state
+language).
+
+## 8.2 Why it is wrong (three independent failures, all confirmed)
+1. **Circularity (fatal).** The eigenvalue shift Δλ was *defined* proportional to anesthetic
+   lipophilicity and then "found" to correlate with lipophilicity (Meyer-Overton). That
+   correlation is a tautology, not a result. The paper's own "triple correlation" is one
+   collinear quantity counted three times (it even admits the predictors "measure the same
+   topological pathway").
+2. **No real data.** It never analyzed the Eisen & Miller (2026) neural recordings it cited
+   — the one out-of-sample test that could have made it falsifiable.
+3. **Internal contradiction + underived numbers.** It asserts Meyer-Overton r = 0.995 in
+   prose while its *own* Table II computes r = 0.942; the 302,671× "driven" enhancement
+   appears once with no derivation; and the consciousness/NDE framing is unfalsifiable and
+   actively poisons the credibility of the testable parts.
+
+## 8.3 What actually survives (the salvageable kernel)
+- **The MT lattice eigenvalue near 6/5 is real** — but that is *Paper 20's* (non-retracted)
+  domain, and even there the null test is **p = 0.058** (see 7.3). So this is a weak prior,
+  not a foundation.
+- **The Meyer-Overton regularity is real** (it is decades-old pharmacology). MPFST is
+  allowed to *try* to explain it — but only via a mechanism whose Δλ is computed
+  **independently of** the quantity it then predicts.
+
+## 8.4 The path the effort should take (a non-circular redo)
+If revisited (as the author intends), the work has to be rebuilt so the prediction cannot
+be true by construction:
+1. **Compute Δλ from first principles.** Model anesthetic binding *geometrically* (which
+   tubulin pocket, which graph edges/nodes it perturbs, by how much) → perturb the MT graph
+   Laplacian → read off Δλ. This Δλ must depend on **binding geometry, not on lipophilicity**.
+2. **Then** test whether that independently-derived Δλ predicts anesthetic potency (1/MAC).
+   Only this ordering breaks the circularity the retraction names.
+3. **Use the real data.** Analyze the Eisen & Miller (2026) recordings as a genuine
+   out-of-sample test; expand far beyond n = 5 agents; report the collinear predictors as
+   **one** correlation, with the honest r = 0.942.
+4. **Derive or drop** the 121× / 302,671× enhancement factors — no bare numbers.
+5. **Strip the consciousness/NDE framing entirely** from any physics submission; it is
+   unfalsifiable and it is what makes editors stop reading.
+6. **Pre-register** the prediction with a timestamp *before* touching the data — the exact
+   discipline Paper 28 lacked (see C2).
+
+**Bottom line:** the topological-pump idea is *unproven*, not *refuted*. It belongs in
+"future work," precisely as the retraction note says — and it must not reappear as a
+"domain win" until a non-circular, real-data, pre-registered version exists. Removing it
+from the site now is the honest move; keeping the salvage plan here is the constructive one.

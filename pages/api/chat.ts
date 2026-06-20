@@ -48,7 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const systemPrompt = `You are a research assistant for MPFST (Multi-Plane Field Syntergic Theory) by Carlos W. Freeman.
 
 Key facts:
-- 28 papers published on Zenodo covering 30 physical domains
+- 27 papers published on Zenodo covering 29 physical domains
 - 1 PRL letter submitted (LQ19911, desk rejected)
 - Core result: α = 6/5 exact eigenvalue of 11-node Sephirotic graph predicts phenomena across physics
 - Zero free parameters - same α = 6/5 works for quantum mechanics, cosmology, particle physics, neuroscience
