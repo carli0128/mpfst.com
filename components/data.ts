@@ -118,7 +118,7 @@ export const PAPERS: Paper[] = [
     dataPoints: "15 superconducting qubits",
     prediction: "Decoherence scaling exponent from fractional Laplacian",
     dataSource: "IBM Quantum device T₁ data (15 qubits, published)",
-    howToReproduce: "Fit T₁ vs frequency for IBM qubits, compare power-law exponent to MPFST prediction −(α+1)/α = −1.50",
+    howToReproduce: "Fit T₁ vs frequency across the published qubits, compare power-law exponent to MPFST prediction −(d/α − 1) = −(3 − α)/α = −1.50 (d=3, α=6/5)",
     domains: ["Superconducting qubit decoherence"],
   },
   {
