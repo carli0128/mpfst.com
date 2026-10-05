@@ -45,7 +45,9 @@ if [ "$SHA_LOCAL" != "$SHA_REMOTE" ]; then
   exit 1
 fi
 echo "checksum OK"
-cat "$D"/essentials.tar.??? | tar -C /workspace -xf - && echo "unpacked"
+# RunPod network volumes refuse chown/chmod/utime; the files still land, so those warnings are ignored.
+cat "$D"/essentials.tar.??? | tar -C /workspace -xf - --no-same-owner -m 2> "$D/tar.warnings" 
+echo "unpacked ($(grep -c . "$D/tar.warnings") attribute warnings ignored)"
 [ -f /workspace/.env ] && echo "OK: .env present" || echo "WARNING: /workspace/.env missing"
 [ -f /workspace/warren_boot.sh ] || { echo "ERROR: warren_boot.sh missing; cannot boot"; exit 1; }
 ls -d /workspace/warren-backups/warren-backup-* | tail -1
