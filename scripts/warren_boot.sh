@@ -30,10 +30,10 @@ say "runtime: node=$(node -v 2>/dev/null) cloudflared=$(cloudflared --version 2>
 
 # --- 1b. Python service deps (idempotent; brain + business services need these) ---
 export PIP_CACHE_DIR=/tmp/pip-cache
-if ! python3 -c "import flask, aiohttp, apscheduler, chromadb, transformers, multipart" >/dev/null 2>&1; then
+if ! python3 -c "import flask, aiohttp, apscheduler, chromadb, transformers, multipart, accelerate" >/dev/null 2>&1; then
   say "installing python service deps"
   pip3 install --quiet --disable-pip-version-check --ignore-installed blinker \
-    flask aiohttp apscheduler fastapi uvicorn chromadb twilio requests feedparser pymupdf psycopg2-binary pysocks transformers python-multipart \
+    flask aiohttp apscheduler fastapi uvicorn chromadb twilio requests feedparser pymupdf psycopg2-binary pysocks transformers python-multipart accelerate \
     google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2 >>"$LOG" 2>&1
   say "python deps: flask=$(python3 -c 'import flask' 2>/dev/null && echo ok) chromadb=$(python3 -c 'import chromadb' 2>/dev/null && echo ok)"
 fi
