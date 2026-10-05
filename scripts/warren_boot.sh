@@ -60,7 +60,7 @@ if [ ! -L /root/memory-server ] && [ -d /workspace/memory-server ]; then
   say "linked /root/memory-server -> /workspace/memory-server"
 fi
 # --- 4b. All the other /root -> /workspace links (.openclaw neural .env dashboard kalshi options voice-web) ---
-[ -x /workspace/restore_symlinks.sh ] && bash /workspace/restore_symlinks.sh >>"$LOG" 2>&1
+[ -f /workspace/warren_links.sh ] && bash /workspace/warren_links.sh >>"$LOG" 2>&1   # restore_symlinks.sh aborts after its first entry (set -e + ((n++)))
 grep -q "^HF_HOME=" /root/.env 2>/dev/null || echo "HF_HOME=/workspace/.cache/huggingface" >> /root/.env
 
 # --- 5. Rebuild gateway node_modules if missing ---
