@@ -18,10 +18,10 @@ say "==== warren_boot (self-healing) invoked ===="
 
 # --- 1. Runtime deps (idempotent) ---
 export DEBIAN_FRONTEND=noninteractive
-if ! command -v node >/dev/null 2>&1 || ! command -v cloudflared >/dev/null 2>&1 || ! command -v screen >/dev/null 2>&1 || ! command -v rsync >/dev/null 2>&1 || ! command -v sshpass >/dev/null 2>&1 || ! command -v go2rtc >/dev/null 2>&1; then
+if ! command -v node >/dev/null 2>&1 || ! command -v cloudflared >/dev/null 2>&1 || ! command -v screen >/dev/null 2>&1 || ! command -v rsync >/dev/null 2>&1 || ! command -v sshpass >/dev/null 2>&1 || ! command -v go2rtc >/dev/null 2>&1 || ! command -v espeak-ng >/dev/null 2>&1; then
   say "installing runtime (node/cloudflared/screen/rsync)"
   apt-get update -qq >>"$LOG" 2>&1
-  apt-get install -y -qq screen rsync curl ca-certificates gnupg sshpass >>"$LOG" 2>&1
+  apt-get install -y -qq screen rsync curl ca-certificates gnupg sshpass espeak-ng >>"$LOG" 2>&1
   command -v node >/dev/null 2>&1 || { curl -fsSL https://deb.nodesource.com/setup_20.x | bash - >>"$LOG" 2>&1; apt-get install -y -qq nodejs >>"$LOG" 2>&1; }
   command -v cloudflared >/dev/null 2>&1 || { curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && chmod +x /usr/local/bin/cloudflared; }
   command -v go2rtc >/dev/null 2>&1 || { curl -fsSL https://github.com/AlexxIT/go2rtc/releases/latest/download/go2rtc_linux_amd64 -o /usr/local/bin/go2rtc && chmod +x /usr/local/bin/go2rtc; }
@@ -30,10 +30,10 @@ say "runtime: node=$(node -v 2>/dev/null) cloudflared=$(cloudflared --version 2>
 
 # --- 1b. Python service deps (idempotent; brain + business services need these) ---
 export PIP_CACHE_DIR=/tmp/pip-cache
-if ! python3 -c "import flask, aiohttp, apscheduler, chromadb, transformers, multipart, accelerate" >/dev/null 2>&1; then
+if ! python3 -c "import flask, aiohttp, apscheduler, chromadb, transformers, multipart, accelerate, kokoro, soundfile" >/dev/null 2>&1; then
   say "installing python service deps"
   pip3 install --quiet --disable-pip-version-check --ignore-installed blinker \
-    flask aiohttp apscheduler fastapi uvicorn chromadb twilio requests feedparser pymupdf psycopg2-binary pysocks transformers python-multipart accelerate \
+    flask aiohttp apscheduler fastapi uvicorn chromadb twilio requests feedparser pymupdf psycopg2-binary pysocks transformers python-multipart accelerate kokoro soundfile \
     google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2 >>"$LOG" 2>&1
   say "python deps: flask=$(python3 -c 'import flask' 2>/dev/null && echo ok) chromadb=$(python3 -c 'import chromadb' 2>/dev/null && echo ok)"
 fi
@@ -73,6 +73,13 @@ fi
 if [ -f /root/eufy-ws/package.json ] && [ ! -d /root/eufy-ws/node_modules ]; then
   say "npm install eufy-ws deps"
   ( cd /root/eufy-ws && npm install --no-audit --no-fund --loglevel=error >>"$LOG" 2>&1 )
+fi
+
+# --- 5d. tailscale binaries: the network volume strips the executable bit, so copy them to the container disk ---
+if [ -f /workspace/tailscale/tailscaled ]; then
+  for b in tailscale tailscaled; do cmp -s /workspace/tailscale/$b /usr/local/bin/$b 2>/dev/null || { cp /workspace/tailscale/$b /usr/local/bin/$b && chmod +x /usr/local/bin/$b; }; done
+  grep -q '/usr/local/bin/tailscaled' /workspace/tailscale/tailscale-supervisor.sh || sed -i 's|"$TS/tailscaled"|/usr/local/bin/tailscaled|g; s|"$TS/tailscale"|/usr/local/bin/tailscale|g' /workspace/tailscale/tailscale-supervisor.sh
+  say "tailscale binaries staged in /usr/local/bin"
 fi
 
 # --- 5c. Pre-warm model files into RAM so slow loaders (embedding_server 7B) pass health checks ---
