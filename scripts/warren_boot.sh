@@ -75,6 +75,9 @@ if [ -f /root/eufy-ws/package.json ] && [ ! -d /root/eufy-ws/node_modules ]; the
   ( cd /root/eufy-ws && npm install --no-audit --no-fund --loglevel=error >>"$LOG" 2>&1 )
 fi
 
+# --- 5c. Pre-warm model files into RAM so slow loaders (embedding_server 7B) pass health checks ---
+[ -d /workspace/.cache/huggingface/hub ] && ( nohup sh -c 'find /workspace/.cache/huggingface/hub -type f -print0 | xargs -0 cat > /dev/null' >/dev/null 2>&1 & )
+
 # --- 6. Start the supervisor; it launches all services (gateway, tunnel, brain) ---
 if ! pgrep -f "warren_supervisor.py" >/dev/null 2>&1; then
   setsid bash /root/supervisor/run_supervisor.sh </dev/null >/dev/null 2>&1 & disown 2>/dev/null
