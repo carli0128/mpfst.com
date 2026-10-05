@@ -43,6 +43,7 @@ def req(method, path, body=None, timeout=300):
     data = json.dumps(body).encode() if body is not None else None
     r = urllib.request.Request(url, data=data, method=method)
     r.add_header("Authorization", "token " + TOKEN)
+    r.add_header("User-Agent", "warren-migrate/1.0")  # the proxy rejects Python-urllib
     if data is not None:
         r.add_header("Content-Type", "application/json")
     return urllib.request.urlopen(r, timeout=timeout)
