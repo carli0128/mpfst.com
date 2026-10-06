@@ -8,6 +8,8 @@ endpoint, deletes it through Jupyter's contents API, and acknowledges finished e
 b_<entry>.ok file. Piece names never start with '.', because Jupyter hides dot-files.
 
 Usage: python3 warren_bulk_serve.py [--skip name ...] [--only name ...] [--split name ...]
+  --only:  pack only these top-level names (overrides the built-in already-transferred list).
+  --skip:  leave these out; takes top-level names and, after --split, "dir/child" entries.
   --split: pack that directory as one entry per child ("dir/child"), so a crash costs one child, not the whole dir.
   A consumer that died mid-entry writes b_<tag>.redo; the producer then re-packs that entry from piece 0.
 Files written:  PLAN (ordered entry list), b_<entry>.tar.NNNNN (pieces),
@@ -51,10 +53,13 @@ def plan(skip, only, split):
         p = os.path.join(ROOT, n)
         if not os.path.isdir(p) or os.path.islink(p):
             continue  # top-level files and links went with the essentials
-        if n in ALREADY or n in skip:
+        if n in skip:
             continue
-        if only and n not in only:
-            continue
+        if only:
+            if n not in only:
+                continue
+        elif n in ALREADY:
+            continue  # --only overrides the built-in already-transferred list
         names.append(n)
     ordered = [n for n in FIRST if n in names] + [n for n in names if n not in FIRST]
     out = []
@@ -64,7 +69,7 @@ def plan(skip, only, split):
                 out.append(n + "/" + c)
         else:
             out.append(n)
-    return out
+    return [e for e in out if e not in skip]  # --skip also takes "dir/child" entries
 
 
 def pending():

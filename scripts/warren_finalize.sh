@@ -1,10 +1,10 @@
 #!/bin/bash
 # Run ON THE NEW POD once the old pod's bulk producer reported ALL DONE and the follow-up
-# producer pass (--only warren-backups) plus the MANIFEST were started on the old pod.
+# producer pass (--only lhc_data warren-backups) plus the MANIFEST were started on the old pod.
 #
 #   bash warren_finalize.sh <old-pod-jupyter-url> <old-pod-jupyter-token>
 #
-# 1. runs the consumer once more (older nightly backup sets)
+# 1. runs the consumer once more (lhc_data and the older nightly backup sets)
 # 2. stages the tailscale binaries (+x) and starts the tailscale service
 # 3. verifies file counts per top-level directory against the old pod's manifest
 # 4. prints the service roster and the RunPod start command to set
@@ -16,8 +16,9 @@ exec > >(tee -a "$LOG") 2>&1
 say(){ echo; echo "[$(date -u '+%H:%M:%S')] ==== $*"; }
 get(){ curl -fsS -m 120 -A warren-migrate -H "Authorization: token $TOKEN" "$@"; }
 
-say "1. Follow-up copy: older nightly backup sets"
-python3 /workspace/warren_bulk_pull.py "$BASE" "$TOKEN" | tail -5
+say "1. Follow-up copy: lhc_data (83 files, ~288 GB) and the older nightly backup sets (~21 GB)"
+until python3 /workspace/warren_bulk_pull.py "$BASE" "$TOKEN"; do echo "  consumer exited early; restarting it"; sleep 30; done | tail -5
+ls /workspace/lhc_data 2>/dev/null | wc -l | awk '{print "lhc_data files on this pod:", $1, "(old pod: 83)"}'
 ls -d /workspace/warren-backups/warren-backup-* | wc -l | awk '{print "nightly backup sets on this pod:", $1}'
 
 say "2. tailscale"
