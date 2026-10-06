@@ -7,7 +7,9 @@ consumer (warren_bulk_pull.py on the new pod) downloads each piece through Jupyt
 endpoint, deletes it through Jupyter's contents API, and acknowledges finished entries with a
 b_<entry>.ok file. Piece names never start with '.', because Jupyter hides dot-files.
 
-Usage: python3 warren_bulk_serve.py [--skip name ...] [--only name ...]
+Usage: python3 warren_bulk_serve.py [--skip name ...] [--only name ...] [--split name ...]
+  --split: pack that directory as one entry per child ("dir/child"), so a crash costs one child, not the whole dir.
+  A consumer that died mid-entry writes b_<tag>.redo; the producer then re-packs that entry from piece 0.
 Files written:  PLAN (ordered entry list), b_<entry>.tar.NNNNN (pieces),
                 b_<entry>.done ("<pieces> <sha256>"), ALL.done, bulk.log
 """
@@ -29,6 +31,11 @@ ALREADY = {  # transferred by the essentials bundle
     "_xfer",
 }
 FIRST = [".cache"]  # models first: services want them
+SPLIT_DEFAULT = {"lhc_data"}  # huge; always split into children
+
+
+def tag_of(entry):
+    return "b_" + entry.replace("/", "__")
 
 
 def log(msg):
@@ -38,7 +45,7 @@ def log(msg):
         f.write(line + "\n")
 
 
-def plan(skip, only):
+def plan(skip, only, split):
     names = []
     for n in sorted(os.listdir(ROOT)):
         p = os.path.join(ROOT, n)
@@ -49,20 +56,32 @@ def plan(skip, only):
         if only and n not in only:
             continue
         names.append(n)
-    return [n for n in FIRST if n in names] + [n for n in names if n not in FIRST]
+    ordered = [n for n in FIRST if n in names] + [n for n in names if n not in FIRST]
+    out = []
+    for n in ordered:
+        if n in split:
+            for c in sorted(os.listdir(os.path.join(ROOT, n))):
+                out.append(n + "/" + c)
+        else:
+            out.append(n)
+    return out
 
 
 def pending():
     return sum(1 for n in os.listdir(OUT) if ".tar." in n)
 
 
+def redo_requested(tag):
+    return os.path.exists(os.path.join(OUT, tag + ".redo"))
+
+
 def produce(entry):
-    tag = "b_" + entry
+    tag = tag_of(entry)
     if os.path.exists(os.path.join(OUT, tag + ".ok")):
         log("skip %s (acknowledged)" % entry)
         return
-    for n in os.listdir(OUT):  # leftovers from an interrupted run
-        if n.startswith(tag + ".tar.") or n == tag + ".done":
+    for n in os.listdir(OUT):  # leftovers from an interrupted run (and a pending .redo request)
+        if n.startswith(tag + ".tar.") or n in (tag + ".done", tag + ".redo"):
             os.remove(os.path.join(OUT, n))
     log("packing %s" % entry)
     proc = subprocess.Popen(["tar", "-C", ROOT, "-cf", "-", "--", entry],
@@ -78,8 +97,12 @@ def produce(entry):
             buf += chunk
         if not buf:
             break
-        while pending() >= MAX_PENDING:
+        while pending() >= MAX_PENDING and not redo_requested(tag):
             time.sleep(3)
+        if redo_requested(tag):  # the consumer restarted mid-entry: start this entry over
+            proc.kill(); proc.wait()
+            log("redo requested for %s: re-packing from piece 0" % entry)
+            return produce(entry)
         sha.update(buf)
         name = "%s.tar.%05d" % (tag, idx)
         with open(os.path.join(OUT, name + ".part"), "wb") as f:
@@ -89,6 +112,9 @@ def produce(entry):
         if idx % 50 == 0:
             log("  %s: %d pieces" % (entry, idx))
     proc.wait()
+    if redo_requested(tag):
+        log("redo requested for %s after packing: re-packing" % entry)
+        return produce(entry)
     with open(os.path.join(OUT, tag + ".done.part"), "w") as f:
         f.write("%d %s\n" % (idx, sha.hexdigest()))
     os.rename(os.path.join(OUT, tag + ".done.part"), os.path.join(OUT, tag + ".done"))
@@ -97,17 +123,22 @@ def produce(entry):
 
 def main():
     args = sys.argv[1:]
-    skip, only = set(), set()
+    skip, only, split = set(), set(), set(SPLIT_DEFAULT)
     mode = None
     for a in args:
-        if a in ("--skip", "--only"):
+        if a in ("--skip", "--only", "--split"):
             mode = a
         elif mode == "--skip":
             skip.add(a)
         elif mode == "--only":
             only.add(a)
+        elif mode == "--split":
+            split.add(a)
     os.makedirs(OUT, exist_ok=True)
-    entries = plan(skip, only)
+    for stale in ("ALL.done", "PLAN"):
+        if os.path.exists(os.path.join(OUT, stale)):
+            os.remove(os.path.join(OUT, stale))
+    entries = plan(skip, only, split)
     with open(os.path.join(OUT, "PLAN.part"), "w") as f:
         f.write("\n".join(entries) + "\n")
     os.rename(os.path.join(OUT, "PLAN.part"), os.path.join(OUT, "PLAN"))
@@ -116,7 +147,16 @@ def main():
         produce(e)
     with open(os.path.join(OUT, "ALL.done"), "w") as f:
         f.write("ok\n")
-    log("ALL DONE (pieces still pending download: %d)" % pending())
+    log("ALL DONE (pieces still pending download: %d); serving redo requests until every entry is acknowledged" % pending())
+    while True:  # stay alive: honour redo requests until the consumer has acknowledged everything
+        unacked = [e for e in entries if not os.path.exists(os.path.join(OUT, tag_of(e) + ".ok"))]
+        if not unacked:
+            log("every entry acknowledged by the consumer; producer exiting")
+            return
+        for e in unacked:
+            if redo_requested(tag_of(e)):
+                produce(e)
+        time.sleep(15)
 
 
 if __name__ == "__main__":
