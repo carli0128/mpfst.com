@@ -4,6 +4,7 @@
 # already healthy. Usage on the pod:  bash /workspace/warren_recover.sh
 set +e
 LOG=/workspace/warren_recover.log
+( : >> "$LOG" ) 2>/dev/null || LOG=/tmp/warren_recover.log   # volume unwritable -> log to /tmp
 say(){ echo "[$(date -u +%H:%M:%S)] $*" | tee -a "$LOG"; }
 pub(){ curl -s -o /dev/null -m 15 -w '%{http_code}' https://warrenfreeman.io/health; }
 status(){ curl -s -m 5 localhost:9999/status | python3 -c '
@@ -21,6 +22,18 @@ say "==== warren_recover start ===="
 say "container up $(cut -d. -f1 /proc/uptime)s | supervisor pid: $(pgrep -f warren_supervisor.py | head -1) | cloudflared pid: $(pgrep -x cloudflared | head -1) | gateway pid: $(pgrep -f warren_gateway.mjs | head -1)"
 [ -f /workspace/warren_boot.log ] && say "last boot log line: $(tail -1 /workspace/warren_boot.log)"
 say "public health before: $(pub)"
+
+say "0. volume check (/workspace must be the pod's network volume with the backups on it)"
+say "   mount: $(grep -E ' /workspace ' /proc/mounts | cut -c1-120 || echo 'NOT MOUNTED')"
+say "   space: $(df -h /workspace 2>&1 | tail -1)"
+NB=$(ls -1dt /workspace/warren-backups/warren-backup-* 2>/dev/null | head -1)
+say "   newest backup: ${NB:-NONE} | gateway copy: $([ -f /workspace/warren-gateway/warren_gateway.mjs ] && echo present || echo MISSING) | boot script: $([ -f /workspace/warren_boot.sh ] && echo present || echo MISSING)"
+ls /workspace >/dev/null 2>&1 || say "   ls /workspace FAILED: $(ls /workspace 2>&1 | head -1)"
+if [ ! -f /workspace/warren_boot.sh ] || [ -z "$NB" ]; then
+  say "STOP: the volume is not mounted, is empty, or is erroring. Nothing on this container can restore Warren without it."
+  say "      In RunPod check the pod's Volume (Edit Pod / the volume's page), then re-run this script. Log: $LOG"
+  exit 1
+fi
 
 say "1. warren_boot.sh (idempotent: rebuilds a fresh container, starts the supervisor if it is not running)"
 bash /workspace/warren_boot.sh
