@@ -29,13 +29,20 @@ fi
 say "runtime: node=$(node -v 2>/dev/null) cloudflared=$(cloudflared --version 2>/dev/null|head -1) go2rtc=$(command -v go2rtc) sshpass=$(command -v sshpass)"
 
 # --- 1b. Python service deps (idempotent; brain + business services need these) ---
+# 2026-11-05: NEVER let pip touch the torch family. The old line ran `--ignore-installed` for the whole
+# list, so pip "upgraded" torch (a dependency of transformers/kokoro/accelerate) from the image's
+# 2.8+cu128 to 2.15+cu132 and left torchvision/torchaudio 0.23/2.8 orphaned -> kokoro and
+# embedding_server crash-looped on import after every rebuild. Pin whatever the image ships.
 export PIP_CACHE_DIR=/tmp/pip-cache
 if ! python3 -c "import flask, aiohttp, apscheduler, chromadb, transformers, multipart, accelerate, kokoro, soundfile" >/dev/null 2>&1; then
   say "installing python service deps"
-  pip3 install --quiet --disable-pip-version-check --ignore-installed blinker \
+  pip3 freeze 2>/dev/null | grep -iE '^(torch|torchvision|torchaudio)==' > /tmp/torch-constraints.txt
+  say "torch pins: $(tr '\n' ' ' < /tmp/torch-constraints.txt)"
+  pip3 install --quiet --disable-pip-version-check --ignore-installed blinker >>"$LOG" 2>&1
+  pip3 install --quiet --disable-pip-version-check -c /tmp/torch-constraints.txt \
     flask aiohttp apscheduler fastapi uvicorn chromadb twilio requests feedparser pymupdf psycopg2-binary pysocks transformers python-multipart accelerate kokoro soundfile \
     google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2 >>"$LOG" 2>&1
-  say "python deps: flask=$(python3 -c 'import flask' 2>/dev/null && echo ok) chromadb=$(python3 -c 'import chromadb' 2>/dev/null && echo ok)"
+  say "python deps: flask=$(python3 -c 'import flask' 2>/dev/null && echo ok) chromadb=$(python3 -c 'import chromadb' 2>/dev/null && echo ok) torch=$(python3 -c 'import torch,torchvision;print(torch.__version__, torchvision.__version__)' 2>/dev/null)"
 fi
 
 # --- 2. Restore /root from newest nightly backup if the gateway is missing ---
@@ -52,6 +59,14 @@ mkdir -p /root/.ssh
 chown -R root:root /root/.ssh 2>/dev/null
 chmod 700 /root/.ssh /root 2>/dev/null
 chmod 600 /root/.ssh/authorized_keys 2>/dev/null
+# private keys too: 0666 makes ssh IGNORE the key -> droplet lookups (gia_legacy_auth SSO) silently fail -> bubble sees staff as anon
+chmod 600 /root/.ssh/id_* /root/.ssh/warren_migrate /root/.ssh/authorized_keys.* 2>/dev/null
+chmod 644 /root/.ssh/*.pub /root/.ssh/known_hosts* 2>/dev/null
+
+# --- 3b. Exec bits: the geesefs volume strips +x, so every script restored from /workspace comes back 0666 (2026-10-06: hourly
+#          chat_logs backup silently failed for a day). Re-arm all shell scripts the scheduler/supervisor exec directly.
+chmod 755 /root/warren-gateway/*.sh /root/tools/*.sh /root/supervisor/*.sh /root/*.sh /root/eufy/*.sh 2>/dev/null
+chmod 755 /root/assistant/google/delegation.py /root/assistant/scanner.py /root/conversation-relay/server.py 2>/dev/null
 
 # --- 4. Brain data on persistent volume (prevents split-brain) ---
 if [ ! -L /root/memory-server ] && [ -d /workspace/memory-server ]; then
@@ -74,6 +89,30 @@ if [ -f /root/eufy-ws/package.json ] && [ ! -d /root/eufy-ws/node_modules ]; the
   say "npm install eufy-ws deps"
   ( cd /root/eufy-ws && npm install --no-audit --no-fund --loglevel=error >>"$LOG" 2>&1 )
 fi
+
+# --- 5f. go2rtc exec handler needs /root/eufy/node_modules/ws (lost in 2026-10-05 wipe -> every camera 0 bytes) ---
+if [ ! -d /root/eufy/node_modules/ws ] && [ -d /workspace/eufy_deps/node_modules/ws ]; then
+  mkdir -p /root/eufy/node_modules && cp -r /workspace/eufy_deps/node_modules/ws /root/eufy/node_modules/ && say "eufy: restored node_modules/ws"
+fi
+
+# --- 5g. Python modules the image lacks (found missing 2026-10-06: intake uploads 415, marketdata stocks, integrations crash-loop, jarvis) ---
+python3 -c "import multipart, yfinance, psycopg2, aiohttp, flask, accelerate, reportlab, PIL" 2>/dev/null || { say "pip: installing missing modules"; pip install -q python-multipart yfinance psycopg2-binary aiohttp flask accelerate reportlab pillow >>"$LOG" 2>&1; }
+
+# --- 5h. Claude Code CLI (lost in 2026-10-05 wipe -> every claude_code task died "spawn claude ENOENT" for 8 days; found 2026-10-13).
+#         Needs >=2.1.251 for claude-fable-5-1. Permissions: root cannot use --dangerously-skip-permissions, so ~/.claude/settings.json
+#         (allow Write/Edit/Bash, deny restarts/kills) is restored from /workspace/claude_code_settings.json. ---
+command -v claude >/dev/null 2>&1 || { say "claude-code: installing CLI"; npm install -g @anthropic-ai/claude-code@latest >>"$LOG" 2>&1; }
+mkdir -p /root/.claude
+[ -s /root/.claude/settings.json ] || { cp /workspace/claude_code_settings.json /root/.claude/settings.json 2>/dev/null && say "claude-code: restored settings.json"; }
+command -v claude >/dev/null 2>&1 && say "claude-code: $(claude --version 2>/dev/null | head -1)" || say "claude-code: CLI STILL MISSING"
+
+# --- 5e. Legacy US/* tz links + pytz/tzdata (relay uses US/Eastern; fresh image lacks both -> every call/WA turn crashed 2026-10-06) ---
+mkdir -p /usr/share/zoneinfo/US
+for p in Eastern:America/New_York Central:America/Chicago Mountain:America/Denver Pacific:America/Los_Angeles Arizona:America/Phoenix Alaska:America/Anchorage Hawaii:Pacific/Honolulu Michigan:America/Detroit East-Indiana:America/Indiana/Indianapolis Aleutian:America/Adak Samoa:Pacific/Pago_Pago Indiana-Starke:America/Indiana/Knox; do
+  n=${p%%:*}; t=${p#*:}; [ -e "/usr/share/zoneinfo/$t" ] && [ ! -e "/usr/share/zoneinfo/US/$n" ] && ln -sfn "../$t" "/usr/share/zoneinfo/US/$n"
+done
+python3 -c "import pytz, tzdata" 2>/dev/null || pip install -q pytz tzdata >>"$LOG" 2>&1
+python3 -c "import zoneinfo; zoneinfo.ZoneInfo('US/Eastern')" 2>/dev/null && say "tz: US/Eastern OK" || say "tz: US/Eastern STILL MISSING"
 
 # --- 5d. tailscale binaries: the network volume strips the executable bit, so copy them to the container disk ---
 if [ -f /workspace/tailscale/tailscaled ]; then
