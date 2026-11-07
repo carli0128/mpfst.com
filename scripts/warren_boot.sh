@@ -1,4 +1,9 @@
 #!/bin/bash
+# ---- split-brain guard (added 2026-11-04): only the primary pod may boot the stack ----
+if [ -f /workspace/PRIMARY_POD_ID ] && [ -n "$RUNPOD_POD_ID" ] && [ "$(tr -d '[:space:]' < /workspace/PRIMARY_POD_ID)" != "$RUNPOD_POD_ID" ]; then
+  echo "REFUSING: this pod ($RUNPOD_POD_ID) is not the primary ($(cat /workspace/PRIMARY_POD_ID)). Edit /workspace/PRIMARY_POD_ID to migrate."; exit 0
+fi
+
 # Warren pod boot — SELF-HEALING (hardened 2026-07-14 after the Jul-9 GPU-fault
 # rebuild that wiped /root and left the container bare). On a fresh container this
 # reinstalls the runtime, restores /root from the newest nightly backup, overlays
