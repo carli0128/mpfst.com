@@ -34,6 +34,10 @@ say "runtime: node=$(node -v 2>/dev/null) cloudflared=$(cloudflared --version 2>
 # 2.8+cu128 to 2.15+cu132 and left torchvision/torchaudio 0.23/2.8 orphaned -> kokoro and
 # embedding_server crash-looped on import after every rebuild. Pin whatever the image ships.
 export PIP_CACHE_DIR=/tmp/pip-cache
+# 2026-11-07: the geesefs /workspace volume loses symlinks when it stalls (every HF-cache snapshot link became a
+# 0-byte file twice: Nov 5 and Nov 7, taking kokoro / embedding_server down). Make huggingface_hub copy blobs
+# into snapshots instead of symlinking, so the model cache survives the next stall. The supervisor inherits this.
+export HF_HUB_DISABLE_SYMLINKS=1
 if ! python3 -c "import flask, aiohttp, apscheduler, chromadb, transformers, multipart, accelerate, kokoro, soundfile" >/dev/null 2>&1; then
   say "installing python service deps"
   pip3 freeze 2>/dev/null | grep -iE '^(torch|torchvision|torchaudio)==' > /tmp/torch-constraints.txt
