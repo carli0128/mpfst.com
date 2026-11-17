@@ -5,6 +5,9 @@ Streams the 32 MB tar pieces that warren_bulk_serve.py produces on the old pod, 
 old pod's Jupyter (/files/ to read, the contents API to delete pieces and acknowledge entries),
 and unpacks them into /workspace as they arrive.
 
+v3: prefetches the next pieces in parallel threads, deletes consumed pieces asynchronously, and
+extracts with 1 MiB tar records (small writes into the FUSE network volume were the real bottleneck:
+v2 moved ~8 MB/s serially with 10 KiB writes).
 v2: never gives up on a network blip (retries forever with backoff); entries may be "dir/child"
 (the producer splits huge directories); an entry interrupted mid-stream by a crash is handed back
 to the producer with a b_<tag>.redo request and re-streamed from piece 0 later, while the
@@ -19,6 +22,7 @@ import os
 import subprocess
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -34,6 +38,9 @@ MARKS = os.path.join(ROOT, "_xfer", "bulkdone")
 os.makedirs(MARKS, exist_ok=True)
 LOG = os.path.join(ROOT, "warren_bulk_pull.log")
 WARN = os.path.join(ROOT, "_xfer", "bulk_tar_warnings.log")
+PREFETCH = int(os.environ.get("PREFETCH", "6"))  # pieces downloaded ahead of the one being unpacked
+FETCHERS = ThreadPoolExecutor(max_workers=PREFETCH)
+DELETERS = ThreadPoolExecutor(max_workers=2)
 
 
 def log(msg):
@@ -132,23 +139,39 @@ def pull_entry(entry):
 
     log("entry %s" % entry)
     open(partial, "w").write("1\n")
-    tar = subprocess.Popen(["tar", "-C", ROOT, "-x", "--no-same-owner", "-m", "-f", "-"],
+    # -B -b 2048: 1 MiB records, so tar writes extracted data in 1 MiB chunks instead of 10 KiB ones;
+    # on the FUSE-backed network volume that is the difference between ~10 MB/s and ~70 MB/s.
+    tar = subprocess.Popen(["tar", "-C", ROOT, "-x", "-B", "-b", "2048", "--no-same-owner", "-m", "-f", "-"],
                            stdin=subprocess.PIPE, stderr=open(WARN, "ab"))
     sha = hashlib.sha256()
     n = 0
     total = None
     remote_sha = None
     waited = 0
+    futures = {}  # piece index -> Future of its bytes (None when the piece did not exist yet)
+    deletes = []
+
+    def piece(i):
+        return "%s.tar.%05d" % (tag, i)
+
+    def prefetch(upto):
+        for i in range(n, upto):
+            if i not in futures and (total is None or i < total):
+                futures[i] = FETCHERS.submit(get, piece(i))
+
     while True:
         if total is not None and n >= total:
             break
-        data = get("%s.tar.%05d" % (tag, n))
+        prefetch(n + PREFETCH)
+        data = futures.pop(n).result() if n in futures else get(piece(n))
         if data is None:
             if total is None:
                 done = get(tag + ".done")
                 if done is not None:
                     total_s, remote_sha = done.decode().split()
                     total = int(total_s)
+                    for i in [i for i in futures if i >= total]:
+                        futures.pop(i)
                     continue
             waited += 1
             if waited % 75 == 0:  # every 5 minutes
@@ -158,12 +181,17 @@ def pull_entry(entry):
         waited = 0
         sha.update(data)
         tar.stdin.write(data)
-        delete("%s.tar.%05d" % (tag, n))
+        deletes.append(DELETERS.submit(delete, piece(n)))
         n += 1
         if n % 50 == 0:
             log("  %s: %d pieces (%.1f GB)" % (entry, n, n * 32 / 1024))
+    for f in futures.values():
+        f.cancel()
+    futures.clear()
     tar.stdin.close()
     tar.wait()
+    for d in deletes:  # every consumed piece must be gone before the entry is acknowledged
+        d.result()
     if total == 0:
         remote_sha = hashlib.sha256().hexdigest()
     if sha.hexdigest() != remote_sha:
