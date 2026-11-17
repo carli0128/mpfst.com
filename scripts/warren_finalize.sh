@@ -51,5 +51,5 @@ print(f'{len(items)} services; not running: ' + (' '.join(bad) or 'none'))"
 curl -s -m 5 localhost:18789/health | head -c 120; echo
 
 say "DONE. Next: set the pod's Container Start Command in RunPod (Edit Pod) to:"
-echo "bash -c 'printf \"#!/bin/bash\\nbash /workspace/warren_boot.sh\\n\" > /post_start.sh; exec /start.sh'"
-echo "Saving that restarts the pod; warren_boot.sh v2 then rebuilds everything by itself. Log: $LOG"
+echo "bash -c 'nohup bash /workspace/warren_boot.sh >>/workspace/warren_boot.log 2>&1 & exec /start.sh'"
+echo "Saving that restarts the pod; warren_boot.sh then rebuilds everything by itself (the /pre_start.sh hook covers plain restarts). Log: $LOG"

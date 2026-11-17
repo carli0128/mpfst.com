@@ -14,8 +14,11 @@ fi
 # transformers / python-multipart packages, the eufy-ws node deps, and restores every
 # /root -> /workspace symlink via restore_symlinks.sh. Still idempotent.
 #
-# MUST be invoked on every container start. RunPod's /post_start.sh is ephemeral,
-# so ALSO set this as the pod's start command:  bash /workspace/warren_boot.sh
+# MUST be invoked on every container start. The pod image's /start.sh runs /pre_start.sh
+# (NOT /post_start.sh) when it exists, so warren_recover.sh installs scripts/warren_pre_start.sh
+# there; it launches this script in the background. The container disk can still be wiped
+# (Stop/Start, redeploy), so ALSO set the pod's Container Start Command to:
+#   bash -c 'nohup bash /workspace/warren_boot.sh >>/workspace/warren_boot.log 2>&1 & exec /start.sh'
 set +e
 LOG=/workspace/warren_boot.log
 say(){ echo "[$(date -u)] $*" >> "$LOG"; }

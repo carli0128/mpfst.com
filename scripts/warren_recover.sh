@@ -56,6 +56,18 @@ fi
 say "RESULT: public https://warrenfreeman.io/health -> $(pub) | local gateway :18789 -> $(curl -s -o /dev/null -m 5 -w '%{http_code}' localhost:18789/health)"
 say "status after:"; status | tee -a "$LOG"
 say "cftunnel log tail:"; tail -5 /root/supervisor/logs/cftunnel.log 2>/dev/null | cut -c1-200 | tee -a "$LOG"
-say "Container Start Command still to set (makes the next restart self-heal):"
-echo "bash -c 'printf \"#!/bin/bash\\nbash /workspace/warren_boot.sh\\n\" > /post_start.sh; exec /start.sh'" | tee -a "$LOG"
+# Self-heal hook: the image's /start.sh executes /pre_start.sh (not /post_start.sh) on every
+# container start, and the container disk survives plain restarts. Install the hook if missing.
+HOOK_SRC=/workspace/warren_pre_start.sh
+if [ ! -f /pre_start.sh ]; then
+  if [ -f "$HOOK_SRC" ]; then
+    cp "$HOOK_SRC" /pre_start.sh && chmod 755 /pre_start.sh && say "installed /pre_start.sh self-heal hook from $HOOK_SRC"
+  else
+    say "WARNING: $HOOK_SRC missing; /pre_start.sh hook NOT installed (copy scripts/warren_pre_start.sh to the volume)"
+  fi
+else
+  say "/pre_start.sh hook already present"
+fi
+say "Container Start Command (covers a wiped container disk; set it in RunPod > Edit Pod):"
+echo "bash -c 'nohup bash /workspace/warren_boot.sh >>/workspace/warren_boot.log 2>&1 & exec /start.sh'" | tee -a "$LOG"
 say "==== warren_recover done (log: $LOG) ===="
